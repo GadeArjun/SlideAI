@@ -1,5 +1,26 @@
+const DEFAULT_THEME = {
+  backgroundColor: "#0F172A",
+  surfaceColor: "#111827",
+  primaryTextColor: "#F8FAFC",
+  secondaryTextColor: "#CBD5E1",
+  accentColor: "#3B82F6",
+  fontFamily: "Inter",
+};
+
+function getTheme(theme = {}) {
+  return {
+    ...DEFAULT_THEME,
+    ...theme,
+  };
+}
+
+function cleanColor(color = "#000000") {
+  return color.replace("#", "");
+}
+
 export function Preview({ data }) {
-  const t = data.theme;
+  const t = getTheme(data.theme);
+
   const imageUrl =
     data.image ||
     data.imageUrl ||
@@ -9,14 +30,33 @@ export function Preview({ data }) {
 
   return (
     <div
-      className="w-full h-full flex"
-      style={{ backgroundColor: t.backgroundColor }}
+      className="w-full h-full flex overflow-hidden"
+      style={{
+        backgroundColor: t.backgroundColor,
+        fontFamily: t.fontFamily,
+      }}
     >
       <div
-        className="w-[42%] h-full flex items-center justify-center p-8"
-        style={{ backgroundColor: t.surfaceColor }}
+        style={{
+          width: "42%",
+          height: "100%",
+          backgroundColor: t.surfaceColor,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          padding: "34px",
+        }}
       >
-        <div className="w-full h-full max-h- rounded-xl overflow-hidden shadow-xl">
+        <div
+          style={{
+            width: "100%",
+            height: "100%",
+            borderRadius: "22px",
+            overflow: "hidden",
+            border: `2px solid ${t.accentColor}`,
+            backgroundColor: `${t.accentColor}20`,
+          }}
+        >
           <img
             src={imageUrl}
             alt={data.title}
@@ -29,18 +69,44 @@ export function Preview({ data }) {
           />
         </div>
       </div>
-      <div className="w-[58%] p-14 flex flex-col justify-center">
+
+      <div
+        style={{
+          width: "58%",
+          padding: "56px 54px",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+        }}
+      >
         <h1
-          className="text-3xl font-bold mb-4"
-          style={{ color: t.primaryTextColor, fontFamily: t.fontFamily }}
+          style={{
+            color: t.primaryTextColor,
+            fontSize: "36px",
+            lineHeight: 1.12,
+            fontWeight: 700,
+            margin: 0,
+            marginBottom: "22px",
+            whiteSpace: "pre-wrap",
+            wordBreak: "break-word",
+            maxWidth: "92%",
+          }}
         >
-          {data.title}
+          {data.title || "Untitled Slide"}
         </h1>
+
         <p
-          className="text-lg leading-relaxed"
-          style={{ color: t.secondaryTextColor }}
+          style={{
+            color: t.secondaryTextColor,
+            fontSize: "20px",
+            lineHeight: 1.6,
+            margin: 0,
+            whiteSpace: "pre-wrap",
+            wordBreak: "break-word",
+            maxWidth: "96%",
+          }}
         >
-          {data.content}
+          {data.content || ""}
         </p>
       </div>
     </div>
@@ -48,7 +114,8 @@ export function Preview({ data }) {
 }
 
 export async function toPptx(slide, pptx, data) {
-  const t = data.theme;
+  const t = getTheme(data.theme);
+
   const imageUrl =
     data.image ||
     data.imageUrl ||
@@ -56,77 +123,114 @@ export async function toPptx(slide, pptx, data) {
       data.title || "ai"
     )}/800/600`;
 
-  slide.background = { color: t.backgroundColor.replace("#", "") };
+  slide.background = {
+    color: cleanColor(t.backgroundColor),
+  };
 
-  // Left panel background
-  slide.addShape("rect", {
+  slide.addShape(pptx.ShapeType.rect, {
     x: 0,
     y: 0,
     w: 4.2,
     h: 5.625,
-    fill: { color: t.surfaceColor.replace("#", "") },
+
+    line: {
+      transparency: 100,
+    },
+
+    fill: {
+      color: cleanColor(t.surfaceColor),
+    },
   });
 
-  // Try to add image, fallback to colored box
   try {
     slide.addImage({
       path: imageUrl,
-      x: 0.5,
-      y: 1.0,
-      w: 3.2,
-      h: 2.4,
-      sizing: { type: "cover", w: 3.2, h: 2.4 },
+      x: 0.38,
+      y: 0.62,
+      w: 3.42,
+      h: 4.36,
     });
   } catch (e) {
-    // Fallback box
-    slide.addShape("rect", {
-      x: 0.5,
-      y: 1.0,
-      w: 3.2,
-      h: 2.4,
-      fill: { color: t.accentColor.replace("#", ""), transparency: 85 },
-      line: { color: t.accentColor.replace("#", ""), width: 1 },
+    slide.addShape(pptx.ShapeType.rect, {
+      x: 0.38,
+      y: 0.62,
+      w: 3.42,
+      h: 4.36,
+
+      line: {
+        transparency: 100,
+      },
+
+      fill: {
+        color: cleanColor(t.accentColor),
+        transparency: 82,
+      },
     });
   }
 
-  // Image border
-  slide.addShape("rect", {
-    x: 0.5,
-    y: 1.0,
-    w: 3.2,
-    h: 2.4,
-    fill: { transparency: 100 },
-    line: { color: t.accentColor.replace("#", ""), width: 1.5 },
+  slide.addShape(pptx.ShapeType.roundRect, {
+    x: 0.38,
+    y: 0.62,
+    w: 3.42,
+    h: 4.36,
+
+    rectRadius: 0.08,
+
+    line: {
+      color: cleanColor(t.accentColor),
+      width: 1.5,
+    },
+
+    fill: {
+      transparency: 100,
+    },
   });
 
-  slide.addText(data.title || "", {
-    x: 4.6,
-    y: 1.5,
-    w: 5,
-    h: 0.8,
-    fontSize: 26,
+  slide.addText(data.title || "Untitled Slide", {
+    x: 4.62,
+    y: 1.42,
+    w: 4.8,
+    h: 0.78,
+
+    fontFace: t.fontFamily,
+    fontSize: 28,
     bold: true,
-    color: t.primaryTextColor.replace("#", ""),
-    fontFace: t.fontFamily || "Calibri",
+
+    color: cleanColor(t.primaryTextColor),
+
+    margin: 0,
+    fit: "shrink",
+    breakLine: false,
+    valign: "mid",
   });
 
   slide.addText(data.content || "", {
-    x: 4.6,
-    y: 2.4,
-    w: 5,
-    h: 2.5,
-    fontSize: 16,
-    color: t.secondaryTextColor.replace("#", ""),
-    wrap: true,
+    x: 4.64,
+    y: 2.22,
+    w: 4.6,
+    h: 2.2,
+
+    fontFace: t.fontFamily,
+    fontSize: 19,
+
+    color: cleanColor(t.secondaryTextColor),
+
+    margin: 0,
     valign: "top",
-    fontFace: t.fontFamily || "Calibri",
-    lineSpacing: 20,
+    fit: "shrink",
+    breakLine: false,
   });
 }
 
 export const meta = {
   id: "content_image_left",
+
   name: "Image Left",
+
+  description:
+    "Modern split layout with image panel on left and content on right.",
+
   category: "content",
+
   supports: ["title", "content", "image"],
 };

@@ -45,8 +45,8 @@ export async function toPptx(slide, pptx, data) {
     line: { type: "none" },
   });
 
-  if (data.iconName) {
-    const icon = await getIconBase64(data.iconName, theme.accentColor, 1.2);
+  if (data.icon) {
+    const icon = await getIconBase64(data.icon, theme.accentColor, 1.2);
     slide.addImage({
       data: icon,
       x: SLIDE_W - RIGHT_W + (RIGHT_W - 1.2) / 2,

@@ -14,7 +14,7 @@ const aiGeneratedSlides = {
     subtype: "hero_centered",
     title: "Agentic AI",
     subtitle: "Autonomous agents that think, plan, and act independently",
-    iconName: "Bot",
+    icon: "Bot",
     theme: {
       backgroundColor: "#0B1020",
       surfaceColor: "#1A2234",
@@ -31,7 +31,7 @@ const aiGeneratedSlides = {
     title: "The Rise of Agentic AI",
     subtitle:
       "From chatbots to autonomous teammates that execute complex workflows",
-    iconName: "Brain",
+    icon: "Brain",
     theme: {
       backgroundColor: "#FFFBF5",
       surfaceColor: "#F5F1E8",
@@ -47,7 +47,7 @@ const aiGeneratedSlides = {
     subtype: "hero_full_bleed",
     title: "Welcome to the Future",
     subtitle: "Where AI meets human creativity",
-    iconName: "Rocket",
+    icon: "Rocket",
     theme: {
       backgroundColor: "#0A0E1A",
       surfaceColor: "#151B2D",
@@ -63,7 +63,7 @@ const aiGeneratedSlides = {
     subtype: "hero_gradient",
     title: "Bold Ideas",
     subtitle: "Design that makes an impact",
-    iconName: "Zap",
+    icon: "Zap",
     theme: {
       backgroundColor: "#1E3A8A", // Solid blue (no gradient)
       surfaceColor: "#1E40AF", // Solid
@@ -79,7 +79,7 @@ const aiGeneratedSlides = {
     subtype: "hero_minimal",
     title: "Simplicity",
     subtitle: "Less is more",
-    iconName: "Minus",
+    icon: "Minus",
     theme: {
       backgroundColor: "#FFFFFF",
       surfaceColor: "#F5F5F5",
@@ -95,7 +95,7 @@ const aiGeneratedSlides = {
     subtype: "hero_split_right",
     title: "Autonomous Systems",
     subtitle: "Building AI that acts, not just responds",
-    iconName: "Cpu",
+    icon: "Cpu",
     theme: {
       backgroundColor: "#0F172A",
       surfaceColor: "#1E293B",
@@ -111,7 +111,7 @@ const aiGeneratedSlides = {
     subtype: "hero_diagonal",
     title: "Next Generation",
     subtitle: "The evolution of intelligent systems",
-    iconName: "Sparkles",
+    icon: "Sparkles",
     theme: {
       backgroundColor: "#FEF3C7",
       surfaceColor: "#FDE68A",
@@ -127,7 +127,7 @@ const aiGeneratedSlides = {
     subtype: "hero_centered",
     title: "The Future of Work",
     subtitle: "AI agents as your digital teammates",
-    iconName: "Users",
+    icon: "Users",
     theme: {
       backgroundColor: "#000000",
       surfaceColor: "#171717",
@@ -142,7 +142,7 @@ const aiGeneratedSlides = {
     subtype: "hero_split_left",
     title: "Enterprise Ready",
     subtitle: "Secure, scalable, and compliant",
-    iconName: "Shield",
+    icon: "Shield",
     theme: {
       backgroundColor: "#FFFFFF",
       surfaceColor: "#F1F5F9",
@@ -157,7 +157,7 @@ const aiGeneratedSlides = {
     subtype: "hero_full_bleed",
     title: "Create Without Limits",
     subtitle: "Unleash your imagination",
-    iconName: "Palette",
+    icon: "Palette",
     theme: {
       backgroundColor: "#1F0A3D",
       surfaceColor: "#2D1B4E",
@@ -168,7 +168,6 @@ const aiGeneratedSlides = {
     },
   },
 };
-
 
 export default function HeroTester() {
   return (

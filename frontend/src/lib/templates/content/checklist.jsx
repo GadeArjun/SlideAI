@@ -1,39 +1,134 @@
+const DEFAULT_THEME = {
+  backgroundColor: "#0F172A",
+  surfaceColor: "#111827",
+  primaryTextColor: "#F8FAFC",
+  secondaryTextColor: "#CBD5E1",
+  accentColor: "#3B82F6",
+  fontFamily: "Inter",
+};
+
+function getTheme(theme = {}) {
+  return {
+    ...DEFAULT_THEME,
+    ...theme,
+  };
+}
+
+function cleanColor(color = "#000000") {
+  return color.replace("#", "");
+}
+
 export function Preview({ data }) {
-  const t = data.theme;
-  const items = data.items || [];
+  const t = getTheme(data.theme);
+
+  const items = Array.isArray(data.items) ? data.items.slice(0, 6) : [];
+
   return (
     <div
-      className="w-full h-full p-14 flex"
-      style={{ backgroundColor: t.backgroundColor }}
+      className="w-full h-full flex overflow-hidden"
+      style={{
+        backgroundColor: t.backgroundColor,
+        fontFamily: t.fontFamily,
+        padding: "54px 58px",
+      }}
     >
-      <div className="w-1/2 pr-10">
+      <div
+        style={{
+          width: "48%",
+          paddingRight: "40px",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+        }}
+      >
         <h1
-          className="text-3xl font-bold mb-6"
-          style={{ color: t.primaryTextColor }}
+          style={{
+            color: t.primaryTextColor,
+            fontSize: "38px",
+            lineHeight: 1.12,
+            fontWeight: 700,
+            margin: 0,
+            marginBottom: "24px",
+            whiteSpace: "pre-wrap",
+            wordBreak: "break-word",
+            maxWidth: "92%",
+          }}
         >
-          {data.title}
+          {data.title || "Checklist"}
         </h1>
-        <p style={{ color: t.secondaryTextColor }}>{data.subtitle}</p>
+
+        <p
+          style={{
+            color: t.secondaryTextColor,
+            fontSize: "19px",
+            lineHeight: 1.65,
+            margin: 0,
+            whiteSpace: "pre-wrap",
+            wordBreak: "break-word",
+            maxWidth: "92%",
+          }}
+        >
+          {data.subtitle || ""}
+        </p>
       </div>
-      <div className="w-1/2 space-y-4">
-        {items.slice(0, 6).map((it, i) => (
-          <div key={i} className="flex items-center gap-3">
+
+      <div
+        style={{
+          width: "52%",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          gap: "22px",
+        }}
+      >
+        {items.map((item, i) => (
+          <div
+            key={i}
+            style={{
+              display: "flex",
+              alignItems: "flex-start",
+              gap: "16px",
+            }}
+          >
             <div
-              className="w-6 h-6 rounded flex items-center justify-center"
-              style={{ backgroundColor: t.accentColor }}
+              style={{
+                width: "28px",
+                height: "28px",
+                borderRadius: "8px",
+                backgroundColor: t.accentColor,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flexShrink: 0,
+                marginTop: "2px",
+              }}
             >
               <svg
-                width="14"
-                height="14"
+                width="15"
+                height="15"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="white"
                 strokeWidth="3"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               >
                 <path d="M20 6L9 17l-5-5" />
               </svg>
             </div>
-            <span style={{ color: t.primaryTextColor }}>{it}</span>
+
+            <p
+              style={{
+                color: t.primaryTextColor,
+                fontSize: "21px",
+                lineHeight: 1.5,
+                margin: 0,
+                whiteSpace: "pre-wrap",
+                wordBreak: "break-word",
+              }}
+            >
+              {item}
+            </p>
           </div>
         ))}
       </div>
@@ -42,61 +137,114 @@ export function Preview({ data }) {
 }
 
 export async function toPptx(slide, pptx, data) {
-  const t = data.theme;
-  const items = data.items || [];
-  slide.background = { color: t.backgroundColor.replace("#", "") };
-  slide.addText(data.title, {
-    x: 0.6,
-    y: 1.2,
-    w: 4,
-    h: 0.8,
-    fontSize: 28,
+  const t = getTheme(data.theme);
+
+  const items = Array.isArray(data.items) ? data.items.slice(0, 6) : [];
+
+  slide.background = {
+    color: cleanColor(t.backgroundColor),
+  };
+
+  slide.addText(data.title || "Checklist", {
+    x: 0.62,
+    y: 1.18,
+    w: 4.1,
+    h: 0.75,
+
+    fontFace: t.fontFamily,
+    fontSize: 29,
     bold: true,
-    color: t.primaryTextColor.replace("#", ""),
-  });
-  slide.addText(data.subtitle || "", {
-    x: 0.6,
-    y: 2.1,
-    w: 4,
-    h: 1,
-    fontSize: 14,
-    color: t.secondaryTextColor.replace("#", ""),
+
+    color: cleanColor(t.primaryTextColor),
+
+    margin: 0,
+    fit: "shrink",
+    breakLine: false,
+    valign: "mid",
   });
 
-  items.slice(0, 6).forEach((it, i) => {
-    const y = 1.2 + i * 0.65;
-    slide.addShape("rect", {
-      x: 5.2,
-      y,
-      w: 0.4,
-      h: 0.4,
-      fill: { color: t.accentColor.replace("#", "") },
+  slide.addText(data.subtitle || "", {
+    x: 0.64,
+    y: 2.05,
+    w: 3.9,
+    h: 1.2,
+
+    fontFace: t.fontFamily,
+    fontSize: 17,
+
+    color: cleanColor(t.secondaryTextColor),
+
+    margin: 0,
+    valign: "top",
+    fit: "shrink",
+    breakLine: false,
+  });
+
+  items.forEach((item, i) => {
+    const y = 1.18 + i * 0.72;
+
+    slide.addShape(pptx.ShapeType.roundRect, {
+      x: 5.08,
+      y: y + 0.03,
+      w: 0.34,
+      h: 0.34,
+
+      rectRadius: 0.04,
+
+      line: {
+        transparency: 100,
+      },
+
+      fill: {
+        color: cleanColor(t.accentColor),
+      },
     });
+
     slide.addText("✓", {
-      x: 5.2,
-      y,
-      w: 0.4,
-      h: 0.4,
-      fontSize: 14,
+      x: 5.08,
+      y: y + 0.01,
+      w: 0.34,
+      h: 0.34,
+
+      fontFace: t.fontFamily,
+      fontSize: 12,
       bold: true,
-      align: "center",
-      valign: "middle",
+
       color: "FFFFFF",
+
+      align: "center",
+      valign: "mid",
+
+      margin: 0,
     });
-    slide.addText(it, {
-      x: 5.8,
+
+    slide.addText(item, {
+      x: 5.62,
       y,
-      w: 3.8,
-      h: 0.4,
-      fontSize: 15,
-      color: t.primaryTextColor.replace("#", ""),
-      valign: "middle",
+      w: 3.45,
+      h: 0.42,
+
+      fontFace: t.fontFamily,
+      fontSize: 18,
+
+      color: cleanColor(t.primaryTextColor),
+
+      margin: 0,
+      valign: "mid",
+      fit: "shrink",
+      breakLine: false,
     });
   });
 }
 
 export const meta = {
   id: "content_checklist",
+
   name: "Checklist",
+
+  description: "Two-column checklist layout with highlighted action items.",
+
   category: "content",
+
+  supports: ["title", "subtitle", "items"],
 };

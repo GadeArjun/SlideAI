@@ -4,7 +4,7 @@ import * as LucideIcons from "lucide-react";
 
 export function Preview({ data }) {
   const theme = data.theme;
-  const Icon = data.iconName ? LucideIcons[data.iconName] : null;
+  const Icon = data.icon ? LucideIcons[data.icon] : null;
 
   return (
     <div
@@ -118,10 +118,10 @@ export async function toPptx(slide, pptx, data) {
   });
 
   // 4. Icon - perfectly centered
-  if (data.iconName) {
+  if (data.icon) {
     try {
       const iconData = await getIconBase64(
-        data.iconName,
+        data.icon,
         theme.primaryTextColor,
         0.8
       );
@@ -134,12 +134,12 @@ export async function toPptx(slide, pptx, data) {
         sizing: { type: "contain" },
       });
     } catch (e) {
-      console.warn("Icon failed:", data.iconName);
+      console.warn("Icon failed:", data.icon);
     }
   }
 
   // 5. Title - centered, matches Preview
-  const titleY = data.iconName ? 2.4 : 2.1; // Adjust if no icon
+  const titleY = data.icon ? 2.4 : 2.1; // Adjust if no icon
   slide.addText(data.title || "", {
     x: 1, // 10% margin
     y: titleY,

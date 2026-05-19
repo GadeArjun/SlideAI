@@ -7,7 +7,7 @@ import * as LucideIcons from "lucide-react";
 
 export function Preview({ data }) {
   const theme = data.theme;
-  const IconComponent = data.iconName ? LucideIcons[data.iconName] : null;
+  const IconComponent = data.icon ? LucideIcons[data.icon] : null;
   const accentColor = theme.accentColor;
 
   return (
@@ -121,9 +121,9 @@ export async function toPptx(slide, pptx, data) {
   });
 
   // === ICON - FIXED ===
-  if (data.iconName) {
+  if (data.icon) {
     const ICON_SIZE = 1.1; // Slightly smaller for PPT
-    const iconData = await getIconBase64(data.iconName, `#${accentColor}`, 1);
+    const iconData = await getIconBase64(data.icon, `#${accentColor}`, 1);
 
     slide.addImage({
       data: iconData,

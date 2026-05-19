@@ -1,39 +1,101 @@
+const DEFAULT_THEME = {
+  backgroundColor: "#0F172A",
+  surfaceColor: "#111827",
+  primaryTextColor: "#F8FAFC",
+  secondaryTextColor: "#CBD5E1",
+  accentColor: "#3B82F6",
+  fontFamily: "Inter",
+};
+
+function getTheme(theme = {}) {
+  return {
+    ...DEFAULT_THEME,
+    ...theme,
+  };
+}
+
+function cleanColor(color = "#000000") {
+  return color.replace("#", "");
+}
+
 export function Preview({ data }) {
-  const theme = data.theme;
+  const theme = getTheme(data.theme);
 
   return (
     <div
-      className="w-full h-full flex"
-      style={{ backgroundColor: theme.backgroundColor }}
+      className="w-full h-full flex overflow-hidden"
+      style={{
+        backgroundColor: theme.backgroundColor,
+        fontFamily: theme.fontFamily,
+      }}
     >
-      {/* Left - 60% */}
-      <div className="w-[60%] p-16 flex flex-col justify-center">
+      <div
+        style={{
+          width: "60%",
+          padding: "58px 56px",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+        }}
+      >
         <h1
-          className="text-4xl font-bold mb-4 leading-tight"
-          style={{ color: theme.primaryTextColor }}
+          style={{
+            color: theme.primaryTextColor,
+            fontSize: "38px",
+            lineHeight: 1.12,
+            fontWeight: 700,
+            margin: 0,
+            marginBottom: "20px",
+            whiteSpace: "pre-wrap",
+            wordBreak: "break-word",
+            maxWidth: "95%",
+          }}
         >
-          {data.title}
+          {data.title || "Untitled Slide"}
         </h1>
+
         <p
-          className="text-lg leading-relaxed"
-          style={{ color: theme.secondaryTextColor }}
+          style={{
+            color: theme.secondaryTextColor,
+            fontSize: "20px",
+            lineHeight: 1.6,
+            margin: 0,
+            whiteSpace: "pre-wrap",
+            wordBreak: "break-word",
+            maxWidth: "92%",
+          }}
         >
-          {data.content}
+          {data.content || ""}
         </p>
       </div>
 
-      {/* Right - 40% */}
       <div
-        className="w-[40%] flex items-center justify-center"
-        style={{ backgroundColor: theme.surfaceColor }}
+        style={{
+          width: "40%",
+          backgroundColor: theme.surfaceColor,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
       >
         <div
-          className="w-32 h-32 rounded-2xl flex items-center justify-center"
-          style={{ backgroundColor: theme.accentColor + "20" }}
+          style={{
+            width: "140px",
+            height: "140px",
+            borderRadius: "28px",
+            backgroundColor: `${theme.accentColor}25`,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
         >
           <div
-            className="w-16 h-16 rounded-xl"
-            style={{ backgroundColor: theme.accentColor }}
+            style={{
+              width: "72px",
+              height: "72px",
+              borderRadius: "18px",
+              backgroundColor: theme.accentColor,
+            }}
           />
         </div>
       </div>
@@ -42,55 +104,107 @@ export function Preview({ data }) {
 }
 
 export async function toPptx(slide, pptx, data) {
-  const theme = data.theme;
+  const theme = getTheme(data.theme);
 
-  slide.background = { color: theme.backgroundColor.replace("#", "") };
+  slide.background = {
+    color: cleanColor(theme.backgroundColor),
+  };
 
-  // Right panel
-  slide.addShape("rect", {
+  slide.addShape(pptx.ShapeType.rect, {
     x: 6,
     y: 0,
     w: 4,
     h: 5.625,
-    fill: { color: theme.surfaceColor.replace("#", "") },
-    line: { type: "none" },
+
+    line: {
+      transparency: 100,
+    },
+
+    fill: {
+      color: cleanColor(theme.surfaceColor),
+    },
   });
 
-  // Left content
-  slide.addText(data.title || "", {
-    x: 0.6,
-    y: 1.5,
-    w: 5,
-    h: 1,
-    fontSize: 28,
+  slide.addText(data.title || "Untitled Slide", {
+    x: 0.62,
+    y: 1.48,
+    w: 4.9,
+    h: 0.8,
+
+    fontFace: theme.fontFamily,
+    fontSize: 29,
     bold: true,
-    color: theme.primaryTextColor.replace("#", ""),
-    fontFace: theme.fontFamily || "Calibri",
+
+    color: cleanColor(theme.primaryTextColor),
+
+    margin: 0,
+    breakLine: false,
+    fit: "shrink",
+    valign: "mid",
   });
 
   slide.addText(data.content || "", {
-    x: 0.6,
-    y: 2.6,
-    w: 5,
-    h: 2,
-    fontSize: 16,
-    color: theme.secondaryTextColor.replace("#", ""),
+    x: 0.64,
+    y: 2.28,
+    w: 4.75,
+    h: 1.9,
+
+    fontFace: theme.fontFamily,
+    fontSize: 19,
+
+    color: cleanColor(theme.secondaryTextColor),
+
+    margin: 0,
+    breakLine: false,
+    fit: "shrink",
     valign: "top",
   });
 
-  // Right accent box
-  slide.addShape("roundRect", {
-    x: 7.2,
-    y: 2.1,
-    w: 1.6,
-    h: 1.6,
-    fill: { color: theme.accentColor.replace("#", ""), transparency: 85 },
-    line: { type: "none" },
+  slide.addShape(pptx.ShapeType.roundRect, {
+    x: 7.08,
+    y: 2.02,
+    w: 1.82,
+    h: 1.82,
+
+    rectRadius: 0.12,
+
+    line: {
+      transparency: 100,
+    },
+
+    fill: {
+      color: cleanColor(theme.accentColor),
+      transparency: 82,
+    },
+  });
+
+  slide.addShape(pptx.ShapeType.roundRect, {
+    x: 7.48,
+    y: 2.42,
+    w: 1.02,
+    h: 1.02,
+
+    rectRadius: 0.08,
+
+    line: {
+      transparency: 100,
+    },
+
+    fill: {
+      color: cleanColor(theme.accentColor),
+    },
   });
 }
 
 export const meta = {
   id: "content_two_column",
+
   name: "Two Column",
+
+  description:
+    "Modern split layout with content on left and visual panel on right.",
+
   category: "content",
+
+  supports: ["title", "content"],
 };

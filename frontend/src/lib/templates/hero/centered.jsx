@@ -7,7 +7,7 @@ import * as LucideIcons from "lucide-react";
 
 export function Preview({ data }) {
   const theme = data.theme;
-  const IconComponent = data.iconName ? LucideIcons[data.iconName] : null;
+  const IconComponent = data.icon ? LucideIcons[data.icon] : null;
   const accentColor = theme.accentColor;
 
   return (
@@ -113,11 +113,11 @@ export async function toPptx(slide, pptx, data) {
   const ICON_SIZE = 0.75; // Optimal size - fully visible, not too big
   const ICON_Y = 0.85; // Positioned with proper top margin
 
-  if (data.iconName) {
+  if (data.icon) {
     try {
       // Generate SVG at exact display size for crisp rendering
       const iconData = await getIconBase64(
-        data.iconName,
+        data.icon,
         theme.accentColor,
         ICON_SIZE // Match display size
       );

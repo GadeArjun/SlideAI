@@ -172,9 +172,9 @@ function toBase64(str) {
    GET ICON BASE64 - NOW RETURNS SVG (no sharp)
 ===================================================== */
 
-export async function getIconBase64(iconName, color = "#0099ff", sizeInch = 1) {
+export async function getIconBase64(icon, color = "#0099ff", sizeInch = 1) {
   const sizePx = Math.round(sizeInch * INCH_TO_PX);
-  const resolvedName = resolveLucideIcon(iconName);
+  const resolvedName = resolveLucideIcon(icon);
   const cacheKey = `${resolvedName}:${color}:${sizePx}`;
 
   if (base64Cache.has(cacheKey)) return base64Cache.get(cacheKey);

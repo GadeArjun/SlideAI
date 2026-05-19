@@ -15,6 +15,19 @@ import * as CoparisonTable from "./comparisonTable.jsx";
 import * as prosCons from "./prosCons.jsx";
 import * as statsMetrics from "./statsMetrics.jsx";
 
+import * as timelineVertical from "./timelineVertical.jsx";
+import * as processFLow from "./processFlow.jsx";
+import * as chartPlaceholder from "./chartPlaceholder.jsx";
+import * as pricingTable from "./pricingTable.jsx";
+
+import * as iconGrid3x2 from "./iconGrid3x2.jsx";
+import * as imageGallery from "./imageGallery.jsx";
+import * as quoteTestimonial from "./quoteTestimonial.jsx";
+import * as teamGrid from "./teamGrid.jsx";
+import * as faqAccordion from "./faqAccordion.jsx";
+import * as codeBlock from "./codeBlock.jsx";
+import * as calloutBox from "./calloutBox.jsx";
+
 export const contentTemplates = {
   content_title_bullets: titleBullets,
   content_two_column: twoColumn,
@@ -30,4 +43,16 @@ export const contentTemplates = {
   content_comparison_table: CoparisonTable,
   content_pros_cons: prosCons,
   content_stats_metrics: statsMetrics,
+  content_timeline_vertical: timelineVertical,
+  content_process_flow: processFLow,
+  content_chart_placeholder: chartPlaceholder,
+  content_pricing_table: pricingTable,
+
+  content_icon_grid_3x2: iconGrid3x2,
+  content_image_gallery: imageGallery,
+  content_quote_testimonial: quoteTestimonial,
+  content_team_grid: teamGrid,
+  content_faq_accordion: faqAccordion,
+  content_code_block: codeBlock,
+  content_callout_box: calloutBox,
 };

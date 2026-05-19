@@ -1,81 +1,271 @@
+const DEFAULT_THEME = {
+  backgroundColor: "#0F172A",
+  surfaceColor: "#111827",
+  primaryTextColor: "#F8FAFC",
+  secondaryTextColor: "#CBD5E1",
+  accentColor: "#3B82F6",
+  fontFamily: "Inter",
+};
+
+function getTheme(theme = {}) {
+  return {
+    ...DEFAULT_THEME,
+    ...theme,
+  };
+}
+
+function cleanColor(color = "#000000") {
+  return color.replace("#", "");
+}
+
 export function Preview({ data }) {
-  const t = data.theme;
+  const t = getTheme(data.theme);
+
   return (
     <div
-      className="w-full h-full flex"
-      style={{ backgroundColor: t.backgroundColor }}
+      className="w-full h-full overflow-hidden"
+      style={{
+        backgroundColor: t.backgroundColor,
+        fontFamily: t.fontFamily,
+        display: "flex",
+      }}
     >
-      <div className="w-[58%] p-16 flex flex-col justify-center">
+      <div
+        style={{
+          width: "58%",
+          padding: "58px 56px",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          overflow: "hidden",
+          minWidth: 0,
+        }}
+      >
         <h1
-          className="text-3xl font-bold mb-4"
-          style={{ color: t.primaryTextColor }}
+          style={{
+            color: t.primaryTextColor,
+            fontSize: "38px",
+            lineHeight: 1.12,
+            fontWeight: 700,
+            margin: 0,
+            marginBottom: "22px",
+            whiteSpace: "pre-wrap",
+            wordBreak: "break-word",
+            overflowWrap: "break-word",
+            maxWidth: "92%",
+            flexShrink: 0,
+          }}
         >
-          {data.title}
+          {data.title || "Image Right"}
         </h1>
+
         <p
-          className="text-lg leading-relaxed"
-          style={{ color: t.secondaryTextColor }}
+          style={{
+            color: t.secondaryTextColor,
+            fontSize: "20px",
+            lineHeight: 1.65,
+            margin: 0,
+            whiteSpace: "pre-wrap",
+            wordBreak: "break-word",
+            overflowWrap: "break-word",
+            maxWidth: "94%",
+            overflow: "hidden",
+            display: "-webkit-box",
+            WebkitLineClamp: 10,
+            WebkitBoxOrient: "vertical",
+          }}
         >
-          {data.content}
+          {data.content || ""}
         </p>
       </div>
+
       <div
-        className="w-[42%] h-full flex items-center justify-center p-12"
-        style={{ backgroundColor: t.surfaceColor }}
+        style={{
+          width: "42%",
+          backgroundColor: t.surfaceColor,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          padding: "40px",
+          overflow: "hidden",
+        }}
       >
         <div
-          className="w-full aspect-[4/3] rounded-xl"
           style={{
-            backgroundColor: t.accentColor + "30",
+            width: "100%",
+            aspectRatio: "4/3",
+            borderRadius: "22px",
+            backgroundColor: `${t.accentColor}30`,
             border: `2px solid ${t.accentColor}40`,
+            position: "relative",
+            overflow: "hidden",
+            flexShrink: 0,
           }}
-        />
+        >
+          <div
+            style={{
+              position: "absolute",
+              inset: "18px",
+              borderRadius: "16px",
+              border: `1px dashed ${t.accentColor}70`,
+            }}
+          />
+
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <div
+              style={{
+                width: "72px",
+                height: "72px",
+                borderRadius: "18px",
+                backgroundColor: t.accentColor,
+                opacity: 0.9,
+              }}
+            />
+          </div>
+        </div>
       </div>
     </div>
   );
 }
 
 export async function toPptx(slide, pptx, data) {
-  const t = data.theme;
-  slide.background = { color: t.backgroundColor.replace("#", "") };
-  slide.addShape("rect", {
-    x: 5.8,
+  const t = getTheme(data.theme);
+
+  slide.background = {
+    color: cleanColor(t.backgroundColor),
+  };
+
+  slide.addShape(pptx.ShapeType.rect, {
+    x: 5.82,
     y: 0,
-    w: 4.2,
+    w: 4.18,
     h: 5.625,
-    fill: { color: t.surfaceColor.replace("#", "") },
+
+    line: {
+      transparency: 100,
+    },
+
+    fill: {
+      color: cleanColor(t.surfaceColor),
+    },
   });
-  slide.addShape("rect", {
-    x: 6.3,
-    y: 1.2,
-    w: 3.2,
-    h: 2.4,
-    fill: { color: t.accentColor.replace("#", ""), transparency: 85 },
-    line: { color: t.accentColor.replace("#", ""), width: 1 },
+
+  slide.addShape(pptx.ShapeType.roundRect, {
+    x: 6.24,
+    y: 1.18,
+    w: 3.08,
+    h: 2.3,
+
+    rectRadius: 0.08,
+
+    line: {
+      color: cleanColor(t.accentColor),
+      transparency: 68,
+      width: 1.5,
+    },
+
+    fill: {
+      color: cleanColor(t.accentColor),
+      transparency: 82,
+    },
   });
-  slide.addText(data.title, {
-    x: 0.6,
-    y: 1.5,
-    w: 5,
-    h: 0.8,
-    fontSize: 24,
+
+  slide.addShape(pptx.ShapeType.roundRect, {
+    x: 6.42,
+    y: 1.36,
+    w: 2.72,
+    h: 1.94,
+
+    rectRadius: 0.06,
+
+    line: {
+      color: cleanColor(t.accentColor),
+      transparency: 35,
+      dash: "dash",
+      width: 1,
+    },
+
+    fill: {
+      transparency: 100,
+    },
+  });
+
+  slide.addShape(pptx.ShapeType.roundRect, {
+    x: 7.15,
+    y: 1.92,
+    w: 0.82,
+    h: 0.82,
+
+    rectRadius: 0.06,
+
+    line: {
+      transparency: 100,
+    },
+
+    fill: {
+      color: cleanColor(t.accentColor),
+    },
+  });
+
+  slide.addText(data.title || "Image Right", {
+    x: 0.58,
+    y: 1.38,
+    w: 4.9,
+    h: 0.68,
+
+    fontFace: t.fontFamily,
+    fontSize: 28,
     bold: true,
-    color: t.primaryTextColor.replace("#", ""),
+
+    color: cleanColor(t.primaryTextColor),
+
+    margin: 0,
+
+    fit: "shrink",
+
+    breakLine: false,
+
+    valign: "mid",
   });
-  slide.addText(data.content, {
+
+  slide.addText(data.content || "", {
     x: 0.6,
-    y: 2.4,
-    w: 5,
-    h: 2.5,
-    fontSize: 15,
-    color: t.secondaryTextColor.replace("#", ""),
-    wrap: true,
+    y: 2.18,
+    w: 4.72,
+    h: 2.18,
+
+    fontFace: t.fontFamily,
+    fontSize: 18,
+
+    color: cleanColor(t.secondaryTextColor),
+
+    margin: 0,
+
+    valign: "top",
+
+    fit: "shrink",
+
+    breakLine: false,
   });
 }
 
 export const meta = {
   id: "content_image_right",
+
   name: "Image Right",
+
+  description:
+    "Modern split layout with content on left and visual placeholder on right.",
+
   category: "content",
+
   supports: ["title", "content", "image"],
 };

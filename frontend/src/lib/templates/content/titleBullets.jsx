@@ -1,48 +1,118 @@
+const DEFAULT_THEME = {
+  backgroundColor: "#0F172A",
+  primaryTextColor: "#F8FAFC",
+  secondaryTextColor: "#CBD5E1",
+  accentColor: "#3B82F6",
+  fontFamily: "Inter",
+};
+
+function getTheme(theme = {}) {
+  return {
+    ...DEFAULT_THEME,
+    ...theme,
+  };
+}
+
+function cleanColor(color = "#000000") {
+  return color.replace("#", "");
+}
+
 export function Preview({ data }) {
-  const theme = data.theme;
-  const bullets = data.bullets || [];
+  const theme = getTheme(data.theme);
+  const bullets = Array.isArray(data.bullets) ? data.bullets : [];
 
   return (
     <div
-      className="w-full h-full p-16 flex flex-col"
-      style={{ backgroundColor: theme.backgroundColor }}
+      className="w-full h-full flex flex-col overflow-hidden"
+      style={{
+        backgroundColor: theme.backgroundColor,
+        fontFamily: theme.fontFamily,
+        padding: "54px 62px",
+      }}
     >
-      {/* Title */}
-      <div className="mb-8">
+      <div>
         <h1
-          className="text-4xl font-bold leading-tight"
           style={{
             color: theme.primaryTextColor,
-            fontFamily: theme.fontFamily || "Inter, system-ui",
+            fontSize: "38px",
+            lineHeight: 1.12,
+            fontWeight: 700,
+            margin: 0,
+            maxWidth: "90%",
+            whiteSpace: "pre-wrap",
+            wordBreak: "break-word",
           }}
         >
-          {data.title}
+          {data.title || "Untitled Slide"}
         </h1>
+
         {data.subtitle && (
           <p
-            className="text-lg mt-2"
-            style={{ color: theme.secondaryTextColor }}
+            style={{
+              color: theme.secondaryTextColor,
+              fontSize: "18px",
+              lineHeight: 1.45,
+              marginTop: "14px",
+              marginBottom: 0,
+              maxWidth: "78%",
+              whiteSpace: "pre-wrap",
+              wordBreak: "break-word",
+            }}
           >
             {data.subtitle}
           </p>
         )}
+
         <div
-          className="w-16 h-1 mt-4"
-          style={{ backgroundColor: theme.accentColor }}
+          style={{
+            width: "72px",
+            height: "4px",
+            borderRadius: "999px",
+            backgroundColor: theme.accentColor,
+            marginTop: "22px",
+          }}
         />
       </div>
 
-      {/* Bullets */}
-      <div className="flex-1 space-y-4">
-        {bullets.map((bullet, i) => (
-          <div key={i} className="flex items-start gap-4">
+      <div
+        style={{
+          marginTop: "42px",
+          display: "flex",
+          flexDirection: "column",
+          gap: "18px",
+          flex: 1,
+        }}
+      >
+        {bullets.map((bullet, index) => (
+          <div
+            key={index}
+            style={{
+              display: "flex",
+              alignItems: "flex-start",
+              gap: "16px",
+            }}
+          >
             <div
-              className="w-2 h-2 rounded-full mt-2.5 shrink-0"
-              style={{ backgroundColor: theme.accentColor }}
+              style={{
+                width: "10px",
+                height: "10px",
+                borderRadius: "999px",
+                marginTop: "12px",
+                flexShrink: 0,
+                backgroundColor: theme.accentColor,
+              }}
             />
+
             <p
-              className="text-xl leading-relaxed"
-              style={{ color: theme.primaryTextColor }}
+              style={{
+                color: theme.primaryTextColor,
+                fontSize: "24px",
+                lineHeight: 1.48,
+                margin: 0,
+                whiteSpace: "pre-wrap",
+                wordBreak: "break-word",
+                flex: 1,
+              }}
             >
               {bullet}
             </p>
@@ -54,65 +124,112 @@ export function Preview({ data }) {
 }
 
 export async function toPptx(slide, pptx, data) {
-  const theme = data.theme;
-  const bullets = data.bullets || [];
+  const theme = getTheme(data.theme);
+  const bullets = Array.isArray(data.bullets) ? data.bullets : [];
 
-  slide.background = { color: theme.backgroundColor.replace("#", "") };
+  slide.background = {
+    color: cleanColor(theme.backgroundColor),
+  };
 
-  // Title
-  slide.addText(data.title || "", {
-    x: 0.6,
-    y: 0.5,
-    w: 8.8,
-    h: 0.8,
-    fontSize: 28,
+  slide.addText(data.title || "Untitled Slide", {
+    x: 0.62,
+    y: 0.52,
+    w: 10.9,
+    h: 0.72,
+
+    fontFace: theme.fontFamily,
+    fontSize: 29,
     bold: true,
-    color: theme.primaryTextColor.replace("#", ""),
-    fontFace: theme.fontFamily || "Calibri",
+
+    color: cleanColor(theme.primaryTextColor),
+
+    margin: 0,
+    valign: "mid",
+    fit: "shrink",
+    breakLine: false,
   });
 
-  // Subtitle
   if (data.subtitle) {
     slide.addText(data.subtitle, {
-      x: 0.6,
-      y: 1.2,
+      x: 0.64,
+      y: 1.22,
       w: 8.8,
-      h: 0.4,
+      h: 0.38,
+
+      fontFace: theme.fontFamily,
       fontSize: 14,
-      color: theme.secondaryTextColor.replace("#", ""),
+
+      color: cleanColor(theme.secondaryTextColor),
+
+      margin: 0,
+      fit: "shrink",
+      breakLine: false,
     });
   }
 
-  // Accent bar
-  slide.addShape("rect", {
-    x: 0.6,
-    y: 1.65,
-    w: 0.8,
-    h: 0.05,
-    fill: { color: theme.accentColor.replace("#", "") },
-    line: { type: "none" },
+  slide.addShape(pptx.ShapeType.rect, {
+    x: 0.64,
+    y: 1.72,
+    w: 0.74,
+    h: 0.04,
+
+    line: {
+      transparency: 100,
+    },
+
+    fill: {
+      color: cleanColor(theme.accentColor),
+    },
   });
 
-  // Bullets
-  const bulletTexts = bullets.map((b) => ({
-    text: b,
-    options: { bullet: true },
-  }));
+  let currentY = 2.18;
 
-  slide.addText(bulletTexts, {
-    x: 0.7,
-    y: 2.0,
-    w: 8.6,
-    h: 3.2,
-    fontSize: 18,
-    color: theme.primaryTextColor.replace("#", ""),
-    bullet: { type: "bullet" },
-    valign: "top",
+  bullets.forEach((bullet) => {
+    slide.addShape(pptx.ShapeType.ellipse, {
+      x: 0.72,
+      y: currentY + 0.16,
+      w: 0.08,
+      h: 0.08,
+
+      line: {
+        transparency: 100,
+      },
+
+      fill: {
+        color: cleanColor(theme.accentColor),
+      },
+    });
+
+    slide.addText(bullet, {
+      x: 0.92,
+      y: currentY,
+      w: 9.9,
+      h: 0.5,
+
+      fontFace: theme.fontFamily,
+      fontSize: 20,
+
+      color: cleanColor(theme.primaryTextColor),
+
+      margin: 0,
+      breakLine: false,
+      fit: "shrink",
+      valign: "top",
+    });
+
+    currentY += 0.58;
   });
 }
 
 export const meta = {
   id: "content_title_bullets",
+
   name: "Title + Bullets",
+
+  description:
+    "Professional minimal slide with title, subtitle and bullet content.",
+
   category: "content",
+
+  supports: ["title", "subtitle", "bullets"],
 };

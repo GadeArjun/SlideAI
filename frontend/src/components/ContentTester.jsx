@@ -261,6 +261,376 @@ const aiGeneratedContent = {
       fontFamily: "Calibri",
     },
   },
+  timeline_vertical_example: {
+    subtype: "content_timeline_vertical",
+    title: "Company Journey",
+    items: [
+      {
+        date: "2021",
+        title: "Founded",
+        text: "Started with 3 people in a garage",
+      },
+      { date: "2022", title: "Seed Round", text: "Raised $2M to build v1" },
+      {
+        date: "2023",
+        title: "Product Launch",
+        text: "10,000 users in first month",
+      },
+      { date: "2024", title: "Series A", text: "Scaling to enterprise" },
+    ],
+    theme: {
+      backgroundColor: "#FFFFFF",
+      surfaceColor: "#F8FAFC",
+      primaryTextColor: "#0F172A",
+      secondaryTextColor: "#475569",
+      accentColor: "#8B5CF6",
+      fontFamily: "Calibri",
+    },
+  },
+
+  process_flow_example: {
+    subtype: "content_process_flow",
+    title: "How It Works",
+    steps: ["Upload Data", "AI Analyzes", "Generate Insights", "Take Action"],
+    theme: {
+      backgroundColor: "#0F172A",
+      surfaceColor: "#1E293B",
+      primaryTextColor: "#F1F5F9",
+      secondaryTextColor: "#94A3B8",
+      accentColor: "#10B981",
+      fontFamily: "Calibri",
+    },
+  },
+
+  // 1. BAR CHART
+  chart_placeholder_example: {
+    subtype: "content_chart_placeholder",
+    title: "Quarterly Sales Performance",
+    chartType: "bar",
+    chartData: {
+      labels: ["Q1", "Q2", "Q3", "Q4"],
+      values: [45, 72, 58, 95],
+    },
+    seriesName: "Sales ($M)",
+    theme: {
+      backgroundColor: "#FFFFFF",
+      surfaceColor: "#F8FAFC",
+      primaryTextColor: "#0F172A",
+      secondaryTextColor: "#64748B",
+      accentColor: "#8B5CF6",
+      fontFamily: "Calibri",
+    },
+  },
+
+  // 2. LINE CHART
+  chart_line_example: {
+    subtype: "content_chart_placeholder",
+    title: "Revenue Growth 2024",
+    chartType: "line",
+    chartData: {
+      labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+      values: [120, 145, 190, 210, 275, 360],
+    },
+    seriesName: "Revenue ($K)",
+    theme: {
+      backgroundColor: "#0F172A",
+      surfaceColor: "#1E293B",
+      primaryTextColor: "#F1F5F9",
+      secondaryTextColor: "#94A3B8",
+      accentColor: "#10B981",
+      fontFamily: "Calibri",
+    },
+  },
+
+  // 3. PIE CHART
+  chart_pie_example: {
+    subtype: "content_chart_placeholder",
+    title: "Market Share by Region",
+    chartType: "pie",
+    chartData: {
+      labels: ["North America", "Europe", "APAC", "Others"],
+      values: [42, 28, 22, 8],
+    },
+    seriesName: "Share %",
+    theme: {
+      backgroundColor: "#000000",
+      surfaceColor: "#171717",
+      primaryTextColor: "#FFFFFF",
+      secondaryTextColor: "#A3A3A3",
+      accentColor: "#F59E0B",
+      fontFamily: "Calibri",
+    },
+  },
+
+  // 4. BAR CHART - DARK (for testing)
+  chart_bar_dark_example: {
+    subtype: "content_chart_placeholder",
+    title: "User Acquisition",
+    chartType: "bar",
+    chartData: {
+      labels: ["Organic", "Paid", "Referral", "Social"],
+      values: [320, 180, 240, 150],
+    },
+    seriesName: "Users",
+    theme: {
+      backgroundColor: "#000000",
+      surfaceColor: "#171717",
+      primaryTextColor: "#FFFFFF",
+      secondaryTextColor: "#A3A3A3",
+      accentColor: "#00B8D9",
+      fontFamily: "Calibri",
+    },
+  },
+
+  // 5. LINE CHART - STEEP GROWTH
+  chart_line_steep_example: {
+    subtype: "content_chart_placeholder",
+    title: "AI Adoption Rate",
+    chartType: "line",
+    chartData: {
+      labels: ["2020", "2021", "2022", "2023", "2024"],
+      values: [5, 12, 28, 55, 89],
+    },
+    seriesName: "Adoption %",
+    theme: {
+      backgroundColor: "#FFFFFF",
+      surfaceColor: "#FEF3C7",
+      primaryTextColor: "#92400E",
+      secondaryTextColor: "#B45309",
+      accentColor: "#F59E0B",
+      fontFamily: "Calibri",
+    },
+  },
+  pricing_table_example: {
+    subtype: "content_pricing_table",
+    title: "Choose Your Plan",
+    plans: [
+      {
+        name: "Starter",
+        price: "$29",
+        features: ["5 agents", "Basic analytics", "Email support"],
+      },
+      {
+        name: "Pro",
+        price: "$99",
+        features: [
+          "Unlimited agents",
+          "Advanced analytics",
+          "Priority support",
+          "API access",
+        ],
+      },
+      {
+        name: "Enterprise",
+        price: "Custom",
+        features: [
+          "Custom models",
+          "SLA",
+          "Dedicated manager",
+          "On-prem option",
+        ],
+      },
+    ],
+    theme: {
+      backgroundColor: "#FFFFFF",
+      surfaceColor: "#F1F5F9",
+      primaryTextColor: "#0F172A",
+      secondaryTextColor: "#64748B",
+      accentColor: "#00B8D9",
+      fontFamily: "Calibri",
+    },
+  },
+  // 1. ICON GRID 3x2
+  iconGrid3x2_example: {
+    subtype: "content_icon_grid_3x2",
+    title: "Platform Capabilities1",
+    items: [
+      {
+        icon: "Rocket",
+        title: "Lightning Fast",
+        text: "Deploy agents in under 30 seconds",
+      },
+      {
+        icon: "Brain",
+        title: "AI Native",
+        text: "Built on latest LLM models",
+      },
+      {
+        icon: "ShieldCheck",
+        title: "Enterprise Security",
+        text: "SOC2 & GDPR compliant",
+      },
+      {
+        icon: "Plug",
+        title: "500+ Integrations",
+        text: "Connect to any tool",
+      },
+      {
+        icon: "BarChart",
+        title: "Real-time Analytics",
+        text: "Track every interaction",
+      },
+      {
+        icon: "Globe",
+        title: "Global Scale",
+        text: "99.99% uptime SLA",
+      },
+    ],
+    theme: {
+      backgroundColor: "#FFFFFF",
+      surfaceColor: "#F8FAFC",
+      primaryTextColor: "#0F172A",
+      secondaryTextColor: "#64748B",
+      accentColor: "#8B5CF6",
+      fontFamily: "Calibri",
+    },
+  },
+
+  // 2. IMAGE GALLERY
+  imageGallery_example: {
+    subtype: "content_image_gallery",
+    title: "Product Showcase",
+    images: [
+      {
+        caption: "Dashboard Overview",
+        url: "https://picsum.photos/seed/dashboard/800/600",
+      },
+      {
+        caption: "Analytics View",
+        url: "https://picsum.photos/seed/analytics/800/600",
+      },
+      {
+        caption: "Mobile App",
+        url: "https://picsum.photos/seed/mobile/800/600",
+      },
+      {
+        caption: "Team Collaboration",
+        url: "https://picsum.photos/seed/team/800/600",
+      },
+    ],
+    theme: {
+      backgroundColor: "#0F172A",
+      surfaceColor: "#1E293B",
+      primaryTextColor: "#F1F5F9",
+      secondaryTextColor: "#94A3B8",
+      accentColor: "#00B8D9",
+      fontFamily: "Calibri",
+    },
+  },
+
+  // 3. QUOTE TESTIMONIAL
+  quoteTestimonial_example: {
+    subtype: "content_quote_testimonial",
+    quote:
+      "This platform reduced our support response time by 80% and increased customer satisfaction to 4.9/5. Game changer.",
+    author: "Sarah Chen",
+    role: "VP of Customer Success, TechCorp",
+    company: "TechCorp",
+    theme: {
+      backgroundColor: "#000000",
+      surfaceColor: "#171717",
+      primaryTextColor: "#FFFFFF",
+      secondaryTextColor: "#A3A3A3",
+      accentColor: "#F59E0B",
+      fontFamily: "Calibri",
+    },
+  },
+
+  // 4. TEAM GRID
+  teamGrid_example: {
+    subtype: "content_team_grid",
+    title: "Leadership Team",
+    members: [
+      { name: "Alex Rivera", role: "CEO & Founder", initials: "AR" },
+      { name: "Maya Patel", role: "CTO", initials: "MP" },
+      { name: "Jordan Kim", role: "Head of Product", initials: "JK" },
+      { name: "Taylor Wu", role: "VP Engineering", initials: "TW" },
+    ],
+    theme: {
+      backgroundColor: "#FFFFFF",
+      surfaceColor: "#F1F5F9",
+      primaryTextColor: "#0F172A",
+      secondaryTextColor: "#475569",
+      accentColor: "#10B981",
+      fontFamily: "Calibri",
+    },
+  },
+
+  // 6. FAQ ACCORDION
+  faqAccordion_example: {
+    subtype: "content_faq_accordion",
+    title: "Frequently Asked Questions",
+    faqs: [
+      {
+        q: "How long does implementation take?",
+        a: "Most teams are live in under 1 day with our guided setup.",
+      },
+      {
+        q: "Do you integrate with Salesforce?",
+        a: "Yes, plus 500+ other tools via native integrations and API.",
+      },
+      {
+        q: "What about data security?",
+        a: "SOC2 Type II, GDPR compliant, with end-to-end encryption.",
+      },
+      {
+        q: "Can we try before buying?",
+        a: "14-day free trial, no credit card required.",
+      },
+    ],
+    theme: {
+      backgroundColor: "#FFFFFF",
+      surfaceColor: "#F8FAFC",
+      primaryTextColor: "#0F172A",
+      secondaryTextColor: "#64748B",
+      accentColor: "#6366F1",
+      fontFamily: "Calibri",
+    },
+  },
+
+  // 7. CODE BLOCK
+  codeBlock_example: {
+    subtype: "content_code_block",
+    title: "Quick Start API",
+    language: "javascript",
+    code: `import { Agent } from '@company/sdk';
+
+const agent = new Agent({
+  apiKey: process.env.API_KEY,
+  model: 'gpt-4-turbo'
+});
+
+const response = await agent.chat(
+  'Analyze this customer feedback'
+);
+
+console.log(response.insights);`,
+    theme: {
+      backgroundColor: "#0F172A",
+      surfaceColor: "#1E293B",
+      primaryTextColor: "#E2E8F0",
+      secondaryTextColor: "#94A3B8",
+      accentColor: "#22D3EE",
+      fontFamily: "JetBrains Mono",
+    },
+  },
+
+  // 8. CALLOUT BOX
+  calloutBox_example: {
+    subtype: "content_callout_box",
+    type: "warning", // 'info' | 'warning' | 'success' | 'error'
+    title: "Pro Tip",
+    message:
+      "Teams that connect their CRM in the first week see 3.2x faster time-to-value. Set up your integration during onboarding.",
+    theme: {
+      backgroundColor: "#FFFBEB",
+      surfaceColor: "#FEF3C7",
+      primaryTextColor: "#92400E",
+      secondaryTextColor: "#B45309",
+      accentColor: "#F59E0B",
+      fontFamily: "Calibri",
+    },
+  },
 };
 
 export default function ContentTester() {

@@ -1,86 +1,230 @@
+const DEFAULT_THEME = {
+  backgroundColor: "#0F172A",
+  surfaceColor: "#111827",
+  primaryTextColor: "#F8FAFC",
+  secondaryTextColor: "#CBD5E1",
+  accentColor: "#3B82F6",
+  fontFamily: "Inter",
+};
+
+function getTheme(theme = {}) {
+  return {
+    ...DEFAULT_THEME,
+    ...theme,
+  };
+}
+
+function cleanColor(color = "#000000") {
+  return color.replace("#", "");
+}
+
 export function Preview({ data }) {
-  const t = data.theme;
-  const items = data.items || [];
+  const t = getTheme(data.theme);
+
+  const items = Array.isArray(data.items) ? data.items.slice(0, 5) : [];
+
   return (
     <div
-      className="w-full h-full p-14 flex flex-col"
-      style={{ backgroundColor: t.backgroundColor }}
+      className="w-full h-full overflow-hidden"
+      style={{
+        backgroundColor: t.backgroundColor,
+        fontFamily: t.fontFamily,
+        padding: "52px 58px",
+        display: "flex",
+        flexDirection: "column",
+      }}
     >
       <h1
-        className="text-3xl font-bold mb-8"
-        style={{ color: t.primaryTextColor }}
+        style={{
+          color: t.primaryTextColor,
+          fontSize: "38px",
+          lineHeight: 1.12,
+          fontWeight: 700,
+          margin: 0,
+          marginBottom: "34px",
+          whiteSpace: "pre-wrap",
+          wordBreak: "break-word",
+          overflowWrap: "break-word",
+          flexShrink: 0,
+          maxWidth: "92%",
+        }}
       >
-        {data.title}
+        {data.title || "Icon List"}
       </h1>
-      <div className="space-y-5">
-        {items.slice(0, 5).map((it, i) => (
-          <div key={i} className="flex items-start gap-4">
+
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "22px",
+          overflow: "hidden",
+          flex: 1,
+        }}
+      >
+        {items.map((item, i) => {
+          const text = typeof item === "string" ? item : item.text || "";
+
+          return (
             <div
-              className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0 mt-0.5"
-              style={{ backgroundColor: t.accentColor }}
+              key={i}
+              style={{
+                display: "flex",
+                alignItems: "flex-start",
+                gap: "18px",
+                minWidth: 0,
+              }}
             >
-              <span className="text-white font-bold">{i + 1}</span>
+              <div
+                style={{
+                  width: "44px",
+                  height: "44px",
+                  borderRadius: "12px",
+                  backgroundColor: t.accentColor,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  flexShrink: 0,
+                  marginTop: "2px",
+                }}
+              >
+                <span
+                  style={{
+                    color: "#FFFFFF",
+                    fontSize: "18px",
+                    fontWeight: 700,
+                    lineHeight: 1,
+                  }}
+                >
+                  {i + 1}
+                </span>
+              </div>
+
+              <p
+                style={{
+                  color: t.secondaryTextColor,
+                  fontSize: "20px",
+                  lineHeight: 1.6,
+                  margin: 0,
+                  paddingTop: "4px",
+                  whiteSpace: "pre-wrap",
+                  wordBreak: "break-word",
+                  overflowWrap: "break-word",
+                  overflow: "hidden",
+                  flex: 1,
+                  display: "-webkit-box",
+                  WebkitLineClamp: 3,
+                  WebkitBoxOrient: "vertical",
+                }}
+              >
+                {text}
+              </p>
             </div>
-            <p
-              className="text-lg pt-1.5"
-              style={{ color: t.secondaryTextColor }}
-            >
-              {it.text || it}
-            </p>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
 }
 
 export async function toPptx(slide, pptx, data) {
-  const t = data.theme;
-  const items = data.items || [];
-  slide.background = { color: t.backgroundColor.replace("#", "") };
-  slide.addText(data.title, {
-    x: 0.6,
-    y: 0.6,
-    w: 8.8,
-    h: 0.8,
-    fontSize: 28,
+  const t = getTheme(data.theme);
+
+  const items = Array.isArray(data.items) ? data.items.slice(0, 5) : [];
+
+  slide.background = {
+    color: cleanColor(t.backgroundColor),
+  };
+
+  slide.addText(data.title || "Icon List", {
+    x: 0.58,
+    y: 0.5,
+    w: 8.7,
+    h: 0.55,
+
+    fontFace: t.fontFamily,
+    fontSize: 29,
     bold: true,
-    color: t.primaryTextColor.replace("#", ""),
+
+    color: cleanColor(t.primaryTextColor),
+
+    margin: 0,
+
+    fit: "shrink",
+
+    breakLine: false,
   });
 
-  items.slice(0, 5).forEach((it, i) => {
-    const y = 1.7 + i * 0.75;
-    slide.addShape("rect", {
+  items.forEach((item, i) => {
+    const y = 1.48 + i * 0.78;
+
+    const text = typeof item === "string" ? item : item.text || "";
+
+    slide.addShape(pptx.ShapeType.roundRect, {
       x: 0.6,
       y,
-      w: 0.5,
-      h: 0.5,
-      fill: { color: t.accentColor.replace("#", "") },
+      w: 0.42,
+      h: 0.42,
+
+      rectRadius: 0.05,
+
+      line: {
+        transparency: 100,
+      },
+
+      fill: {
+        color: cleanColor(t.accentColor),
+      },
     });
+
     slide.addText(String(i + 1), {
       x: 0.6,
-      y,
-      w: 0.5,
-      h: 0.5,
-      fontSize: 14,
+      y: y + 0.005,
+      w: 0.42,
+      h: 0.42,
+
+      fontFace: t.fontFamily,
+      fontSize: 13,
       bold: true,
-      align: "center",
-      valign: "middle",
+
       color: "FFFFFF",
+
+      align: "center",
+      valign: "mid",
+
+      margin: 0,
     });
-    slide.addText(it.text || it, {
-      x: 1.3,
-      y,
-      w: 8.1,
-      h: 0.5,
+
+    slide.addText(text, {
+      x: 1.22,
+      y: y - 0.01,
+      w: 7.75,
+      h: 0.42,
+
+      fontFace: t.fontFamily,
       fontSize: 16,
-      color: t.secondaryTextColor.replace("#", ""),
-      valign: "middle",
+
+      color: cleanColor(t.secondaryTextColor),
+
+      margin: 0,
+
+      valign: "mid",
+
+      fit: "shrink",
+
+      breakLine: false,
     });
   });
 }
+
 export const meta = {
   id: "content_icon_list",
+
   name: "Icon List",
+
+  description:
+    "Numbered icon list layout for steps, highlights and sequential information.",
+
   category: "content",
+
+  supports: ["title", "items"],
 };
