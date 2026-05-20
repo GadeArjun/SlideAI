@@ -631,7 +631,7 @@ dark:bg-[var(--surface-secondary)] bg-[var(--surface-primary)] flex flex-col min
               <div className="flex-1 flex flex-col items-center justify-center px-4 min-h-0 overflow-y-auto overflow-x-hidden">
                 <div className="absolute top-4 right-4 z-20">
                   <button
-                    onClick={() => setShowTracking(true)}
+                    onClick={() => setShowTracking(false)}
                     className="
         inline-flex
         items-center
@@ -668,9 +668,7 @@ dark:bg-[var(--surface-secondary)] bg-[var(--surface-primary)] flex flex-col min
                 </div>
 
                 {/* TRACKER */}
-                <div className="w-full max-w-md overflow-hidden shrink-0">
-                  <GenerationTracker projectId={projectId} />
-                </div>
+                <GenerationTracker projectId={projectId} />
 
                 {/* BOTTOM SPACE */}
                 <div className="h-10 shrink-0" />
@@ -750,7 +748,7 @@ dark:bg-[var(--surface-secondary)] bg-[var(--surface-primary)] flex flex-col min
                 {isActive && generation && !showTracking && (
                   <div className="absolute top-4 right-4 z-20">
                     <button
-                      onClick={() => setShowTracking(false)}
+                      onClick={() => setShowTracking(true)}
                       className="
         inline-flex
         items-center
