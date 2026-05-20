@@ -94,7 +94,9 @@ export async function getAllProjects(userId) {
       .sort({
         createdAt: -1,
       })
-      .select("_id title status createdAt updatedAt slides generatedPptx");
+      .select(
+        "_id title status createdAt updatedAt slides intentParser.parsedData.presentation.title"
+      );
 
     return {
       success: true,

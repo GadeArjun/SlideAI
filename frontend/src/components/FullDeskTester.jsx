@@ -26,154 +26,21 @@ const globalTheme = {
 // === FULL 7-SLIDE AI AGENTS DECK ===
 const fullDeck = [
   {
-    category: "content",
-    template: "content_title_bullets",
-    templateDirection: "",
-    title: "",
-    description: "",
+    slideId: "slide_1",
+    category: "hero",
+    template: "hero_full_bleed",
+    templateDirection: "hero",
+    title: "AI Powered Healthcare",
+    description:
+      "A bold visual introducing AI in healthcare.\nHighlight the transformative impact on patient care and operations.\nUse vibrant yellow‑orange accents to convey energy and innovation.",
     keyPoints: [],
     prompt: "",
     data: {
-      title: "Why AI Matters in Healthcare",
-      subtitle: "Driving forces behind AI adoption",
-      bullets: [
-        "Exponential increase in health data",
-        "Need for faster, accurate diagnostics",
-        "Pressure to reduce costs while improving outcomes",
-        "Regulatory support for digital health",
-      ],
+      title: "AI Powered Healthcare",
+      subtitle: "Transforming patient care and operations",
+      icon: "HeartBeat",
     },
-    status: "pending",
-    error: "",
-  },
-  {
-    category: "content",
-    template: "content_icon_grid_3x2",
-    templateDirection: "",
-    title: "",
-    description: "",
-    keyPoints: [],
-    prompt: "",
-    data: {
-      title: "Core AI Applications",
-      items: [
-        {
-          icon: "activity",
-          title: "Risk Stratification",
-          text: "Predict patient outcomes using data models",
-        },
-        {
-          icon: "image",
-          title: "Imaging Analysis",
-          text: "Automated detection in radiology scans",
-        },
-        {
-          icon: "file-text",
-          title: "Clinical NLP",
-          text: "Extract insights from notes & reports",
-        },
-        {
-          icon: "cpu",
-          title: "RPA Automation",
-          text: "Streamline admin tasks and billing",
-        },
-        {
-          icon: "heart-pulse",
-          title: "Treatment Recommendation",
-          text: "Tailor therapies to individual patients",
-        },
-      ],
-    },
-    status: "pending",
-    error: "",
-  },
-  {
-    category: "content",
-    template: "content_comparison_table",
-    templateDirection: "",
-    title: "",
-    description: "",
-    keyPoints: [],
-    prompt: "",
-    data: {
-      title: "Benefits to Stakeholders",
-      headers: ["Traditional Workflow", "AI‑Enhanced Workflow"],
-      rows: [
-        ["Diagnostic errors", "AI reduces errors via predictive analytics"],
-        [
-          "Time‑to‑treatment",
-          "Accelerated decision support shortens treatment onset",
-        ],
-        [
-          "Patient engagement",
-          "Personalized digital assistants boost involvement",
-        ],
-        ["Operational costs", "Automation and optimization lower expenses"],
-        [
-          "Population health",
-          "Data‑driven risk stratification improves management",
-        ],
-      ],
-    },
-    status: "pending",
-    error: "",
-  },
-  {
-    category: "content",
-    template: "content_title_bullets",
-    templateDirection: "",
-    title: "",
-    description: "",
-    keyPoints: [],
-    prompt: "",
-    data: {
-      title: "Challenges & Risks",
-      subtitle: "Key obstacles to AI integration",
-      bullets: [
-        "Data privacy and security",
-        "Algorithm bias and fairness",
-        "Integration with legacy EHR systems",
-        "Regulatory compliance and validation",
-        "Workforce training and acceptance",
-      ],
-    },
-    status: "pending",
-    error: "",
-  },
-  {
-    category: "content",
-    template: "content_timeline_horizontal",
-    templateDirection: "",
-    title: "",
-    description: "",
-    keyPoints: [],
-    prompt: "",
-    data: {
-      title: "Implementation Roadmap",
-      items: [
-        {
-          title: "Define problem & metrics",
-          desc: "Identify clinical challenge and success criteria.",
-        },
-        {
-          title: "Secure data & governance",
-          desc: "Ensure high‑quality data, compliance, and governance.",
-        },
-        {
-          title: "Select AI model/partner",
-          desc: "Choose validated models or trusted vendors.",
-        },
-        {
-          title: "Pilot & evaluate",
-          desc: "Run pilot, assess outcomes, and iterate.",
-        },
-        {
-          title: "Scale & improve",
-          desc: "Expand deployment, monitor performance, and refine.",
-        },
-      ],
-    },
-    status: "pending",
+    status: "completed",
     error: "",
   },
 ];

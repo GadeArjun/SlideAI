@@ -3,6 +3,8 @@
 import express from "express";
 import cors from "cors";
 import { config } from "dotenv";
+import path from "path";
+import { fileURLToPath } from "url";
 
 import connectDB from "./config/db.js";
 
@@ -21,12 +23,7 @@ await connectDB();
 /**
  * MIDDLEWARES
  */
-app.use(
-  cors({
-    origin: "*",
-    credentials: true,
-  })
-);
+app.use(cors());
 
 app.use(
   express.json({
@@ -40,6 +37,14 @@ app.use(
     limit: "50mb",
   })
 );
+
+/**
+ * STATIC FILES
+ */
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+app.use(express.static(path.join(__dirname, "public/dist")));
 
 /**
  * HEALTH CHECK
@@ -57,6 +62,14 @@ app.get("/", (req, res) => {
 app.use("/api/user", userRoutes);
 
 app.use("/api/project", projectRoutes);
+
+/**
+ * REACT/VITE FRONTEND
+ * serve index.html on all non-api routes
+ */
+app.get(/^(?!\/api).*/, (req, res) => {
+  res.sendFile(path.join(__dirname, "public/dist/index.html"));
+});
 
 /**
  * 404
@@ -86,5 +99,5 @@ app.use((error, req, res, next) => {
 const PORT = process.env.PORT || 8080;
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`Server running on port ${PORT}\n http://localhost:${PORT}`);
 });

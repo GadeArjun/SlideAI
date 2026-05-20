@@ -4,7 +4,7 @@ import * as LucideIcons from "lucide-react";
 
 export function Preview({ data }) {
   const theme = data.theme;
-  const Icon = data.icon ? LucideIcons[data.icon] : null;
+  const Icon = data.icon ? LucideIcons[data.icon] : LucideIcons.Star;
 
   return (
     <div
