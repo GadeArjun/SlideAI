@@ -15,11 +15,11 @@ const allTemplates = {
 
 // === GLOBAL LIGHT THEME ===
 const globalTheme = {
-  backgroundColor: "#FFFFFF",
-  surfaceColor: "#F5F5F5",
-  primaryTextColor: "#111111",
+  backgroundColor: "#FFF8E1",
+  surfaceColor: "#FFE0B2",
+  primaryTextColor: "#212121",
   secondaryTextColor: "#555555",
-  accentColor: "#0EA5E9",
+  accentColor: "#F59E0B",
   fontFamily: "Calibri",
 };
 
@@ -34,12 +34,85 @@ const fullDeck = [
     keyPoints: [],
     prompt: "",
     data: {
-      title: "AI‑Powered Healthcare Diagnostics",
-      subtitle: "Transforming Diagnostic Care",
+      title: "Why AI Matters in Healthcare",
+      subtitle: "Driving forces behind AI adoption",
       bullets: [
-        "AI as a catalyst for faster, more accurate diagnosis",
-        "Targeting hospitals, investors, and tech teams",
-        "Premium, technology‑focused narrative",
+        "Exponential increase in health data",
+        "Need for faster, accurate diagnostics",
+        "Pressure to reduce costs while improving outcomes",
+        "Regulatory support for digital health",
+      ],
+    },
+    status: "pending",
+    error: "",
+  },
+  {
+    category: "content",
+    template: "content_icon_grid_3x2",
+    templateDirection: "",
+    title: "",
+    description: "",
+    keyPoints: [],
+    prompt: "",
+    data: {
+      title: "Core AI Applications",
+      items: [
+        {
+          icon: "activity",
+          title: "Risk Stratification",
+          text: "Predict patient outcomes using data models",
+        },
+        {
+          icon: "image",
+          title: "Imaging Analysis",
+          text: "Automated detection in radiology scans",
+        },
+        {
+          icon: "file-text",
+          title: "Clinical NLP",
+          text: "Extract insights from notes & reports",
+        },
+        {
+          icon: "cpu",
+          title: "RPA Automation",
+          text: "Streamline admin tasks and billing",
+        },
+        {
+          icon: "heart-pulse",
+          title: "Treatment Recommendation",
+          text: "Tailor therapies to individual patients",
+        },
+      ],
+    },
+    status: "pending",
+    error: "",
+  },
+  {
+    category: "content",
+    template: "content_comparison_table",
+    templateDirection: "",
+    title: "",
+    description: "",
+    keyPoints: [],
+    prompt: "",
+    data: {
+      title: "Benefits to Stakeholders",
+      headers: ["Traditional Workflow", "AI‑Enhanced Workflow"],
+      rows: [
+        ["Diagnostic errors", "AI reduces errors via predictive analytics"],
+        [
+          "Time‑to‑treatment",
+          "Accelerated decision support shortens treatment onset",
+        ],
+        [
+          "Patient engagement",
+          "Personalized digital assistants boost involvement",
+        ],
+        ["Operational costs", "Automation and optimization lower expenses"],
+        [
+          "Population health",
+          "Data‑driven risk stratification improves management",
+        ],
       ],
     },
     status: "pending",
@@ -54,146 +127,14 @@ const fullDeck = [
     keyPoints: [],
     prompt: "",
     data: {
-      title: "Current Challenges in Healthcare Diagnostics",
-      subtitle: "Pain points limiting diagnostic quality",
+      title: "Challenges & Risks",
+      subtitle: "Key obstacles to AI integration",
       bullets: [
-        "High false‑negative/positive rates",
-        "Long turnaround times for imaging and labs",
-        "Resource constraints and specialist shortages",
-        "Rising costs and variable patient outcomes",
-      ],
-    },
-    status: "pending",
-    error: "",
-  },
-  {
-    category: "content",
-    template: "content_numbered_steps",
-    templateDirection: "",
-    title: "",
-    description: "",
-    keyPoints: [],
-    prompt: "",
-    data: {
-      title: "AI Diagnostic Workflow Overview",
-      steps: [
-        {
-          title: "Data acquisition",
-          desc: "Imaging, EHR, wearables collected",
-        },
-        {
-          title: "Pre‑processing & annotation",
-          desc: "Clean, normalize, label data",
-        },
-        {
-          title: "Model training & validation",
-          desc: "Build and test AI models",
-        },
-        {
-          title: "Real‑time inference & reporting",
-          desc: "Deploy for decision support",
-        },
-      ],
-    },
-    status: "pending",
-    error: "",
-  },
-  {
-    category: "content",
-    template: "content_numbered_steps",
-    templateDirection: "",
-    title: "",
-    description: "",
-    keyPoints: [],
-    prompt: "",
-    data: {
-      title: "AI‑Driven Diagnostic Pipeline",
-      steps: [
-        {
-          title: "Image capture → AI‑enhanced preprocessing",
-          desc: "Raw scans are cleaned and optimized using AI algorithms.",
-        },
-        {
-          title: "Automated feature extraction",
-          desc: "AI models identify biomarkers and patterns from preprocessed images.",
-        },
-        {
-          title: "Predictive analytics for disease risk",
-          desc: "Risk scores are generated by analyzing extracted features.",
-        },
-        {
-          title: "Clinician‑in‑the‑loop validation",
-          desc: "Specialists review AI output before confirming the final diagnosis.",
-        },
-      ],
-    },
-    status: "pending",
-    error: "",
-  },
-  {
-    category: "content",
-    template: "content_checklist",
-    templateDirection: "",
-    title: "",
-    description: "",
-    keyPoints: [],
-    prompt: "",
-    data: {
-      title: "Key Benefits of AI Integration",
-      subtitle: "Strategic advantages for stakeholders",
-      items: [
-        "Improved diagnostic accuracy",
-        "Reduced time‑to‑treatment",
-        "Lower operational costs",
-        "Scalable decision support across specialties",
-      ],
-    },
-    status: "pending",
-    error: "",
-  },
-  {
-    category: "content",
-    template: "content_chart_placeholder",
-    templateDirection: "",
-    title: "",
-    description: "",
-    keyPoints: [],
-    prompt: "",
-    data: {
-      title: "Accuracy Improvements & Metrics",
-      chartType: "bar",
-      seriesName: "AI vs Traditional",
-      chartData: {
-        labels: ["Sensitivity ↑", "False Positives ↓", "Reporting Time ↓"],
-        values: [20, 20, 80],
-      },
-    },
-    status: "pending",
-    error: "",
-  },
-  {
-    category: "content",
-    template: "content_image_gallery",
-    templateDirection: "",
-    title: "",
-    description: "",
-    keyPoints: [],
-    prompt: "",
-    data: {
-      title: "Real‑World Use Cases",
-      images: [
-        {
-          url: "https://example.com/lung-nodule-detection.png",
-          caption: "AI‑assisted lung nodule detection (Radiology)",
-        },
-        {
-          url: "https://example.com/pathology-cancer-grading.png",
-          caption: "Pathology slide analysis for cancer grading",
-        },
-        {
-          url: "https://example.com/sepsis-prediction-icu.png",
-          caption: "Predictive sepsis alerts in ICU settings",
-        },
+        "Data privacy and security",
+        "Algorithm bias and fairness",
+        "Integration with legacy EHR systems",
+        "Regulatory compliance and validation",
+        "Workforce training and acceptance",
       ],
     },
     status: "pending",
@@ -211,60 +152,26 @@ const fullDeck = [
       title: "Implementation Roadmap",
       items: [
         {
-          title: "Phase 1",
-          desc: "Data readiness & pilot study",
+          title: "Define problem & metrics",
+          desc: "Identify clinical challenge and success criteria.",
         },
         {
-          title: "Phase 2",
-          desc: "Model integration & staff training",
+          title: "Secure data & governance",
+          desc: "Ensure high‑quality data, compliance, and governance.",
         },
         {
-          title: "Phase 3",
-          desc: "Scale‑up across departments",
+          title: "Select AI model/partner",
+          desc: "Choose validated models or trusted vendors.",
         },
         {
-          title: "Phase 4",
-          desc: "Continuous monitoring & optimization",
+          title: "Pilot & evaluate",
+          desc: "Run pilot, assess outcomes, and iterate.",
+        },
+        {
+          title: "Scale & improve",
+          desc: "Expand deployment, monitor performance, and refine.",
         },
       ],
-    },
-    status: "pending",
-    error: "",
-  },
-  {
-    category: "content",
-    template: "content_title_bullets",
-    templateDirection: "",
-    title: "",
-    description: "",
-    keyPoints: [],
-    prompt: "",
-    data: {
-      title: "Future Scope & Innovation",
-      subtitle: "Emerging trends and long‑term vision",
-      bullets: [
-        "Multimodal AI combining imaging, genomics, and wearables",
-        "Federated learning for privacy‑preserving model improvement",
-        "AI‑driven personalized treatment pathways",
-        "Integration with tele‑health and remote diagnostics",
-      ],
-    },
-    status: "pending",
-    error: "",
-  },
-  {
-    category: "content",
-    template: "content_callout_box",
-    templateDirection: "",
-    title: "",
-    description: "",
-    keyPoints: [],
-    prompt: "",
-    data: {
-      title: "Summary & Call to Action",
-      message:
-        "• AI delivers measurable accuracy and efficiency gains\n• Proven use cases demonstrate rapid ROI\n• Strategic roadmap ensures smooth adoption\n• Partner with us to lead the future of diagnostics",
-      type: "success",
     },
     status: "pending",
     error: "",
@@ -286,7 +193,13 @@ export default function FullDeckTester() {
       const tpl = allTemplates[s.template];
       const pptSlide = pptx.addSlide();
       if (tpl?.toPptx) {
-        await tpl.toPptx(pptSlide, pptx, { ...s.data, theme: globalTheme });
+        await tpl.toPptx(
+          pptSlide,
+          pptx,
+          s.data
+            ? { ...s.data, theme: globalTheme }
+            : { ...s, theme: globalTheme }
+        );
       }
     }
     await pptx.writeFile({ fileName: "AI-Agents-Deck.pptx" });
@@ -332,7 +245,13 @@ export default function FullDeckTester() {
       <div className="flex-1 p-8 flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100">
         <div className="w-full max-w-6xl aspect-video bg-white rounded-2xl shadow-2xl overflow-hidden border">
           {Template?.Preview ? (
-            <Template.Preview data={{ ...slide.data, theme: globalTheme }} />
+            <Template.Preview
+              data={
+                slide.data
+                  ? { ...slide.data, theme: globalTheme }
+                  : { ...slide, theme: globalTheme }
+              }
+            />
           ) : (
             <div className="w-full h-full flex items-center justify-center">
               No preview for {slide.template}
@@ -344,7 +263,7 @@ export default function FullDeckTester() {
       {/* Footer */}
       <div className="p-3 border-t bg-white text-xs text-gray-500 flex justify-between">
         <span>{slide.template}</span>
-        <span>{slide.data.title}</span>
+        <span>{slide.data ? slide.data.title : slide.title}</span>
       </div>
     </div>
   );

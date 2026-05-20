@@ -124,10 +124,6 @@ function validateGeneratedSlide(slide = {}, fallbackSlide = {}) {
 
     description: slide?.description || fallbackSlide?.description || "",
 
-    keyPoints: Array.isArray(slide?.keyPoints)
-      ? slide.keyPoints
-      : fallbackSlide?.keyPoints || [],
-
     data: typeof slide?.data === "object" ? slide.data : {},
 
     status: "completed",
@@ -234,14 +230,14 @@ async function generateSingleSlide({
       };
     }
 
-    // const validatedSlide = validateGeneratedSlide(generatedSlide, slide);
+    const validatedSlide = validateGeneratedSlide(generatedSlide, slide);
 
     return {
       success: true,
 
       slideId: slide.id,
 
-      data: generatedSlide,
+      data: validatedSlide,
     };
   } catch (error) {
     console.error("[Slide Generation Error]", slide?.id, error);
