@@ -35,7 +35,7 @@ export function ProjectsPage() {
             Projects
           </h1>
           <p className="text-sm text-[var(--text-secondary)] mt-0.5">
-            {pagination.total || 0} total presentations
+            {projects.length || 0} total presentations
           </p>
         </div>
         <button

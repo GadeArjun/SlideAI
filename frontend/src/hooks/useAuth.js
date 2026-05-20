@@ -14,7 +14,6 @@ export function useAuth() {
     const { user, token } = res.data.data;
     store.setAuth(user, token);
     socketService.connect();
-    socketService.authenticate(user._id);
     toast.success(`Welcome back, ${user.name || user.username}!`);
     navigate("/dashboard");
     return user;
@@ -25,7 +24,6 @@ export function useAuth() {
     const { user, token } = res.data;
     store.setAuth(user, token);
     socketService.connect();
-    socketService.authenticate(user._id);
     toast.success("Account created! Welcome aboard.");
     navigate("/dashboard");
     return user;

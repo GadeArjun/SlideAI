@@ -1,4 +1,4 @@
-import { create } from 'zustand'
+import { create } from "zustand";
 
 export const useProjectStore = create((set, get) => ({
   // Active generation tracking
@@ -12,11 +12,11 @@ export const useProjectStore = create((set, get) => ({
       activeGenerations: {
         ...s.activeGenerations,
         [projectId]: {
-          status: 'created',
+          status: "created",
           progress: 0,
           logs: [],
-          currentAgent: '',
-          currentStep: '',
+          currentAgent: "",
+          currentStep: "",
           totalSlides: 0,
           generatedSlides: 0,
           slideStatuses: {},
@@ -39,8 +39,9 @@ export const useProjectStore = create((set, get) => ({
 
   addLog: (projectId, log) =>
     set((s) => {
-      const current = s.activeGenerations[projectId]
-      if (!current) return s
+      console.log({ log });
+      const current = s.activeGenerations[projectId];
+      if (!current) return s;
       return {
         activeGenerations: {
           ...s.activeGenerations,
@@ -49,13 +50,26 @@ export const useProjectStore = create((set, get) => ({
             logs: [...(current.logs || []).slice(-100), log],
           },
         },
-      }
+      };
     }),
+
+  hydrateGeneration: (projectId, data) =>
+    set((s) => ({
+      activeGenerations: {
+        ...s.activeGenerations,
+
+        [projectId]: {
+          ...(s.activeGenerations[projectId] || {}),
+
+          ...data,
+        },
+      },
+    })),
 
   updateSlideStatus: (projectId, slideNum, status) =>
     set((s) => {
-      const current = s.activeGenerations[projectId]
-      if (!current) return s
+      const current = s.activeGenerations[projectId];
+      if (!current) return s;
       return {
         activeGenerations: {
           ...s.activeGenerations,
@@ -64,18 +78,18 @@ export const useProjectStore = create((set, get) => ({
             slideStatuses: { ...current.slideStatuses, [slideNum]: status },
           },
         },
-      }
+      };
     }),
 
   removeGeneration: (projectId) =>
     set((s) => {
-      const next = { ...s.activeGenerations }
-      delete next[projectId]
-      return { activeGenerations: next }
+      const next = { ...s.activeGenerations };
+      delete next[projectId];
+      return { activeGenerations: next };
     }),
 
   getGeneration: (projectId) => get().activeGenerations[projectId],
 
   setEditorProject: (project) => set({ editorProject: project }),
   clearEditorProject: () => set({ editorProject: null }),
-}))
+}));

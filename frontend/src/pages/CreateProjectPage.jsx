@@ -10,7 +10,6 @@ import {
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useCreateProject } from "../hooks/useProjects";
-import { useProjectSocket } from "../hooks/useSocket";
 import { useProjectStore } from "../store/projectStore";
 import { GenerationTracker } from "../components/project/GenerationTracker";
 import { toast } from "sonner";
@@ -21,11 +20,6 @@ const EXAMPLE_PROMPTS = [
   "Design a 10-slide presentation about climate change and renewable energy solutions.",
   "Make a 5-slide product roadmap for a mobile fitness app with Q1-Q4 milestones.",
 ];
-
-function SocketTracker({ projectId }) {
-  useProjectSocket(projectId);
-  return <GenerationTracker projectId={projectId} />;
-}
 
 export function CreateProjectPage() {
   const navigate = useNavigate();

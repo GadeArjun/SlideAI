@@ -3,6 +3,7 @@ import path from "path";
 
 import llmJson from "../../config/llm.js";
 import { addProjectLog, updateSlide } from "../../services/project.service.js";
+import { emitToUser } from "../../config/socket.js";
 
 const PROMPT_PATH = path.join(
   process.cwd(),
@@ -263,6 +264,20 @@ export async function generateSlidesContent({
 }) {
   try {
     const validatedIntent = validateIntent(intentData);
+    /**
+     * AGENT START
+     */
+    if (userId) {
+      emitToUser(userId, "agent:per_slide_content:start", {
+        success: true,
+
+        message: "Slide content generation started.",
+
+        totalSlides: validatedIntent.slides.length,
+
+        projectId,
+      });
+    }
 
     if (!validatedIntent?.slides || validatedIntent.slides.length === 0) {
       return {
@@ -397,6 +412,25 @@ export async function generateSlidesContent({
           finalSlides.push(generatedSlide);
 
           /**
+           * SOCKET SUCCESS EVENT
+           */
+          if (userId) {
+            emitToUser(userId, "agent:per_slide_content:progress", {
+              success: true,
+
+              message: `${generatedSlide.title} generated successfully.`,
+
+              slideId: generatedSlide.slideId,
+
+              title: generatedSlide.title,
+
+              status: "completed",
+
+              projectId,
+            });
+          }
+
+          /**
            * SAVE IMMEDIATELY TO DB
            */
           await updateSlide({
@@ -447,6 +481,25 @@ export async function generateSlidesContent({
           });
 
           /**
+           * SOCKET FAILED EVENT
+           */
+          if (userId) {
+            emitToUser(userId, "agent:per_slide_content:failed", {
+              success: false,
+
+              message: `${failedSlideId} generation failed.`,
+
+              slideId: failedSlideId,
+
+              error: failedError,
+
+              status: "failed",
+
+              projectId,
+            });
+          }
+
+          /**
            * SAVE FAILED STATUS
            */
           await updateSlide({
@@ -490,6 +543,27 @@ export async function generateSlidesContent({
       return aNum - bNum;
     });
 
+    /**
+     * AGENT END
+     */
+    if (userId) {
+      emitToUser(userId, "agent:per_slide_content:end", {
+        success: true,
+
+        message: "All slide contents generated successfully.",
+
+        totalSlides: validatedIntent.slides.length,
+
+        generated: pendingSlides.length - failedSlides.length,
+
+        failed: failedSlides.length,
+
+        skipped: skippedSlides.length,
+
+        projectId,
+      });
+    }
+
     return {
       success: true,
 
@@ -519,6 +593,18 @@ export async function generateSlidesContent({
     };
   } catch (error) {
     console.error("[Per Slide Content Agent Error]", error);
+
+    if (userId) {
+      emitToUser(userId, "agent:per_slide_content:failed", {
+        success: false,
+
+        message: "Slide content generation failed.",
+
+        error: error?.message,
+
+        projectId,
+      });
+    }
 
     return {
       success: false,

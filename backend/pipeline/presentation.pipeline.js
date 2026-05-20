@@ -122,7 +122,10 @@ export async function processPipeline({ projectId, userId }) {
     /**
      * INTENT PARSER
      */
-    const intentResult = await parsePresentationIntent(project.userPrompt);
+    const intentResult = await parsePresentationIntent(
+      project.userPrompt,
+      userId
+    );
 
     if (!intentResult.success) {
       await updateProjectStatus({

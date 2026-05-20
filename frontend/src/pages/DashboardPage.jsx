@@ -14,6 +14,7 @@ import { ProjectCard } from "../components/project/ProjectCard";
 import { DashboardSkeleton } from "../components/common/Skeletons";
 import { EmptyState } from "../components/common/EmptyState";
 import { formatNumber } from "../lib/utils";
+import { SeeMoreCard } from "../components/project/SeeMoreCard";
 
 function StatCard({ icon: Icon, label, value, color, delay = 0 }) {
   return (
@@ -103,7 +104,7 @@ export function DashboardPage() {
           color="bg-amber-500"
           delay={0.15}
         />
-        <StatCard
+        {/* <StatCard
           icon={TrendingUp}
           label="Active Projects"
           value={
@@ -113,7 +114,7 @@ export function DashboardPage() {
           }
           color="bg-emerald-500"
           delay={0.2}
-        />
+        /> */}
       </div>
 
       {/* Quick actions */}
@@ -188,9 +189,11 @@ export function DashboardPage() {
           />
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {projects.map((p, i) => (
-              <ProjectCard key={p._id} project={p} index={i} />
-            ))}
+            {projects.map(
+              (p, i) =>
+                i < 5 && <ProjectCard key={p._id} project={p} index={i} />
+            )}
+            <SeeMoreCard index={5} />
           </div>
         )}
       </div>

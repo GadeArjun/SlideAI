@@ -1,26 +1,17 @@
-import { Outlet } from 'react-router-dom'
-import { Sidebar } from '../components/dashboard/Sidebar'
-import { Topbar } from '../components/dashboard/Topbar'
-import { useUIStore } from '../store/uiStore'
-import { Toaster } from 'sonner'
-import { useEffect } from 'react'
-import { useAuth } from '../hooks/useAuth'
-import { socketService } from '../services/socket'
+import { Outlet } from "react-router-dom";
+import { Sidebar } from "../components/dashboard/Sidebar";
+import { Topbar } from "../components/dashboard/Topbar";
+import { useUIStore } from "../store/uiStore";
+import { Toaster } from "sonner";
+import { useEffect } from "react";
+import { useAuth } from "../hooks/useAuth";
+import { socketService } from "../services/socket";
 
 export function DashboardLayout() {
-  const { sidebarOpen, sidebarCollapsed } = useUIStore()
-  const { user } = useAuth()
+  const { sidebarOpen, sidebarCollapsed } = useUIStore();
+  const { user } = useAuth();
 
-  // Connect socket when entering dashboard
-  useEffect(() => {
-    if (user?._id) {
-      socketService.connect()
-      socketService.authenticate(user._id)
-    }
-    return () => {} // keep socket alive across nav
-  }, [user?._id])
-
-  const sidebarW = !sidebarOpen ? 0 : sidebarCollapsed ? 72 : 240
+  const sidebarW = !sidebarOpen ? 0 : sidebarCollapsed ? 72 : 240;
 
   return (
     <div className="min-h-screen bg-[var(--bg)]">
@@ -36,5 +27,5 @@ export function DashboardLayout() {
       </div>
       <Toaster position="bottom-right" richColors closeButton />
     </div>
-  )
+  );
 }

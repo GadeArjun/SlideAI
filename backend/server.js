@@ -5,6 +5,8 @@ import cors from "cors";
 import { config } from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
+import http from "http";
+import { initSocket } from "./config/socket.js";
 
 import connectDB from "./config/db.js";
 
@@ -14,7 +16,12 @@ import projectRoutes from "./routes/project.routes.js";
 config();
 
 const app = express();
+const server = http.createServer(app);
 
+/**
+ * INIT SOCKET
+ */
+initSocket(server);
 /**
  * DATABASE
  */
@@ -98,6 +105,6 @@ app.use((error, req, res, next) => {
  */
 const PORT = process.env.PORT || 8080;
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}\n http://localhost:${PORT}`);
 });

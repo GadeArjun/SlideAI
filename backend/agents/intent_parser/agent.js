@@ -2,6 +2,7 @@ import fs from "fs/promises";
 import path from "path";
 
 import llmJson from "../../config/llm.js";
+import { emitToUser } from "../../config/socket.js";
 
 const PROMPT_PATH = path.join(
   process.cwd(),
@@ -99,9 +100,15 @@ function validateIntent(data = {}) {
   };
 }
 
-export async function parsePresentationIntent(userPrompt = "") {
+export async function parsePresentationIntent(userPrompt = "", userId = null) {
   try {
     if (!userPrompt || typeof userPrompt !== "string") {
+      if (userId) {
+        emitToUser(userId, "agent:intent:failed", {
+          success: false,
+          message: "User prompt is required",
+        });
+      }
       return {
         success: false,
         error: "User prompt is required",
@@ -109,6 +116,13 @@ export async function parsePresentationIntent(userPrompt = "") {
     }
 
     const systemPrompt = await fs.readFile(PROMPT_PATH, "utf-8");
+
+    if (userId) {
+      emitToUser(userId, "agent:intent:start", {
+        success: true,
+        message: "Intent Parser Start.",
+      });
+    }
 
     const response = await llmJson({
       systemPrompt,
@@ -127,6 +141,13 @@ export async function parsePresentationIntent(userPrompt = "") {
     });
 
     if (!response.success) {
+      if (userId) {
+        emitToUser(userId, "agent:intent:failed", {
+          success: false,
+          message: response.error || "Failed to generate intent.",
+        });
+      }
+
       return {
         success: false,
         error: response.error || "Failed to generate intent",
@@ -139,6 +160,13 @@ export async function parsePresentationIntent(userPrompt = "") {
       const parsed = safeJsonParse(parsedData);
 
       if (!parsed.success) {
+        if (userId) {
+          emitToUser(userId, "agent:intent:failed", {
+            success: false,
+            message: "Failed to generate intent.",
+          });
+        }
+
         return {
           success: false,
           error: "Invalid JSON response",
@@ -152,6 +180,12 @@ export async function parsePresentationIntent(userPrompt = "") {
     const validatedIntent = validateIntent(parsedData);
 
     if (!validatedIntent.slides || validatedIntent.slides.length === 0) {
+      if (userId) {
+        emitToUser(userId, "agent:intent:failed", {
+          success: false,
+          message: "Failed to generate intent.",
+        });
+      }
       return {
         success: false,
         error: "No slides generated",
@@ -160,6 +194,13 @@ export async function parsePresentationIntent(userPrompt = "") {
 
     validatedIntent.presentation.totalSlides = validatedIntent.slides.length;
 
+    if (userId) {
+      emitToUser(userId, "agent:intent:end", {
+        success: true,
+        message: "Intent completed successfuly",
+      });
+    }
+
     return {
       success: true,
 
@@ -167,6 +208,13 @@ export async function parsePresentationIntent(userPrompt = "") {
     };
   } catch (error) {
     console.error("[Intent Parser Error]", error);
+
+    if (userId) {
+      emitToUser(userId, "agent:intent:failed", {
+        success: false,
+        message: "Failed to generate intent ",
+      });
+    }
 
     return {
       success: false,

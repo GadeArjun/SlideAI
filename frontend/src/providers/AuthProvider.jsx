@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { useAuthStore } from "../store/authStore";
 import { useUIStore } from "../store/uiStore";
 import { authApi } from "../api/auth";
-import { socketService } from "../services/socket";
 
 export function AuthProvider({ children }) {
   const { token, setAuth, logout, setLoading, isAuthenticated } =
@@ -25,9 +24,6 @@ export function AuthProvider({ children }) {
         const res = await authApi.getMe();
         const user = res.data.data;
         setAuth(user, token);
-        // Connect socket after restoring
-        socketService.connect();
-        socketService.authenticate(user._id);
       } catch {
         logout();
       }

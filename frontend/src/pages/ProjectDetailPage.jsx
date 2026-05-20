@@ -37,6 +37,7 @@ import {
   FileText,
   PanelLeftOpen,
   PanelLeftClose,
+  Sliders,
 } from "lucide-react";
 
 import {
@@ -63,6 +64,9 @@ import { contentTemplates } from "../lib/templates/content";
 
 // CLOSING
 import { closingTemplates } from "../lib/templates/closing";
+import { useAuth } from "../hooks/useAuth";
+import { socketService } from "../services/socket";
+import { mapProjectToGeneration } from "../lib/mapProjectToGeneration";
 
 const templateRegistry = {
   ...heroTemplates,
@@ -224,11 +228,30 @@ export function ProjectDetailPage() {
   const { mutate: deleteProject, isPending: deleting } = useDeleteProject();
   const generation = useProjectStore((s) => s.activeGenerations[projectId]);
 
+  const user = useAuth((s) => s.user);
+  const userId = user.user.id || user.user._id;
+  const hydrateGeneration = useProjectStore((s) => s.hydrateGeneration);
+
   /**
    * Keep the original response access pattern:
    * data.data
    */
   const project = data?.data;
+
+  // socket auth connection
+  useEffect(() => {
+    if (userId && projectId) {
+      socketService.connect();
+      socketService.emit("auth", userId);
+    }
+    console.log({ user, projectId, userId });
+  }, [projectId, user]);
+
+  useEffect(() => {
+    if (!project?._id) return;
+
+    hydrateGeneration(project._id, mapProjectToGeneration(project));
+  }, [project]);
 
   /**
    * Backend theme overrides defaults.
@@ -277,6 +300,9 @@ export function ProjectDetailPage() {
 
   const isActive = isActiveStatus(project?.status);
   const isCompleted = project?.status === "completed";
+  const [showTracking, setShowTracking] = useState(true);
+
+  console.log({ project, generation, isActive });
 
   const fullPptUrl =
     project?.output?.pptUrl || project?.output?.latest?.outputUrl || "";
@@ -555,7 +581,6 @@ export function ProjectDetailPage() {
                 className="
                   border-r
                   border-[var(--border-primary)]
-                  dark:border-zinc-900
                   bg-[var(--surface-primary)]
                   bg-[var(--surface-primary)]
                   overflow-y-auto
@@ -602,11 +627,53 @@ dark:bg-[var(--surface-secondary)] bg-[var(--surface-primary)] flex flex-col min
               <div className="flex-1 flex items-center justify-center p-8">
                 <Skeleton className="w-full max-w-4xl h-[32rem] rounded-3xl" />
               </div>
-            ) : isActive && generation ? (
-              <div className="flex-1 flex items-center justify-center p-8">
-                <div className="w-full max-w-md">
+            ) : isActive && generation && showTracking ? (
+              <div className="flex-1 flex flex-col items-center justify-center px-4 min-h-0 overflow-y-auto overflow-x-hidden">
+                <div className="absolute top-4 right-4 z-20">
+                  <button
+                    onClick={() => setShowTracking(true)}
+                    className="
+        inline-flex
+        items-center
+        gap-2
+
+        rounded-2xl
+
+        border
+        border-[var(--border-primary)]
+
+        bg-[var(--surface-primary)]/90
+        backdrop-blur-xl
+
+        px-4
+        py-2
+
+        text-xs
+        font-medium
+
+        text-[var(--text-primary)]
+
+        shadow-lg
+
+        transition-all
+        duration-200
+
+        hover:scale-[1.02]
+        hover:bg-[var(--surface-secondary)]
+      "
+                  >
+                    <Sliders className="w-3.5 h-3.5" />
+                    Show Slides
+                  </button>
+                </div>
+
+                {/* TRACKER */}
+                <div className="w-full max-w-md overflow-hidden shrink-0">
                   <GenerationTracker projectId={projectId} />
                 </div>
+
+                {/* BOTTOM SPACE */}
+                <div className="h-10 shrink-0" />
               </div>
             ) : slideNumbers.length === 0 ? (
               <div className="flex-1 flex flex-col items-center justify-center gap-3">
@@ -618,7 +685,7 @@ dark:bg-[var(--surface-secondary)] bg-[var(--surface-primary)] flex flex-col min
             ) : (
               <>
                 {/* NAV BAR */}
-                <div className="flex items-center justify-between px-4 py-2 shrink-0 border-b border-[var(--border-primary)] bg-[var(--surface-primary)] bg-[var(--surface-primary)]">
+                <div className="flex items-center justify-between px-4 py-2 shrink-0 border-b border-[var(--border-primary)] bg-[var(--surface-primary)]">
                   <button
                     onClick={goPrev}
                     disabled={!canPrev}
@@ -679,6 +746,46 @@ dark:bg-[var(--surface-secondary)] bg-[var(--surface-primary)] flex flex-col min
                     <ChevronRight className="w-4 h-4" />
                   </button>
                 </div>
+
+                {isActive && generation && !showTracking && (
+                  <div className="absolute top-4 right-4 z-20">
+                    <button
+                      onClick={() => setShowTracking(false)}
+                      className="
+        inline-flex
+        items-center
+        gap-2
+
+        rounded-2xl
+
+        border
+        border-[var(--border-primary)]
+
+        bg-[var(--surface-primary)]/90
+        backdrop-blur-xl
+
+        px-4
+        py-2
+
+        text-xs
+        font-medium
+
+        text-[var(--text-primary)]
+
+        shadow-lg
+
+        transition-all
+        duration-200
+
+        hover:scale-[1.02]
+        hover:bg-[var(--surface-secondary)]
+      "
+                    >
+                      <Sparkles className="w-3.5 h-3.5" />
+                      Show Progress
+                    </button>
+                  </div>
+                )}
 
                 {/* PREVIEW AREA */}
                 <motion.div
