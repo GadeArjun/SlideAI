@@ -1,3 +1,6 @@
+import { useEffect, useState } from "react";
+import { getUnsplashImage } from "../../../utils/getUnsplashImage";
+
 const DEFAULT_THEME = {
   backgroundColor: "#0F172A",
   surfaceColor: "#111827",
@@ -21,7 +24,24 @@ function cleanColor(color = "#000000") {
 export function Preview({ data }) {
   const t = getTheme(data.theme);
 
+  const [resolvedImages, setResolvedImages] = useState([]);
+
   const images = Array.isArray(data.images) ? data.images.slice(0, 4) : [];
+
+  useEffect(() => {
+    async function loadImages() {
+      const finalImages = await Promise.all(
+        images.map(async (img) => ({
+          ...img,
+          url: await getUnsplashImage({ title: img.caption }),
+        }))
+      );
+
+      setResolvedImages(finalImages);
+    }
+
+    loadImages();
+  }, [images]);
 
   return (
     <div
@@ -62,7 +82,7 @@ export function Preview({ data }) {
           minHeight: 0,
         }}
       >
-        {images.map((image, i) => (
+        {resolvedImages.map((image, i) => (
           <div
             key={i}
             style={{
@@ -134,6 +154,13 @@ export async function toPptx(slide, pptx, data) {
 
   const images = Array.isArray(data.images) ? data.images.slice(0, 4) : [];
 
+  const resolvedImages = await Promise.all(
+    images.map(async (img) => ({
+      ...img,
+      url: await getUnsplashImage({ title: img.caption }),
+    }))
+  );
+
   slide.background = {
     color: cleanColor(t.backgroundColor),
   };
@@ -165,7 +192,7 @@ export async function toPptx(slide, pptx, data) {
     [5.0, 3.0],
   ];
 
-  images.forEach((image, i) => {
+  resolvedImages.forEach((image, i) => {
     const [x, y] = positions[i];
 
     if (image.url) {

@@ -28,13 +28,13 @@ export function Preview({ data }) {
                 }}
               />
               <p className="text-xs font-bold" style={{ color: t.accentColor }}>
-                {it.date}
+                {it.title}
               </p>
               <p
                 className="text-sm text-center mt-1"
                 style={{ color: t.secondaryTextColor }}
               >
-                {it.text}
+                {it.desc}
               </p>
             </div>
           ))}
@@ -76,7 +76,7 @@ export async function toPptx(slide, pptx, data) {
       fill: { color: t.backgroundColor.replace("#", "") },
       line: { color: t.accentColor.replace("#", ""), width: 2 },
     });
-    slide.addText(it.date, {
+    slide.addText(it.title, {
       x: x - 0.6,
       y: 2.2,
       w: 1.2,
@@ -86,7 +86,7 @@ export async function toPptx(slide, pptx, data) {
       align: "center",
       color: t.accentColor.replace("#", ""),
     });
-    slide.addText(it.text, {
+    slide.addText(it.desc, {
       x: x - 0.8,
       y: 3.1,
       w: 1.6,
