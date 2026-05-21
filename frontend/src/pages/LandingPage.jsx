@@ -119,7 +119,7 @@ function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-(--surface)border-b border-(--border) px-5 pb-4 space-y-1"
+            className="md:hidden bg-(--surface) border-b border-(--border) px-5 pb-4 space-y-1"
           >
             {links.map((l) => (
               <a
@@ -238,7 +238,7 @@ function HeroSection() {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-(--border) bg-(--surface)shadow-sm text-sm font-medium text-(--text-secondary) mb-7"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-(--border) bg-(--surface)   shadow-sm text-sm font-medium text-(--text-secondary) mb-7"
         >
           <Sparkles className="w-3.5 h-3.5 text-blue-500" />
           Powered by Advanced AI Models
@@ -397,21 +397,21 @@ function HeroSection() {
           <motion.div
             animate={{ y: [0, -8, 0] }}
             transition={{ duration: 3, repeat: Infinity }}
-            className="absolute -top-4 -left-6 bg-(--surface)border border-(--border) rounded-xl px-3 py-2 shadow-card text-xs font-semibold text-(--text-primary) items-center gap-2 hidden sm:flex"
+            className="absolute -top-4 -left-6 bg-(--surface) border border-(--border) rounded-xl px-3 py-2 shadow-card text-xs font-semibold text-(--text-primary) items-center gap-2 hidden sm:flex"
           >
             <Brain className="w-4 h-4 text-blue-500" /> AI Planning
           </motion.div>
           <motion.div
             animate={{ y: [0, -6, 0] }}
             transition={{ duration: 3.5, repeat: Infinity, delay: 0.5 }}
-            className="absolute -top-4 -right-4 bg-(--surface)border border-(--border) rounded-xl px-3 py-2 shadow-card text-xs font-semibold text-emerald-600  items-center gap-2 hidden sm:flex"
+            className="absolute -top-4 -right-4 bg-(--surface)  border border-(--border) rounded-xl px-3 py-2 shadow-card text-xs font-semibold text-emerald-600  items-center gap-2 hidden sm:flex"
           >
             <CheckCircle2 className="w-4 h-4" /> Slide Ready!
           </motion.div>
           <motion.div
             animate={{ y: [0, -7, 0] }}
             transition={{ duration: 4, repeat: Infinity, delay: 1 }}
-            className="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-(--surface)border border-(--border) rounded-xl px-3 py-2 shadow-card text-xs font-semibold text-violet-600 flex items-center gap-2"
+            className="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-(--surface) border border-(--border) rounded-xl px-3 py-2 shadow-card text-xs font-semibold text-violet-600 flex items-center gap-2"
           >
             <Download className="w-4 h-4" /> PPTX Export Ready
           </motion.div>

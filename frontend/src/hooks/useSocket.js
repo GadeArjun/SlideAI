@@ -27,8 +27,13 @@ export function useSocket() {
 export function useProjectSocket(projectId) {
   const listenersRef = useRef([]);
 
-  const { initGeneration, updateGeneration, addLog, removeGeneration } =
-    useProjectStore();
+  const {
+    initGeneration,
+    updateGeneration,
+    addLog,
+    removeGeneration,
+    updateSlideEdit,
+  } = useProjectStore();
 
   useEffect(() => {
     if (!projectId) return;
@@ -36,7 +41,12 @@ export function useProjectSocket(projectId) {
     /**
      * INIT PROJECT STATE
      */
-    initGeneration(projectId);
+    // initGeneration(projectId);
+    const existing = useProjectStore.getState().activeGenerations?.[projectId];
+
+    if (!existing) {
+      initGeneration(projectId);
+    }
 
     /**
      * =========================================
@@ -167,13 +177,6 @@ export function useProjectSocket(projectId) {
         currentStep: data?.message,
       });
 
-      /**
-       * REFRESH PROJECT
-       */
-      queryClient.invalidateQueries({
-        queryKey: QUERY_KEYS.PROJECT(projectId),
-      });
-
       addLog(projectId, {
         type: "success",
 
@@ -201,6 +204,13 @@ export function useProjectSocket(projectId) {
         completedAt: Date.now(),
       });
 
+      /**
+       * REFRESH PROJECT
+       */
+      queryClient.invalidateQueries({
+        queryKey: QUERY_KEYS.PROJECT(projectId),
+      });
+
       addLog(projectId, {
         type: "success",
 
@@ -208,6 +218,7 @@ export function useProjectSocket(projectId) {
 
         time: Date.now(),
       });
+
       setTimeout(() => {
         removeGeneration(projectId);
       }, 1000);
@@ -252,6 +263,91 @@ export function useProjectSocket(projectId) {
 
     /**
      * =========================================
+     * PER SLIDE EDITPR START
+     * =========================================
+     */
+
+    const handlePerSlideEditStart = (data) => {
+      updateSlideEdit(projectId, data.slideNumber, {
+        isEditing: true,
+
+        progress: 5,
+
+        currentStep: data?.message || "Starting slide edit...",
+
+        error: null,
+
+        startedAt: Date.now(),
+      });
+
+      addLog(projectId, {
+        type: "info",
+
+        message: `✏️ Editing Slide ${data.slideNumber}`,
+
+        time: Date.now(),
+      });
+
+      toast.info(`Editing Slide ${data.slideNumber}`, {
+        description: data?.message,
+      });
+    };
+
+    // end
+    const handlePerSlideEditEnd = (data) => {
+      updateSlideEdit(projectId, data.slideNumber, {
+        isEditing: false,
+
+        progress: 100,
+
+        currentStep: "Completed",
+
+        completedAt: Date.now(),
+      });
+
+      queryClient.invalidateQueries({
+        queryKey: QUERY_KEYS.PROJECT(projectId),
+      });
+
+      addLog(projectId, {
+        type: "success",
+
+        message: `✅ Slide ${data.slideNumber} edited successfully`,
+
+        time: Date.now(),
+      });
+
+      toast.success(`Slide ${data.slideNumber} Updated`);
+    };
+
+    // failed
+
+    const handlePerSlideEditFailed = (data) => {
+      updateSlideEdit(projectId, data.slideNumber, {
+        isEditing: false,
+
+        progress: 0,
+
+        currentStep: "Failed",
+
+        error: data?.message,
+      });
+
+      addLog(projectId, {
+        type: "error",
+
+        message: `❌ Slide ${data.slideNumber} edit failed`,
+
+        time: Date.now(),
+      });
+
+      toast.error(`Slide ${data.slideNumber} Edit Failed`, {
+        description: data?.message,
+      });
+    };
+
+    /**
+     * =========================================
      * REGISTER EVENTS
      * =========================================
      */
@@ -269,6 +365,12 @@ export function useProjectSocket(projectId) {
       [SOCKET_EVENTS.PER_SLIDE_CONTENT_END, handlePerSlideEnd],
 
       [SOCKET_EVENTS.PER_SLIDE_CONTENT_FAILED, handlePerSlideFailed],
+
+      [SOCKET_EVENTS.PER_SLIDE_EDITOR_START, handlePerSlideEditStart],
+
+      [SOCKET_EVENTS.PER_SLIDE_EDITOR_END, handlePerSlideEditEnd],
+
+      [SOCKET_EVENTS.PER_SLIDE_EDITOR_FAILED, handlePerSlideEditFailed],
     ];
 
     /**

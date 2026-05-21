@@ -53,7 +53,7 @@ function buildIconNodeMap() {
 const ICON_NODE_MAP = buildIconNodeMap();
 const ICON_NAMES = [...ICON_NODE_MAP.keys()];
 
-console.log(`✅ Lucide icon map built: ${ICON_NAMES.length} icons`);
+console.info(`✅ Lucide icon map built: ${ICON_NAMES.length} icons`);
 
 /* =====================================================
    FUZZY MATCHING (unchanged)

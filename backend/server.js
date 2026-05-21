@@ -106,5 +106,5 @@ app.use((error, req, res, next) => {
 const PORT = process.env.PORT || 8080;
 
 server.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}\n http://localhost:${PORT}`);
+  console.info(`Server running on port ${PORT}\n http://localhost:${PORT}`);
 });

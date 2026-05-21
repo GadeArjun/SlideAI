@@ -232,6 +232,10 @@ export function ProjectDetailPage() {
   const userId = user.user.id || user.user._id;
   const hydrateGeneration = useProjectStore((s) => s.hydrateGeneration);
 
+  const slideEdit = useProjectStore(
+    (s) => s.slideEdits?.[projectId]?.[selectedSlide]
+  );
+  const updateSlideEdit = useProjectStore((s) => s.updateSlideEdit);
   /**
    * Keep the original response access pattern:
    * data.data
@@ -241,10 +245,16 @@ export function ProjectDetailPage() {
   // socket auth connection
   useEffect(() => {
     if (userId && projectId) {
-      socketService.connect();
-      socketService.emit("auth", userId);
+      const socket = socketService.connect();
+
+      if (socket.connected) {
+        socketService.emit("auth", userId);
+      } else {
+        socket.once("connect", () => {
+          socketService.emit("auth", userId);
+        });
+      }
     }
-    console.log({ user, projectId, userId });
   }, [projectId, user]);
 
   useEffect(() => {
@@ -417,17 +427,40 @@ export function ProjectDetailPage() {
       toast.error("Enter an edit instruction");
       return;
     }
+    try {
+      updateSlideEdit(projectId, selectedSlide, {
+        isEditing: true,
+        progress: 5,
+        currentStep: "Analyzing slide",
+      });
+      editSlide(
+        {
+          projectId,
+          slideNumber: selectedSlide,
+          userPrompt: editPrompt,
+        },
+        {
+          onSuccess: () => {
+            setEditPrompt("");
+          },
 
-    editSlide(
-      {
-        projectId,
-        slideNumber: selectedSlide,
-        userPrompt: editPrompt,
-      },
-      {
-        onSuccess: () => setEditPrompt(""),
-      }
-    );
+          onError: () => {
+            updateSlideEdit(projectId, selectedSlide, {
+              isEditing: false,
+              progress: 0,
+              currentStep: "Failed",
+            });
+          },
+        }
+      );
+    } catch (error) {
+      updateSlideEdit(projectId, selectedSlide, {
+        isEditing: false,
+        progress: 0,
+        currentStep: "Failed",
+      });
+      console.error({ error });
+    }
   };
 
   if (error) {
@@ -552,6 +585,18 @@ export function ProjectDetailPage() {
               </a>
             )}
 
+            {isActive && generation && !showTracking && (
+              <div className="absolute top-35 right-2 z-20">
+                <button
+                  onClick={() => setShowTracking(true)}
+                  className="inline-flex  items-center gap-2       rounded-2xl border border-(--border-primary)       bg-(--surface-primary)/90 backdrop-blur-xl       px-4 py-2 text-xs font-medium text-(--text-primary)shadow-lg transition-all duration-200 hover:scale-[1.02] hover:bg-(--surface-secondary)"
+                >
+                  <Sparkles className="w-3.5 h-3.5" />
+                  Show Progress
+                </button>
+              </div>
+            )}
+
             <button onClick={handleExport} className="btn-primary text-xs">
               <Download className="w-4 h-4" />
               Export PPTX
@@ -628,7 +673,7 @@ export function ProjectDetailPage() {
               </div>
             ) : isActive && generation && showTracking ? (
               <div className="flex-1 flex flex-col items-center justify-center px-4 min-h-0 overflow-y-auto overflow-x-hidden">
-                <div className="absolute top-4 right-4 z-20">
+                <div className="absolute top-35 right-2">
                   <button
                     onClick={() => setShowTracking(false)}
                     className="
@@ -744,58 +789,52 @@ export function ProjectDetailPage() {
                   </button>
                 </div>
 
-                {isActive && generation && !showTracking && (
-                  <div className="absolute top-4 right-4 z-20">
-                    <button
-                      onClick={() => setShowTracking(true)}
-                      className="
-        inline-flex
-        items-center
-        gap-2
-
-        rounded-2xl
-
-        border
-        border-(--border-primary)
-
-        bg-(--surface-primary)/90
-        backdrop-blur-xl
-
-        px-4
-        py-2
-
-        text-xs
-        font-medium
-
-        text-(--text-primary)
-
-        shadow-lg
-
-        transition-all
-        duration-200
-
-        hover:scale-[1.02]
-        hover:bg-(--surface-secondary)
-      "
-                    >
-                      <Sparkles className="w-3.5 h-3.5" />
-                      Show Progress
-                    </button>
-                  </div>
-                )}
-
                 {/* PREVIEW AREA */}
-                <motion.div
-                  key={selectedSlide}
-                  initial={{ opacity: 0, y: 4 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.18 }}
-                  className="flex-1 p-4 min-h-0 flex items-center justify-center"
-                  ref={previewContainerRef}
-                >
-                  <div className="w-full h-full flex items-center justify-center">
-                    <div
-                      className="
+                {currentSlide?.status === "slide_editing" ||
+                slideEdit?.isEditing ? (
+                  <div className="w-full h-full flex items-center justify-center p-6">
+                    <div className="flex flex-col items-center gap-5 rounded-3xl border border-(--border-primary) bg-(--surface-primary)/80 backdrop-blur-xl px-10 py-8 shadow-xl">
+                      {/* Loader */}
+                      <div className="relative flex items-center justify-center">
+                        <div className="absolute w-16 h-16 rounded-full border-(--border-primary)`" />
+
+                        <div className="w-16 h-16 rounded-full border-2 border-transparent border-t-(--text-primary) animate-spin" />
+                      </div>
+
+                      {/* Text */}
+                      <div className="text-center space-y-1">
+                        <p
+                          className="text-base font-semibold 
+                        text-(--text-primary)"
+                        >
+                          Editing Slide {selectedSlide}
+                        </p>
+
+                        <p className="text-sm text-(--text-secondary)">
+                          AI is improving the presentation...
+                        </p>
+                      </div>
+
+                      {/* Dots */}
+                      <div className="flex items-center gap-2">
+                        <div className="h-2 w-2 rounded-full bg-(--text-primary) animate-bounce" />
+                        <div className="h-2 w-2 rounded-full bg-(--text-primary) animate-bounce [animation-delay:120ms]" />
+                        <div className="h-2 w-2 rounded-full bg-(--text-primary) animate-bounce [animation-delay:240ms]" />
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <motion.div
+                    key={selectedSlide}
+                    initial={{ opacity: 0, y: 4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.18 }}
+                    className="flex-1 p-4 min-h-0 flex items-center justify-center"
+                    ref={previewContainerRef}
+                  >
+                    <div className="w-full h-full flex items-center justify-center">
+                      <div
+                        className="
                         rounded-3xl
                         overflow-hidden
                         shadow-[0_10px_40px_rgba(0,0,0,0.12)]
@@ -805,31 +844,32 @@ dark:shadow-[0_10px_40px_rgba(0,0,0,0.5)]
                         bg-(--surface-primary)
                         shrink-0
                       "
-                      style={{
-                        width: `${PPT_WIDTH}px`,
-                        height: `${PPT_HEIGHT}px`,
-                        transform: `scale(${scale})`,
-                        transformOrigin: "center center",
-                      }}
-                    >
-                      {CurrentTemplate?.Preview ? (
-                        <CurrentTemplate.Preview
-                          data={buildRenderData(currentSlide)}
-                        />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center text-red-500 text-sm">
-                          <div className="text-center space-y-2">
-                            <FileText className="w-10 h-10 mx-auto opacity-40" />
-                            <p>Template not found:</p>
-                            <p className="font-mono text-xs">
-                              {currentSlide?.template}
-                            </p>
+                        style={{
+                          width: `${PPT_WIDTH}px`,
+                          height: `${PPT_HEIGHT}px`,
+                          transform: `scale(${scale})`,
+                          transformOrigin: "center center",
+                        }}
+                      >
+                        {CurrentTemplate?.Preview ? (
+                          <CurrentTemplate.Preview
+                            data={buildRenderData(currentSlide)}
+                          />
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center text-red-500 text-sm">
+                            <div className="text-center space-y-2">
+                              <FileText className="w-10 h-10 mx-auto opacity-40" />
+                              <p>Template not found:</p>
+                              <p className="font-mono text-xs">
+                                {currentSlide?.template}
+                              </p>
+                            </div>
                           </div>
-                        </div>
-                      )}
+                        )}
+                      </div>
                     </div>
-                  </div>
-                </motion.div>
+                  </motion.div>
+                )}
 
                 {/* INFO BAR */}
                 <div className="flex items-center justify-between gap-4 px-4 py-2.5 border-t border-(--border-primary) bg-(--surface-primary) text-xs text-(--text-secondary) shrink-0">
@@ -917,11 +957,12 @@ dark:bg-(--surface-secondary) shrink-0"
 
                     <div className="space-y-1.5">
                       {[
-                        "Make it more visually engaging",
+                        "Improve slide clarity",
+                        "Add more description",
+                        "Improve visual hierarchy",
                         "Add relevant icons",
-                        "Make colors more vibrant",
-                        "Add a chart or diagram",
-                        "Improve typography hierarchy",
+                        "Add a chart",
+                        "Add a timeline",
                       ].map((s) => (
                         <button
                           key={s}
@@ -951,10 +992,18 @@ dark:bg-(--surface-secondary) shrink-0"
 
                   <button
                     type="submit"
-                    disabled={editing || !isCompleted || !editPrompt.trim()}
+                    disabled={
+                      editing ||
+                      !isCompleted ||
+                      !editPrompt.trim() ||
+                      currentSlide?.status === "slide_editing" ||
+                      slideEdit?.isEditing
+                    }
                     className="btn-primary w-full justify-center text-xs disabled:opacity-50"
                   >
-                    {editing ? (
+                    {editing ||
+                    currentSlide?.status === "slide_editing" ||
+                    slideEdit?.isEditing ? (
                       <>
                         <Loader2 className="w-3.5 h-3.5 animate-spin" />
                         Editing…

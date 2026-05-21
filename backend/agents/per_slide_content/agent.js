@@ -13,7 +13,7 @@ const PROMPT_PATH = path.join(
 );
 
 const MAX_PARALLEL_SLIDES = Number(
-  process.env.SLIDE_CONTENT_PARALLEL_LIMIT || 1
+  process.env.SLIDE_CONTENT_PARALLEL_LIMIT || 10
 );
 
 const DEFAULT_THEME = {
@@ -186,8 +186,6 @@ async function generateSingleSlide({
         slideId: slide.id,
       },
     });
-
-    console.log({ perSlideRes: JSON.stringify(response, null, 2) });
 
     if (!response.success) {
       return {
@@ -392,7 +390,6 @@ export async function generateSlidesContent({
           })
         )
       );
-      console.log({ results });
       /**
        * HANDLE RESULTS
        */

@@ -5,7 +5,6 @@ import { getIconBase64 } from "../../../utils/iconHelper.js";
 ========================================================= */
 
 export function Preview({ data }) {
-  console.log({ data });
 
   const t = data.theme || {};
 

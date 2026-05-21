@@ -13,29 +13,21 @@ export const PROJECT_STATUS = {
   PAUSED: "paused",
   RUNNING: "running",
 };
-
 export const STATUS_LABELS = {
-  created: "Created",
-  planning: "Planning",
-  generating: "Generating",
-  rendering: "Rendering",
+  intent_processing: "Planning",
+  slides_generating: "Generating",
   completed: "Completed",
-  failed: "Failed",
-  paused: "Paused",
-  running: "Running",
 };
 
 export const STATUS_COLORS = {
-  created: "bg-zinc-100 text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400",
-  planning: "bg-blue-50 text-blue-600 dark:bg-blue-950 dark:text-blue-400",
-  generating:
-    "bg-violet-50 text-violet-600 dark:bg-violet-950 dark:text-violet-400",
-  rendering: "bg-amber-50 text-amber-600 dark:bg-amber-950 dark:text-amber-400",
+  intent_processing:
+    "bg-blue-50 text-blue-700 dark:bg-blue-950/40 dark:text-blue-400",
+
+  slides_generating:
+    "bg-violet-50 text-violet-700 dark:bg-violet-950/40 dark:text-violet-400",
+
   completed:
-    "bg-emerald-50 text-emerald-600 dark:bg-emerald-950 dark:text-emerald-400",
-  failed: "bg-red-50 text-red-600 dark:bg-red-950 dark:text-red-400",
-  paused: "bg-zinc-100 text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400",
-  running: "bg-blue-50 text-blue-600 dark:bg-blue-950 dark:text-blue-400",
+    "bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400",
 };
 
 export const SOCKET_EVENTS = {
@@ -48,6 +40,9 @@ export const SOCKET_EVENTS = {
   PER_SLIDE_CONTENT_PROGRESS: "agent:per_slide_content:progress",
   PER_SLIDE_CONTENT_END: "agent:per_slide_content:end",
   PER_SLIDE_CONTENT_FAILED: "agent:per_slide_content:failed",
+  PER_SLIDE_EDITOR_START: "agent:per_slide_edit:start",
+  PER_SLIDE_EDITOR_END: "agent:per_slide_edit:end",
+  PER_SLIDE_EDITOR_FAILED: "agent:per_slide_edit:failed",
 };
 
 export const QUERY_KEYS = {

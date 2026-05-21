@@ -42,7 +42,6 @@ export function DashboardPage() {
   const { data: statsData } = useUserStats();
 
   const projects = projectsData?.data || [];
-  console.log({ projectsData, projects });
   const stats = statsData?.stats || {};
 
   if (isLoading) return <DashboardSkeleton />;
@@ -97,13 +96,13 @@ export function DashboardPage() {
           color="bg-violet-500"
           delay={0.1}
         />
-        <StatCard
+        {/* <StatCard
           icon={Zap}
           label="Tokens Used"
           value={formatNumber(user?.totalTokensUsed || 0)}
           color="bg-amber-500"
           delay={0.15}
-        />
+        /> */}
         {/* <StatCard
           icon={TrendingUp}
           label="Active Projects"

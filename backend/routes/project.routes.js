@@ -12,6 +12,7 @@ import {
   pausePipelineController,
   resumePipelineController,
   getPipelineStateController,
+  editPresentationController,
 } from "../controllers/project.controller.js";
 
 const router = express.Router();
@@ -50,5 +51,10 @@ router.post("/:projectId/resume", protect, resumePipelineController);
  * PIPELINE STATE
  */
 router.get("/:projectId/state", protect, getPipelineStateController);
+
+/**
+ * PRESENTATION EDIT
+ */
+router.post("/:projectId/edit-slide", protect, editPresentationController);
 
 export default router;

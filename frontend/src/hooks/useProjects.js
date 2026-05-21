@@ -10,7 +10,6 @@ export function useProjects(params = {}) {
     queryKey: [...QUERY_KEYS.PROJECTS, params],
     queryFn: () =>
       projectsApi.getAll(params).then((r) => {
-        console.log({ r });
         return r.data;
       }),
   });

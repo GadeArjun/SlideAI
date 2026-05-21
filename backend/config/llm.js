@@ -4,8 +4,7 @@ import { config } from "dotenv";
 config();
 
 const OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions";
-const API_KEY =
-  process.env.OPEN_ROUTE_API_KEY;
+const API_KEY = process.env.OPEN_ROUTE_API_KEY;
 const DEFAULT_MODEL = "openai/gpt-oss-120b:free";
 
 if (!API_KEY) {
@@ -121,7 +120,7 @@ export async function llm({
     }
 
     // Log for debugging
-    console.log(
+    console.info(
       `[LLM] ${model} | ${duration}ms | ${
         response.data?.usage?.total_tokens || 0
       } tokens`

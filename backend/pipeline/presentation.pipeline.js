@@ -11,6 +11,7 @@ import {
 import parsePresentationIntent from "../agents/intent_parser/agent.js";
 
 import generateSlidesContent from "../agents/per_slide_content/agent.js";
+import { editPresentationAgent } from "../agents/per_slide_editor/agent.js";
 
 /**
  * IN-MEMORY PIPELINE CONTROL
@@ -195,7 +196,7 @@ export async function processPipeline({ projectId, userId }) {
       intentData: intentResult.data,
       existingSlides: projectResult.slides || [],
       userId,
-      projectId
+      projectId,
     });
 
     if (!slidesResult.success) {
@@ -353,6 +354,21 @@ export function getPipelineState(projectId) {
   return activePipelines.get(projectId) || null;
 }
 
+/**
+ * EDIT PRESENTATION
+ */
+
+export async function editPresentation(
+  projectId,
+  slideNumber,
+  userPrompt,
+  userId
+) {
+  try {
+    editPresentationAgent(projectId, slideNumber , userPrompt, userId);
+  } catch (error) {}
+}
+
 export default {
   startPresentationPipeline,
 
@@ -363,4 +379,6 @@ export default {
   resumePipeline,
 
   getPipelineState,
+
+  editPresentation,
 };

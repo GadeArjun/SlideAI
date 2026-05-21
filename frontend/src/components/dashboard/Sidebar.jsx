@@ -42,7 +42,7 @@ export function Sidebar() {
           animate={{ x: 0, width: collapsed ? 72 : 240 }}
           exit={{ x: -260 }}
           transition={{ duration: 0.25, ease: "easeInOut" }}
-          className="fixed left-0 top-0 h-full z-30 flex flex-col border-r border-(--border) bg-(--surface)shrink-0"
+          className="fixed left-0 top-0 h-full z-30 flex flex-col border-r border-(--border) bg-(--surface) shrink-0"
           style={{ width: collapsed ? 72 : 240 }}
         >
           {/* Logo */}

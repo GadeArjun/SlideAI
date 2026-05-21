@@ -40,7 +40,6 @@ export function CreateProjectPage() {
       { prompt },
       {
         onSuccess: (data) => {
-          console.log({ data });
           // Project is started in background, we need to track via socket
           // Backend doesn't return projectId on create (fire-and-forget)
           // We'll navigate to projects page to see it appear

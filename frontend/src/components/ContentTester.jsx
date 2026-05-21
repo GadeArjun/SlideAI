@@ -602,9 +602,7 @@ const agent = new Agent({
 
 const response = await agent.chat(
   'Analyze this customer feedback'
-);
-
-console.log(response.insights);`,
+);`,
     theme: {
       backgroundColor: "#0F172A",
       surfaceColor: "#1E293B",

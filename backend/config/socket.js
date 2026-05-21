@@ -25,12 +25,12 @@ export const initSocket = (server) => {
    * CONNECTION
    */
   ioInstance.on("connection", (socket) => {
-    console.log("Socket Connected:", socket.id);
+    console.info("Socket Connected:", socket.id);
 
     socket.on("auth", (userId) => {
       if (userId) {
         userSocketMap.set(userId.toString(), socket.id);
-        console.log(`Registered User: ${userId.toString()} -> ${socket.id}`);
+        console.info(`Registered User: ${userId.toString()} -> ${socket.id}`);
       }
     });
 
@@ -45,7 +45,7 @@ export const initSocket = (server) => {
      * DISCONNECT
      */
     socket.on("disconnect", () => {
-      console.log("Socket Disconnected:", socket.id);
+      console.info("Socket Disconnected:", socket.id);
 
       /**
        * REMOVE USER SOCKET
@@ -89,9 +89,11 @@ export const emitToUser = (userId, event, data = {}) => {
   const socketId = getSocketIdByUserId(userId);
 
   if (!socketId) {
-    console.log(`User ${userId} is offline`);
+    console.info(`User ${userId} is offline`);
     return;
   }
+
+  console.info(`event emit => "${event}" to => "${userId}" data: `, data);
 
   ioInstance.to(socketId).emit(event, data);
 };

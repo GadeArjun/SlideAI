@@ -5,7 +5,7 @@ let socket = null;
 
 export const socketService = {
   connect() {
-    if (socket?.connected) return socket;
+    if (socket) return socket;
 
     socket = io(SOCKET_URL, {
       transports: ["websocket"],
@@ -15,11 +15,11 @@ export const socketService = {
     });
 
     socket.on("connect", () => {
-      console.log("✅ Socket connected:", socket.id);
+      console.info("✅ Socket connected:", socket.id);
     });
 
     socket.on("disconnect", () => {
-      console.log("❌ Socket disconnected");
+      console.info("❌ Socket disconnected");
     });
 
     socket.on("connect_error", (err) => {
@@ -47,7 +47,8 @@ export const socketService = {
   },
 
   emit(event, data) {
-    socket?.emit(event, data);
+    if (!socket) this.connect();
+    socket.emit(event, data);
   },
 
   getSocket() {

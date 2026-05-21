@@ -4,6 +4,8 @@ export const useProjectStore = create((set, get) => ({
   // Active generation tracking
   activeGenerations: {}, // projectId -> { status, progress, logs, currentAgent, currentStep }
 
+  slideEdits: {},
+
   // Current editor project
   editorProject: null,
 
@@ -39,7 +41,6 @@ export const useProjectStore = create((set, get) => ({
 
   addLog: (projectId, log) =>
     set((s) => {
-      console.log({ log });
       const current = s.activeGenerations[projectId];
       if (!current) return s;
       return {
@@ -66,17 +67,32 @@ export const useProjectStore = create((set, get) => ({
       },
     })),
 
-  updateSlideStatus: (projectId, slideNum, status) =>
-    set((s) => {
-      const current = s.activeGenerations[projectId];
-      if (!current) return s;
-      return {
-        activeGenerations: {
-          ...s.activeGenerations,
-          [projectId]: {
-            ...current,
-            slideStatuses: { ...current.slideStatuses, [slideNum]: status },
+  updateSlideEdit: (projectId, slideNumber, updates) =>
+    set((s) => ({
+      slideEdits: {
+        ...s.slideEdits,
+
+        [projectId]: {
+          ...(s.slideEdits[projectId] || {}),
+
+          [slideNumber]: {
+            ...(s.slideEdits?.[projectId]?.[slideNumber] || {}),
+            ...updates,
           },
+        },
+      },
+    })),
+
+  clearSlideEdit: (projectId, slideNumber) =>
+    set((s) => {
+      const next = { ...(s.slideEdits[projectId] || {}) };
+
+      delete next[slideNumber];
+
+      return {
+        slideEdits: {
+          ...s.slideEdits,
+          [projectId]: next,
         },
       };
     }),

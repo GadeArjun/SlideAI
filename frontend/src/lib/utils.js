@@ -61,7 +61,7 @@ export function isCompletedStatus(status) {
 }
 
 export function isActiveStatus(status) {
-  return ["draft", "intent_processing", "slides_generating"].includes(status);
+  return ["draft", "intent_processing", "slides_generating","slide_editing"].includes(status);
 }
 
 export function isFailedStatus(status) {

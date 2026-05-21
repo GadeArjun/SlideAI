@@ -122,7 +122,7 @@ export function ProfilePage() {
               label: "Slides Generated",
               value: user?.totalSlidesGenerated || 0,
             },
-            { label: "Tokens Used", value: user?.totalTokensUsed || 0 },
+            // { label: "Tokens Used", value: user?.totalTokensUsed || 0 },
           ].map(({ label, value }) => (
             <div
               key={label}

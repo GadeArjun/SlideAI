@@ -1,8 +1,10 @@
+import { emitToUser } from "../config/socket.js";
 import {
   startPresentationPipeline,
   pausePipeline,
   resumePipeline,
   getPipelineState,
+  editPresentation,
 } from "../pipeline/presentation.pipeline.js";
 
 import {
@@ -114,8 +116,6 @@ export async function getProjectController(req, res) {
 export async function getAllProjectsController(req, res) {
   try {
     const userId = req.user?.id || req.query?.userId;
-
-    console.log({ userId });
 
     if (!userId) {
       return res.status(401).json({
@@ -295,6 +295,28 @@ export async function getPipelineStateController(req, res) {
   }
 }
 
+/**
+ * EDIT SLIDE
+ */
+
+export async function editPresentationController(req, res) {
+  try {
+    const userId = req.user.id || req.user._id;
+    const { slideNumber, userPrompt } = req.body;
+
+    let projectId = req.body.projectId || req.params.projectId;
+
+    editPresentation(projectId, slideNumber, userPrompt, userId);
+
+    res.json({ success: true, message: "Slide eddting start" });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Falied to update slide",
+    });
+  }
+}
+
 export default {
   createPresentationController,
 
@@ -309,4 +331,6 @@ export default {
   resumePipelineController,
 
   getPipelineStateController,
+
+  editPresentationController,
 };

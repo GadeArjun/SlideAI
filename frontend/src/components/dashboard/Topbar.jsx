@@ -13,7 +13,7 @@ export function Topbar({ title }) {
   const navigate = useNavigate();
 
   return (
-    <header className="h-16 border-b border-(--border) bg-(--surface)flex items-center px-5 gap-4 sticky top-0 z-20">
+    <header className="h-16 border-b border-(--border) bg-(--surface) flex items-center px-5 gap-4 sticky top-0 z-20">
       <button onClick={toggleSidebar} className="btn-ghost p-2 -ml-2">
         <Menu className="w-5 h-5" />
       </button>
