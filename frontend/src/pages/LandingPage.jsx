@@ -81,14 +81,22 @@ function Navbar() {
 
         <div className="hidden md:flex items-center gap-3 ml-auto">
           {isAuthenticated ? (
-            <button
-              onClick={() => navigate("/dashboard")}
-              className="btn-primary text-sm"
-            >
-              Dashboard <ArrowRight className="w-3.5 h-3.5" />
-            </button>
+            <>
+              <button
+                onClick={() => navigate("/dashboard")}
+                className="btn-primary text-sm"
+              >
+                Dashboard <ArrowRight className="w-3.5 h-3.5" />
+              </button>
+              <Link to="/templates" className="btn-ghost text-sm">
+                Templates
+              </Link>
+            </>
           ) : (
             <>
+              <Link to="/templates" className="btn-ghost text-sm">
+                Templates
+              </Link>
               <Link to="/auth/login" className="btn-ghost text-sm">
                 Log in
               </Link>

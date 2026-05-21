@@ -83,6 +83,7 @@ import {
   BillingPage,
 } from "./pages/SettingsPages";
 import { NotFoundPage } from "./pages/NotFoundPage";
+import TemplateDeckExplorer from "./pages/TemplateDeckExplorer";
 
 export default function App() {
   return (
@@ -92,6 +93,7 @@ export default function App() {
           <Routes>
             {/* Public landing */}
             <Route path="/" element={<LandingPage />} />
+            <Route path="/templates" element={<TemplateDeckExplorer />} />
 
             {/* Auth routes - redirect to dashboard if logged in */}
             <Route element={<PublicRoute />}>

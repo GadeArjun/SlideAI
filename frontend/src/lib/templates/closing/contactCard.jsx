@@ -5,7 +5,6 @@ import { getIconBase64 } from "../../../utils/iconHelper.js";
 ========================================================= */
 
 export function Preview({ data }) {
-
   const t = data.theme || {};
 
   const contacts = [
@@ -43,7 +42,7 @@ export function Preview({ data }) {
     >
       {/* BACKGROUND GLOW */}
       <div
-        className="absolute top-0 right-0 w-[320px] h-[320px] rounded-full blur-3xl opacity-20"
+        className="absolute top-0 right-0 w-[320px] h-80 rounded-full blur-3xl opacity-20"
         style={{
           backgroundColor: t.accentColor,
           transform: "translate(30%, -30%)",
