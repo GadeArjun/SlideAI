@@ -148,8 +148,8 @@ dark:bg-(--surface-secondary)
           : `
               border-(--border-primary)
               
-              bg-(--surface-primary)
-              hover:bg-[var(--surface-primary)/50]
+              bg-(--surface)
+              hover:bg-[var(--surface)/50]
             `
       )}
     >
@@ -501,11 +501,11 @@ export function ProjectDetailPage() {
     -m-5
     md:-m-6
 
-    bg-(--surface-primary)
+    bg-(--surface)
     text-(--text-primary)"
       >
         {/* TOP BAR */}
-        <div className="flex items-center gap-3 px-5 py-3 border-b border-(--border-primary)  bg-(--surface-primary) shrink-0">
+        <div className="flex items-center gap-3 px-5 py-3 border-b border-(--border-primary)  bg-(--surface) shrink-0">
           <button
             onClick={() => navigate("/dashboard/projects")}
             className="btn-ghost p-2"
@@ -589,7 +589,7 @@ export function ProjectDetailPage() {
               <div className="absolute top-35 right-2 z-20">
                 <button
                   onClick={() => setShowTracking(true)}
-                  className="inline-flex  items-center gap-2       rounded-2xl border border-(--border-primary)       bg-(--surface-primary)/90 backdrop-blur-xl       px-4 py-2 text-xs font-medium text-(--text-primary)shadow-lg transition-all duration-200 hover:scale-[1.02] hover:bg-(--surface-secondary)"
+                  className="inline-flex  items-center gap-2       rounded-2xl border border-(--border-primary)       bg-(--surface)/90 backdrop-blur-xl       px-4 py-2 text-xs font-medium text-(--text-primary)shadow-lg transition-all duration-200 hover:scale-[1.02] hover:bg-(--surface-secondary)"
                 >
                   <Sparkles className="w-3.5 h-3.5" />
                   Show Progress
@@ -626,7 +626,7 @@ export function ProjectDetailPage() {
                 className="
                   border-r
                   border-(--border-primary)
-                  bg-(--surface-primary)
+                  bg-(--surface)
                   overflow-y-auto
                   no-scrollbar
                   p-2
@@ -686,7 +686,7 @@ export function ProjectDetailPage() {
         border
 
         border-(--border-primary)
-        bg-(--surface-primary)/90
+        bg-(--surface)/90
         backdrop-blur-xl
 
         px-4
@@ -727,7 +727,7 @@ export function ProjectDetailPage() {
             ) : (
               <>
                 {/* NAV BAR */}
-                <div className="flex items-center justify-between px-4 py-2 shrink-0 border-b border-(--border-primary) bg-(--surface-primary)">
+                <div className="flex items-center justify-between px-4 py-2 shrink-0 border-b border-(--border-primary) bg-(--surface)">
                   <button
                     onClick={goPrev}
                     disabled={!canPrev}
@@ -755,9 +755,9 @@ export function ProjectDetailPage() {
                           n === selectedSlide
                             ? `
                                 bg-(--text-secondary)
-                                text-(--surface-primary)`
+                                text-(--surface)`
                             : `
-                                bg-(--surface-primary)
+                                bg-(--surface)
                                 text-(--text-secondary)
                               `
                         )}
@@ -793,7 +793,7 @@ export function ProjectDetailPage() {
                 {currentSlide?.status === "slide_editing" ||
                 slideEdit?.isEditing ? (
                   <div className="w-full h-full flex items-center justify-center p-6">
-                    <div className="flex flex-col items-center gap-5 rounded-3xl border border-(--border-primary) bg-(--surface-primary)/80 backdrop-blur-xl px-10 py-8 shadow-xl">
+                    <div className="flex flex-col items-center gap-5 rounded-3xl border border-(--border-primary) bg-(--surface)/80 backdrop-blur-xl px-10 py-8 shadow-xl">
                       {/* Loader */}
                       <div className="relative flex items-center justify-center">
                         <div className="absolute w-16 h-16 rounded-full border-(--border-primary)`" />
@@ -841,7 +841,7 @@ export function ProjectDetailPage() {
 dark:shadow-[0_10px_40px_rgba(0,0,0,0.5)]
                         border
                         border-(--border-primary)
-                        bg-(--surface-primary)
+                        bg-(--surface)
                         shrink-0
                       "
                         style={{
@@ -872,7 +872,7 @@ dark:shadow-[0_10px_40px_rgba(0,0,0,0.5)]
                 )}
 
                 {/* INFO BAR */}
-                <div className="flex items-center justify-between gap-4 px-4 py-2.5 border-t border-(--border-primary) bg-(--surface-primary) text-xs text-(--text-secondary) shrink-0">
+                <div className="flex items-center justify-between gap-4 px-4 py-2.5 border-t border-(--border-primary) bg-(--surface) text-xs text-(--text-secondary) shrink-0">
                   <div className="flex items-center gap-2 min-w-0">
                     <span className="font-semibold truncate  text-(--text-primary)">
                       {getSlideTitle(currentSlide)}
@@ -910,7 +910,7 @@ dark:shadow-[0_10px_40px_rgba(0,0,0,0.5)]
                   border-l
                   border-(--border-primary)
                   dark:border-zinc-900
-                  bg-(--surface-primary)
+                  bg-(--surface)
                   flex
                   flex-col
                   shrink-0

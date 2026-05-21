@@ -52,13 +52,6 @@ import {
   Radar,
   Rocket,
   Search,
-  Server,
-  Shield,
-  Sparkles,
-  SquareStack,
-  Target,
-  TrendingUp,
-  Users,
   Workflow,
   X,
   Zap,
@@ -84,6 +77,7 @@ import { toast } from "sonner";
 import { heroTemplates } from "../lib/templates/hero";
 import { contentTemplates } from "../lib/templates/content";
 import { closingTemplates } from "../lib/templates/closing";
+import { Link } from "react-router-dom";
 
 const templateRegistry = {
   ...heroTemplates,
@@ -878,12 +872,12 @@ function SlideThumb({ slide, num, selected, onClick }) {
       onClick={onClick}
       className={`w-full rounded-xl overflow-hidden border transition-all duration-150 text-left group ${
         selected
-          ? "border-indigo-500 shadow-md shadow-indigo-500/20 bg-neutral-800"
-          : "border-neutral-800 bg-neutral-900/60 hover:border-neutral-600 hover:bg-neutral-800/70"
+          ? "border-indigo-500 shadow-md shadow-indigo-500/20 bg-(--surface-tertiary)"
+          : "border-(--border-primary) bg-(--surface-secondary)/60 hover:border-neutral-600 hover:bg-(--surface-tertiary)/70"
       }`}
     >
       {/* Thumbnail preview */}
-      <div className="h-18 overflow-hidden relative bg-neutral-950 border-b border-neutral-800/60">
+      <div className="h-18 overflow-hidden relative bg-(--surface) border-b border-(--border-primary)/60">
         {Template?.Preview ? (
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
             <div className="scale-[0.18] origin-center">
@@ -899,14 +893,14 @@ function SlideThumb({ slide, num, selected, onClick }) {
           </div>
         ) : (
           <div className="w-full h-full flex items-center justify-center">
-            <LayoutGrid className="w-4 h-4 text-neutral-600" />
+            <LayoutGrid className="w-4 h-4 text-(--text-secondary)" />
           </div>
         )}
       </div>
       {/* Meta */}
       <div className="px-2.5 py-2">
         <div className="flex items-center justify-between mb-0.5">
-          <span className="text-[9px] font-mono text-neutral-500 uppercase tracking-widest">
+          <span className="text-[9px] font-mono text-(--text-secondary) uppercase tracking-widest">
             Slide {num}
           </span>
           <span
@@ -915,16 +909,16 @@ function SlideThumb({ slide, num, selected, onClick }) {
                 ? "bg-indigo-950 text-indigo-400"
                 : slide?.category === "closing"
                 ? "bg-emerald-950 text-emerald-400"
-                : "bg-neutral-800 text-neutral-400"
+                : "bg-(--surface-tertiary) text-neutral-400"
             }`}
           >
             {slide?.category}
           </span>
         </div>
-        <p className="text-[10px] font-semibold text-neutral-200 truncate leading-tight">
+        <p className="text-[10px] font-semibold text-(--text-primary) truncate leading-tight">
           {slide?.title || slide?.template}
         </p>
-        <p className="text-[9px] font-mono text-neutral-500 truncate mt-0.5">
+        <p className="text-[9px] font-mono text-(--text-secondary) truncate mt-0.5">
           {slide?.template}
         </p>
       </div>
@@ -939,7 +933,7 @@ function ScaledPreviewFrame({ slide, containerRef, externalScale }) {
 
   return (
     <div
-      className="rounded-2xl overflow-hidden shadow-2xl shadow-black/60 border border-neutral-800 bg-neutral-950 shrink-0"
+      className="rounded-2xl overflow-hidden shadow-2xl shadow-black/60 border border-(--border-primary) bg-(--surface) shrink-0"
       style={{
         width: `${PPT_W}px`,
         height: `${PPT_H}px`,
@@ -950,9 +944,9 @@ function ScaledPreviewFrame({ slide, containerRef, externalScale }) {
       {Template?.Preview ? (
         <Template.Preview data={{ ...(slide?.data || {}), theme }} />
       ) : (
-        <div className="w-full h-full flex flex-col items-center justify-center bg-neutral-950 gap-3">
-          <LayoutGrid className="w-10 h-10 text-neutral-700 stroke-1" />
-          <p className="text-xs font-mono text-neutral-500">
+        <div className="w-full h-full flex flex-col items-center justify-center bg-(--surface) gap-3">
+          <LayoutGrid className="w-10 h-10 text-(--text-secondary) stroke-1" />
+          <p className="text-xs font-mono text-(--text-secondary)">
             {slide?.template
               ? slide.template.replace(/_/g, " ")
               : "No template"}
@@ -977,11 +971,11 @@ function DeckCard({ deck, onInspect, onDownload, onCopy, gridScale }) {
       exit={{ opacity: 0, scale: 0.97 }}
       transition={{ duration: 0.18 }}
       onClick={() => onInspect(deck)}
-      className="group flex flex-col rounded-2xl border border-neutral-800 bg-neutral-900 cursor-pointer overflow-hidden transition-all duration-250 hover:border-neutral-600 hover:shadow-xl hover:shadow-black/40 hover:-translate-y-0.5"
+      className="group flex flex-col rounded-2xl border border-(--border-primary) bg-(--surface-secondary) cursor-pointer overflow-hidden transition-all duration-250 hover:border-neutral-600 hover:shadow-xl hover:shadow-black/40 hover:-translate-y-0.5"
     >
       {/* Preview thumbnail */}
-      <div className="w-full aspect-video bg-neutral-950 relative overflow-hidden border-b border-neutral-800">
-        <div className="absolute inset-0 z-10 bg-transparent group-hover:bg-white/5 transition-colors duration-200" />
+      <div className="w-full aspect-video bg-(--surface) relative overflow-hidden border-b border-(--border-primary)">
+        <div className="absolute inset-0 z-10 bg-transparent group-hover:bg-(--text-primary)/5 transition-colors duration-200" />
         {Template?.Preview ? (
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
             <div className="scale-[0.18] origin-center">
@@ -1001,7 +995,7 @@ function DeckCard({ deck, onInspect, onDownload, onCopy, gridScale }) {
           </div>
         ) : (
           <div className="w-full h-full flex items-center justify-center">
-            <LayoutGrid className="w-8 h-8 text-neutral-700 stroke-1" />
+            <LayoutGrid className="w-8 h-8 text-(--text-secondary) stroke-1" />
           </div>
         )}
         {/* Mode badge */}
@@ -1009,8 +1003,8 @@ function DeckCard({ deck, onInspect, onDownload, onCopy, gridScale }) {
           <span
             className={`text-[8px] font-bold uppercase px-1.5 py-0.5 rounded-full backdrop-blur-sm border ${
               deck.theme.mode === "dark"
-                ? "bg-black/60 border-white/10 text-neutral-400"
-                : "bg-white/70 border-black/10 text-neutral-600"
+                ? "bg-black/60 border-(--border-primary)/10 text-neutral-400"
+                : "bg-(--text-primary)/70 border-(--border-primary)/10 text-(--text-secondary)"
             }`}
           >
             {deck.theme.mode}
@@ -1021,21 +1015,21 @@ function DeckCard({ deck, onInspect, onDownload, onCopy, gridScale }) {
       {/* Meta */}
       <div className="p-3 flex-1 flex flex-col gap-2.5">
         <div className="flex items-center justify-between gap-2">
-          <p className="text-[9px] font-mono text-neutral-500 uppercase tracking-wider">
+          <p className="text-[9px] font-mono text-(--text-secondary) uppercase tracking-wider">
             #{deck.index}
           </p>
-          <span className="text-[9px] font-bold px-1.5 py-0.5 bg-neutral-800 text-neutral-400 rounded-md">
+          <span className="text-[9px] font-bold px-1.5 py-0.5 bg-(--surface-tertiary) text-neutral-400 rounded-md">
             {deck.slideCount} slides
           </span>
         </div>
 
         <div>
-          <p className="text-[11px] font-semibold text-neutral-200 truncate group-hover:text-white transition-colors">
+          <p className="text-[11px] font-semibold text-(--text-primary) truncate group-hover:text-(--text-primary) transition-colors">
             {deck.name}
           </p>
           <div className="flex items-center gap-1 mt-1">
-            <Palette className="w-2.5 h-2.5 text-neutral-500 shrink-0" />
-            <p className="text-[9px] text-neutral-500 truncate">
+            <Palette className="w-2.5 h-2.5 text-(--text-secondary) shrink-0" />
+            <p className="text-[9px] text-(--text-secondary) truncate">
               {deck.theme.name}
             </p>
           </div>
@@ -1051,35 +1045,35 @@ function DeckCard({ deck, onInspect, onDownload, onCopy, gridScale }) {
           ].map((c, i) => (
             <div
               key={i}
-              className="w-4 h-4 rounded-full border border-white/10 shrink-0"
+              className="w-4 h-4 rounded-full border border-(--border-primary)/10 shrink-0"
               style={{ backgroundColor: c }}
             />
           ))}
-          <span className="text-[9px] font-mono text-neutral-600 ml-1 truncate flex-1">
+          <span className="text-[9px] font-mono text-(--text-secondary) ml-1 truncate flex-1">
             {deck.theme.fontFamily}
           </span>
         </div>
 
         {/* Actions */}
         <div
-          className="flex items-center justify-between pt-2 border-t border-neutral-800/70"
+          className="flex items-center justify-between pt-2 border-t border-(--border-primary)/70"
           onClick={(e) => e.stopPropagation()}
         >
-          <span className="text-[8px] font-mono text-neutral-600 truncate">
+          <span className="text-[8px] font-mono text-(--text-secondary) truncate">
             {deck.heroSubtype.replace("hero_", "")}
           </span>
           <div className="flex items-center gap-1">
             <button
               onClick={() => onCopy(deck)}
               title="Copy telemetry"
-              className="p-1.5 rounded-lg border border-neutral-700 hover:bg-neutral-800 text-neutral-500 hover:text-neutral-300 transition-colors"
+              className="p-1.5 rounded-lg border border-(--border-primary) hover:bg-(--surface-tertiary) text-(--text-secondary) hover:text-(--text-primary) transition-colors"
             >
               <Copy className="w-2.5 h-2.5" />
             </button>
             <button
               onClick={(e) => onDownload(e, deck)}
               title="Export PPTX"
-              className="inline-flex items-center gap-1 px-2 py-1 rounded-lg bg-white text-neutral-950 text-[9px] font-bold hover:bg-neutral-200 transition-colors active:scale-95"
+              className="inline-flex items-center gap-1 px-2 py-1 rounded-lg bg-(--text-secondary) text-(--surface) text-[9px] font-bold hover:bg-(--text-muted)  transition-colors active:scale-95"
             >
               <Download className="w-2.5 h-2.5" /> Export
             </button>
@@ -1314,38 +1308,35 @@ export default function TemplateDeckExplorer() {
   return (
     <>
       {/* ── GRID VIEW ─────────────────────────────────────────── */}
-      <div className="flex flex-col h-screen w-full bg-neutral-950 text-white overflow-hidden font-sans">
+      <div className="flex flex-col h-screen w-full bg-(--surface) text-(--text-primary) overflow-hidden font-sans">
         {/* Header */}
-        <header className="shrink-0 border-b border-neutral-800 bg-neutral-900/80 backdrop-blur z-10">
+        <header className="shrink-0 border-b border-(--border-primary) bg-(--surface-secondary)/80 backdrop-blur z-10">
           <div className="px-4 py-3 flex flex-col gap-3">
             {/* Brand row */}
             <div className="flex items-center justify-between gap-3 flex-wrap">
-              <div className="flex items-center gap-2.5">
-                <div className="p-2 bg-indigo-600 rounded-xl text-white shadow-lg shadow-indigo-600/25">
-                  <Workflow className="w-4 h-4" />
+              <Link to={"/"} className="flex items-center gap-2.5">
+                <div className="w-8 h-8 rounded-xl bg-linear-to-br from-blue-500 to-violet-600 flex items-center justify-center shrink-0">
+                  <Layers className="w-4 h-4 text-white" />
                 </div>
                 <div>
-                  <h1 className="text-sm font-black tracking-tight flex items-center gap-2">
-                    Deck Explorer
-                    <span className="text-[9px] font-mono bg-neutral-800 border border-neutral-700 px-1.5 py-0.5 rounded text-neutral-400">
-                      v5.0
-                    </span>
-                  </h1>
-                  <p className="text-[10px] text-neutral-500">
-                    {filtered.length.toLocaleString()} combinations · 200 themes
-                    · 2,000 total decks
-                  </p>
+                  <motion.span
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="font-bold text-(--text-primary) text-sm tracking-tight"
+                  >
+                    SlideAI
+                  </motion.span>
                 </div>
-              </div>
+              </Link>
               <div className="flex items-center gap-3 text-[10px] font-mono">
-                <div className="flex items-center gap-1.5 bg-neutral-800/60 border border-neutral-700 px-3 py-1.5 rounded-xl">
-                  <span className="text-neutral-500">Decks:</span>
+                <div className="flex items-center gap-1.5 bg-(--surface-tertiary)/60 border border-(--border-primary) px-3 py-1.5 rounded-xl">
+                  <span className="text-(--text-secondary)">Decks:</span>
                   <span className="text-indigo-400 font-bold">2,000</span>
-                  <span className="text-neutral-700">|</span>
-                  <span className="text-neutral-500">Themes:</span>
+                  <span className="text-(--text-secondary)">|</span>
+                  <span className="text-(--text-secondary)">Themes:</span>
                   <span className="text-emerald-400 font-bold">200</span>
-                  <span className="text-neutral-700">|</span>
-                  <span className="text-neutral-500">Templates:</span>
+                  <span className="text-(--text-secondary)">|</span>
+                  <span className="text-(--text-secondary)">Templates:</span>
                   <span className="text-amber-400 font-bold">
                     {HERO_KEYS.length +
                       CONTENT_KEYS.length +
@@ -1358,17 +1349,17 @@ export default function TemplateDeckExplorer() {
             {/* Search + filters */}
             <div className="flex flex-col sm:flex-row gap-2 items-stretch sm:items-center">
               <div className="relative flex-1">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-neutral-500" />
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-(--text-secondary)" />
                 <input
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="Search by name, theme, font, hero subtype…"
-                  className="w-full bg-neutral-800/60 border border-neutral-700 rounded-xl py-2 pl-9 pr-8 text-xs font-medium placeholder:text-neutral-600 outline-none focus:border-indigo-500 transition-colors"
+                  className="w-full bg-(--surface-tertiary)/60 border border-(--border-primary) rounded-xl py-2 pl-9 pr-8 text-xs font-medium placeholder:text-(--text-secondary) outline-none focus:border-indigo-500 transition-colors"
                 />
                 {query && (
                   <button
                     onClick={() => setQuery("")}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-500 hover:text-white"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-(--text-secondary) hover:text-(--text-primary)"
                   >
                     <X className="w-3 h-3" />
                   </button>
@@ -1376,7 +1367,7 @@ export default function TemplateDeckExplorer() {
               </div>
               <div className="flex items-center gap-2 flex-wrap">
                 {/* Mode filter */}
-                <div className="flex rounded-xl bg-neutral-800 p-0.5 border border-neutral-700">
+                <div className="flex rounded-xl bg-(--surface-tertiary) p-0.5 border border-(--border-primary)">
                   {[
                     {
                       id: "all",
@@ -1399,8 +1390,8 @@ export default function TemplateDeckExplorer() {
                       onClick={() => setModeFilter(m.id)}
                       className={`inline-flex items-center gap-1 px-2.5 py-1 text-[11px] font-semibold rounded-lg transition-all ${
                         modeFilter === m.id
-                          ? "bg-white text-neutral-950 shadow-sm"
-                          : "text-neutral-400 hover:text-white"
+                          ? "bg-(--brand) text-(--surface) shadow-sm"
+                          : "text-neutral-400 hover:text-(--text-primary)"
                       }`}
                     >
                       {m.icon} {m.label}
@@ -1409,8 +1400,8 @@ export default function TemplateDeckExplorer() {
                 </div>
 
                 {/* Hero filter */}
-                <div className="flex items-center gap-1.5 bg-neutral-800 border border-neutral-700 px-2.5 py-1.5 rounded-xl">
-                  <Filter className="w-3 h-3 text-neutral-500" />
+                <div className="flex items-center gap-1.5 bg-(--surface-tertiary) border border-(--border-primary) px-2.5 py-1.5 rounded-xl">
+                  <Filter className="w-3 h-3 text-(--text-secondary)" />
                   <select
                     value={heroFilter}
                     onChange={(e) => setHeroFilter(e.target.value)}
@@ -1418,7 +1409,11 @@ export default function TemplateDeckExplorer() {
                   >
                     <option value="all">All Hero Types</option>
                     {HERO_KEYS.map((k) => (
-                      <option key={k} value={k} className="bg-neutral-900">
+                      <option
+                        key={k}
+                        value={k}
+                        className="bg-(--surface-secondary)"
+                      >
                         {k.replace("hero_", "")}
                       </option>
                     ))}
@@ -1448,10 +1443,10 @@ export default function TemplateDeckExplorer() {
             ) : (
               <div className="flex flex-col items-center justify-center py-24 gap-3 text-center">
                 <AlertTriangle className="w-10 h-10 text-amber-500/60 stroke-1" />
-                <p className="text-sm font-semibold text-neutral-300">
+                <p className="text-sm font-semibold text-(--text-primary)">
                   No matches found
                 </p>
-                <p className="text-xs text-neutral-600 max-w-xs">
+                <p className="text-xs text-(--text-secondary) max-w-xs">
                   Try different keywords or reset filters to explore all 2,000
                   combinations.
                 </p>
@@ -1461,7 +1456,7 @@ export default function TemplateDeckExplorer() {
                     setModeFilter("all");
                     setHeroFilter("all");
                   }}
-                  className="mt-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold rounded-xl transition-colors"
+                  className="mt-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-(--text-primary) text-xs font-bold rounded-xl transition-colors"
                 >
                   Clear All Filters
                 </button>
@@ -1472,25 +1467,28 @@ export default function TemplateDeckExplorer() {
 
         {/* Pagination */}
         {filtered.length > PER_PAGE && (
-          <footer className="shrink-0 border-t border-neutral-800 bg-neutral-900/60 backdrop-blur px-4 py-3 flex items-center justify-between gap-4">
+          <footer className="shrink-0 border-t border-(--border-primary) bg-(--surface-secondary)/60 backdrop-blur px-4 py-3 flex items-center justify-between gap-4">
             <button
               onClick={() => setPage((p) => Math.max(1, p - 1))}
               disabled={page === 1}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-neutral-800 border border-neutral-700 rounded-xl text-[11px] font-bold disabled:opacity-30 disabled:pointer-events-none hover:bg-neutral-700 transition-colors"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-(--surface-tertiary) border border-(--border-primary) rounded-xl text-[11px] font-bold disabled:opacity-30 disabled:pointer-events-none hover:bg-neutral-700 transition-colors"
             >
               <ChevronLeft className="w-3.5 h-3.5" /> Prev
             </button>
             <span className="text-[11px] font-mono text-neutral-400">
-              Page <span className="text-white font-bold">{page}</span> of{" "}
-              <span className="text-white font-bold">{totalPages}</span>
-              <span className="ml-2 text-neutral-600">
+              Page{" "}
+              <span className="text-(--text-primary) font-bold">{page}</span> of{" "}
+              <span className="text-(--text-primary) font-bold">
+                {totalPages}
+              </span>
+              <span className="ml-2 text-(--text-secondary)">
                 ({filtered.length.toLocaleString()} results)
               </span>
             </span>
             <button
               onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
               disabled={page === totalPages}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-neutral-800 border border-neutral-700 rounded-xl text-[11px] font-bold disabled:opacity-30 disabled:pointer-events-none hover:bg-neutral-700 transition-colors"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-(--surface-tertiary) border border-(--border-primary) rounded-xl text-[11px] font-bold disabled:opacity-30 disabled:pointer-events-none hover:bg-neutral-700 transition-colors"
             >
               Next <ChevronRight className="w-3.5 h-3.5" />
             </button>
@@ -1506,13 +1504,13 @@ export default function TemplateDeckExplorer() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-50 flex flex-col bg-neutral-950 text-white overflow-hidden"
+            className="fixed inset-0 z-50 flex flex-col bg-(--surface) text-(--text-primary) overflow-hidden"
           >
             {/* ── TOP BAR ──────────────────────────────────────── */}
-            <header className="shrink-0 h-14 border-b border-neutral-800 bg-neutral-900/70 backdrop-blur px-4 flex items-center gap-3">
+            <header className="shrink-0 h-14 border-b border-(--border-primary) bg-(--surface-secondary)/70 backdrop-blur px-4 flex items-center gap-3">
               <button
                 onClick={() => setInspectedDeck(null)}
-                className="p-2 rounded-xl bg-neutral-800 hover:bg-neutral-700 transition-colors"
+                className="p-2 rounded-xl bg-(--surface-tertiary) hover:bg-neutral-700 transition-colors"
                 title="Close inspector (Esc)"
               >
                 <ArrowLeft className="w-4 h-4" />
@@ -1522,8 +1520,8 @@ export default function TemplateDeckExplorer() {
                 onClick={() => setSidebarOpen((v) => !v)}
                 className={`p-2 rounded-xl transition-colors ${
                   sidebarOpen
-                    ? "bg-neutral-700"
-                    : "bg-neutral-800 hover:bg-neutral-700"
+                    ? "bg-(--brand)"
+                    : "bg-(--surface-tertiary) hover:bg-(--brand)"
                 }`}
                 title={sidebarOpen ? "Hide slide list" : "Show slide list"}
               >
@@ -1539,11 +1537,11 @@ export default function TemplateDeckExplorer() {
                   <span className="text-[9px] font-mono bg-indigo-950/70 border border-indigo-900 text-indigo-400 px-2 py-0.5 rounded-md uppercase tracking-widest shrink-0">
                     #{mergedInspectedDeck.index}
                   </span>
-                  <h2 className="text-sm font-black text-white truncate">
+                  <h2 className="text-sm font-black text-(--text-primary) truncate">
                     {mergedInspectedDeck.name}
                   </h2>
                 </div>
-                <p className="text-[10px] text-neutral-500 truncate">
+                <p className="text-[10px] text-(--text-secondary) truncate">
                   {mergedInspectedDeck.theme.name} ·{" "}
                   {mergedInspectedDeck.slideCount} slides ·{" "}
                   {mergedInspectedDeck.theme.fontFamily}
@@ -1553,13 +1551,13 @@ export default function TemplateDeckExplorer() {
               <div className="flex items-center gap-2 shrink-0">
                 <button
                   onClick={() => copyTelemetry(mergedInspectedDeck)}
-                  className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 rounded-xl text-xs font-bold transition-colors"
+                  className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 bg-(--surface-tertiary) hover:bg-neutral-700 border border-(--border-primary) rounded-xl text-xs font-bold transition-colors"
                 >
                   <Copy className="w-3.5 h-3.5" /> Copy
                 </button>
                 <button
                   onClick={(e) => handleExport(e, mergedInspectedDeck)}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white text-neutral-950 rounded-xl text-xs font-bold hover:bg-neutral-200 transition-colors active:scale-95"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-(--text-primary) text-(--surface) rounded-xl text-xs font-bold hover:bg-(--brand) transition-colors active:scale-95"
                 >
                   <Download className="w-3.5 h-3.5" /> Export PPTX
                 </button>
@@ -1567,8 +1565,8 @@ export default function TemplateDeckExplorer() {
                   onClick={() => setRightPanelOpen((v) => !v)}
                   className={`p-2 rounded-xl transition-colors ${
                     rightPanelOpen
-                      ? "bg-neutral-700"
-                      : "bg-neutral-800 hover:bg-neutral-700"
+                      ? "bg-(--brand)"
+                      : "bg-(--surface-tertiary) hover:bg-(--brand)"
                   }`}
                   title="Toggle theme editor"
                 >
@@ -1580,7 +1578,7 @@ export default function TemplateDeckExplorer() {
                 </button>
                 <button
                   onClick={() => setInspectedDeck(null)}
-                  className="p-2 rounded-xl bg-neutral-800 hover:bg-neutral-700 transition-colors"
+                  className="p-2 rounded-xl bg-(--surface-tertiary) hover:bg-neutral-700 transition-colors"
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -1598,11 +1596,11 @@ export default function TemplateDeckExplorer() {
                     animate={{ width: 200, opacity: 1 }}
                     exit={{ width: 0, opacity: 0 }}
                     transition={{ duration: 0.2, ease: "easeInOut" }}
-                    className="shrink-0 border-r border-neutral-800 bg-neutral-900/50 overflow-y-auto overflow-x-hidden flex flex-col"
+                    className="shrink-0 border-r border-(--border-primary) bg-(--surface-secondary)/50 overflow-y-auto overflow-x-hidden flex flex-col"
                     style={{ minWidth: 0 }}
                   >
                     <div className="p-2 pt-3 space-y-2">
-                      <p className="text-[9px] font-mono text-neutral-500 uppercase tracking-widest px-1">
+                      <p className="text-[9px] font-mono text-(--text-secondary) uppercase tracking-widest px-1">
                         {mergedInspectedDeck.slideCount} Slides
                       </p>
                       {mergedInspectedDeck.slides.map((slide, idx) => (
@@ -1620,13 +1618,13 @@ export default function TemplateDeckExplorer() {
               </AnimatePresence>
 
               {/* CENTER: Preview area — EXACT ProjectDetailPage behavior */}
-              <div className="flex-1 flex flex-col min-w-0 overflow-hidden bg-neutral-950">
+              <div className="flex-1 flex flex-col min-w-0 overflow-hidden bg-(--surface)">
                 {/* Slide nav bar */}
-                <div className="shrink-0 flex items-center justify-between px-4 py-2 border-b border-neutral-800 bg-neutral-900/40">
+                <div className="shrink-0 flex items-center justify-between px-4 py-2 border-b border-(--border-primary) bg-(--surface-secondary)/40">
                   <button
                     onClick={() => setInspSlideIdx((c) => Math.max(0, c - 1))}
                     disabled={inspSlideIdx === 0}
-                    className="p-1.5 rounded-lg bg-neutral-800 hover:bg-neutral-700 disabled:opacity-20 disabled:pointer-events-none transition-colors"
+                    className="p-1.5 rounded-lg bg-(--surface-tertiary) hover:bg-neutral-700 disabled:opacity-20 disabled:pointer-events-none transition-colors"
                   >
                     <ChevronLeft className="w-4 h-4" />
                   </button>
@@ -1639,8 +1637,8 @@ export default function TemplateDeckExplorer() {
                         onClick={() => setInspSlideIdx(i)}
                         className={`rounded-full transition-all font-semibold text-[10px] min-w-6 h-6 px-1.5 ${
                           i === inspSlideIdx
-                            ? "bg-white text-neutral-950"
-                            : "bg-neutral-800 text-neutral-400 hover:bg-neutral-700"
+                            ? "bg-(--text-primary) text-(--surface)"
+                            : "bg-(--surface-tertiary) text-neutral-400 hover:bg-neutral-700"
                         }`}
                       >
                         {i + 1}
@@ -1657,7 +1655,7 @@ export default function TemplateDeckExplorer() {
                     disabled={
                       inspSlideIdx === mergedInspectedDeck.slides.length - 1
                     }
-                    className="p-1.5 rounded-lg bg-neutral-800 hover:bg-neutral-700 disabled:opacity-20 disabled:pointer-events-none transition-colors"
+                    className="p-1.5 rounded-lg bg-(--surface-tertiary) hover:bg-neutral-700 disabled:opacity-20 disabled:pointer-events-none transition-colors"
                   >
                     <ChevronRight className="w-4 h-4" />
                   </button>
@@ -1670,7 +1668,7 @@ export default function TemplateDeckExplorer() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.15 }}
                   ref={previewContainerRef}
-                  className="flex-1 flex items-center justify-center p-4 md:p-6 min-h-0 overflow-hidden"
+                  className="flex-1 flex items-center justify-center p-4 md:p-6 min-h-0 overflow-hidden bg-(--surface)"
                 >
                   {currentSlide ? (
                     <ScaledPreviewFrame
@@ -1679,7 +1677,7 @@ export default function TemplateDeckExplorer() {
                       externalScale={previewScale}
                     />
                   ) : (
-                    <div className="flex flex-col items-center gap-3 text-neutral-600">
+                    <div className="flex flex-col items-center gap-3 text-(--text-secondary)">
                       <LayoutGrid className="w-12 h-12 stroke-1" />
                       <p className="text-sm">No slide selected</p>
                     </div>
@@ -1688,9 +1686,9 @@ export default function TemplateDeckExplorer() {
 
                 {/* Info bar */}
                 {currentSlide && (
-                  <div className="shrink-0 border-t border-neutral-800 bg-neutral-900/40 px-4 py-2.5 flex items-center justify-between gap-4 text-xs text-neutral-500">
+                  <div className="shrink-0 border-t border-(--border-primary) bg-(--surface-secondary)/40 px-4 py-2.5 flex items-center justify-between gap-4 text-xs text-(--text-secondary)">
                     <div className="flex items-center gap-2 min-w-0">
-                      <span className="font-semibold text-neutral-200 truncate">
+                      <span className="font-semibold text-(--text-primary) truncate">
                         {currentSlide.title}
                       </span>
                       <span
@@ -1699,12 +1697,12 @@ export default function TemplateDeckExplorer() {
                             ? "bg-indigo-950 text-indigo-400"
                             : currentSlide.category === "closing"
                             ? "bg-emerald-950 text-emerald-400"
-                            : "bg-neutral-800 text-neutral-400"
+                            : "bg-(--surface-tertiary) text-neutral-400"
                         }`}
                       >
                         {currentSlide.category}
                       </span>
-                      <span className="hidden md:block font-mono text-neutral-600 truncate text-[10px]">
+                      <span className="hidden md:block font-mono text-(--text-secondary) truncate text-[10px]">
                         {currentSlide.template}
                       </span>
                     </div>
@@ -1724,7 +1722,7 @@ export default function TemplateDeckExplorer() {
                     animate={{ width: 272, opacity: 1 }}
                     exit={{ width: 0, opacity: 0 }}
                     transition={{ duration: 0.2, ease: "easeInOut" }}
-                    className="shrink-0 border-l border-neutral-800 bg-neutral-900/50 flex flex-col overflow-hidden"
+                    className="shrink-0 border-l border-(--border-primary) bg-(--surface-secondary)/50 flex flex-col overflow-hidden"
                     style={{ minWidth: 0 }}
                   >
                     <div className="overflow-y-auto flex-1 flex flex-col p-4 gap-4 min-h-0">
@@ -1732,38 +1730,38 @@ export default function TemplateDeckExplorer() {
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
                           <Wand2 className="w-3.5 h-3.5 text-neutral-400" />
-                          <span className="text-xs font-bold text-neutral-200">
+                          <span className="text-xs font-bold text-(--text-primary)">
                             Theme Editor
                           </span>
                         </div>
                         <button
                           onClick={resetTheme}
-                          className="text-[10px] font-semibold text-neutral-500 hover:text-white flex items-center gap-1 transition-colors"
+                          className="text-[10px] font-semibold text-(--text-secondary) hover:text-(--text-primary) flex items-center gap-1 transition-colors"
                         >
                           <RefreshCw className="w-2.5 h-2.5" /> Reset
                         </button>
                       </div>
 
                       {/* Theme token panel */}
-                      <div className="rounded-xl border border-neutral-800 bg-neutral-900/60 p-3 space-y-3">
+                      <div className="rounded-xl border border-(--border-primary) bg-(--surface-secondary)/60 p-3 space-y-3">
                         <div className="flex items-center justify-between">
-                          <p className="text-[9px] font-mono text-neutral-500 uppercase tracking-widest">
+                          <p className="text-[9px] font-mono text-(--text-secondary) uppercase tracking-widest">
                             Active Theme
                           </p>
                           <span
                             className={`text-[9px] font-bold px-1.5 py-0.5 rounded-full ${
                               t?.mode === "dark"
-                                ? "bg-neutral-800 text-neutral-400"
-                                : "bg-neutral-200 text-neutral-700"
+                                ? "bg-(--surface-tertiary) text-neutral-400"
+                                : "bg-neutral-200 text-(--text-secondary)"
                             }`}
                           >
                             {t?.mode}
                           </span>
                         </div>
-                        <p className="text-xs font-bold text-white">
+                        <p className="text-xs font-bold text-(--text-primary)">
                           {t?.name}
                         </p>
-                        <p className="text-[10px] font-mono text-neutral-500">
+                        <p className="text-[10px] font-mono text-(--text-secondary)">
                           {t?.fontFamily}
                         </p>
 
@@ -1796,7 +1794,7 @@ export default function TemplateDeckExplorer() {
                               className="flex flex-col gap-1 cursor-pointer group/swatch"
                             >
                               <div
-                                className="w-full h-8 rounded-lg border border-white/10 relative overflow-hidden transition-all group-hover/swatch:ring-2 group-hover/swatch:ring-indigo-500/50"
+                                className="w-full h-8 rounded-lg border border-(--border-primary)/10 relative overflow-hidden transition-all group-hover/swatch:ring-2 group-hover/swatch:ring-indigo-500/50"
                                 style={{ backgroundColor: color }}
                               >
                                 <input
@@ -1808,7 +1806,7 @@ export default function TemplateDeckExplorer() {
                                   className="absolute inset-0 opacity-0 w-full h-full cursor-pointer"
                                 />
                               </div>
-                              <span className="text-[8px] font-mono text-neutral-600 truncate">
+                              <span className="text-[8px] font-mono text-(--text-secondary) truncate">
                                 {label}: {color}
                               </span>
                             </label>
@@ -1817,7 +1815,7 @@ export default function TemplateDeckExplorer() {
 
                         {/* Font selector */}
                         <div>
-                          <p className="text-[9px] font-mono text-neutral-600 mb-1">
+                          <p className="text-[9px] font-mono text-(--text-secondary) mb-1">
                             Font Family
                           </p>
                           <select
@@ -1825,13 +1823,13 @@ export default function TemplateDeckExplorer() {
                             onChange={(e) =>
                               applyOverride("fontFamily", e.target.value)
                             }
-                            className="w-full bg-neutral-800 border border-neutral-700 rounded-lg px-2.5 py-1.5 text-xs font-medium text-neutral-200 outline-none focus:border-indigo-500 transition-colors"
+                            className="w-full bg-(--surface-tertiary) border border-(--border-primary) rounded-lg px-2.5 py-1.5 text-xs font-medium text-(--text-primary) outline-none focus:border-indigo-500 transition-colors"
                           >
                             {FONT_FAMILIES.map((f) => (
                               <option
                                 key={f}
                                 value={f}
-                                className="bg-neutral-900"
+                                className="bg-(--surface-secondary)"
                               >
                                 {f}
                               </option>
@@ -1841,7 +1839,7 @@ export default function TemplateDeckExplorer() {
 
                         {/* Quick theme presets */}
                         <div>
-                          <p className="text-[9px] font-mono text-neutral-600 mb-1.5">
+                          <p className="text-[9px] font-mono text-(--text-secondary) mb-1.5">
                             Quick Presets
                           </p>
                           <div className="flex flex-wrap gap-1">
@@ -1866,7 +1864,7 @@ export default function TemplateDeckExplorer() {
                                   }));
                                 }}
                                 title={preset.name}
-                                className="w-5 h-5 rounded-full border border-white/10 hover:ring-2 hover:ring-indigo-400 transition-all"
+                                className="w-5 h-5 rounded-full border border-(--border-primary)/10 hover:ring-2 hover:ring-indigo-400 transition-all"
                                 style={{ backgroundColor: preset.accentColor }}
                               />
                             ))}
@@ -1876,7 +1874,7 @@ export default function TemplateDeckExplorer() {
 
                       {/* Slide layout trail */}
                       <div>
-                        <p className="text-[9px] font-mono text-neutral-500 uppercase tracking-widest mb-2">
+                        <p className="text-[9px] font-mono text-(--text-secondary) uppercase tracking-widest mb-2">
                           Layout Sequence ({mergedInspectedDeck.slideCount}{" "}
                           slides)
                         </p>
@@ -1887,15 +1885,15 @@ export default function TemplateDeckExplorer() {
                               onClick={() => setInspSlideIdx(idx)}
                               className={`w-full flex items-center justify-between px-3 py-2 rounded-xl border text-left transition-all ${
                                 idx === inspSlideIdx
-                                  ? "border-white/20 bg-neutral-800 text-white"
-                                  : "border-neutral-800/60 bg-neutral-900/30 text-neutral-500 hover:bg-neutral-800/50 hover:text-neutral-200"
+                                  ? "border-(--border-primary)/20 bg-(--surface-tertiary) text-(--text-primary)"
+                                  : "border-(--border-primary)/60 bg-(--surface-secondary)/30 text-(--text-secondary) hover:bg-(--surface-tertiary)/50 hover:text-(--text-primary)"
                               }`}
                             >
                               <div className="min-w-0 flex-1">
                                 <p className="text-[10px] font-semibold truncate text-inherit">
                                   {idx + 1}. {s.template}
                                 </p>
-                                <p className="text-[9px] text-neutral-600 truncate mt-0.5">
+                                <p className="text-[9px] text-(--text-secondary) truncate mt-0.5">
                                   {s.title}
                                 </p>
                               </div>
@@ -1905,7 +1903,7 @@ export default function TemplateDeckExplorer() {
                                     ? "text-indigo-500"
                                     : s.category === "closing"
                                     ? "text-emerald-500"
-                                    : "text-neutral-600"
+                                    : "text-(--text-secondary)"
                                 }`}
                               >
                                 {s.category}
@@ -1917,17 +1915,17 @@ export default function TemplateDeckExplorer() {
                     </div>
 
                     {/* Bottom actions */}
-                    <div className="shrink-0 p-3 border-t border-neutral-800 space-y-2">
+                    <div className="shrink-0 p-3 border-t border-(--border-primary) space-y-2">
                       <button
                         onClick={() => copyTelemetry(mergedInspectedDeck)}
-                        className="w-full inline-flex items-center justify-center gap-2 py-2 border border-dashed border-neutral-700 hover:border-neutral-500 rounded-xl text-xs font-bold text-neutral-400 hover:text-white transition-colors"
+                        className="w-full inline-flex items-center justify-center gap-2 py-2 border border-dashed border-(--border-primary) hover:border-neutral-500 rounded-xl text-xs font-bold text-neutral-400 hover:text-(--text-primary) transition-colors"
                       >
                         <Copy className="w-3 h-3 text-indigo-400" /> Copy
                         Telemetry
                       </button>
                       <button
                         onClick={(e) => handleExport(e, mergedInspectedDeck)}
-                        className="w-full inline-flex items-center justify-center gap-2 py-2 bg-white text-neutral-950 rounded-xl text-xs font-bold hover:bg-neutral-200 transition-colors active:scale-95"
+                        className="w-full inline-flex items-center justify-center gap-2 py-2 bg-(--text-primary) text-(--surface) rounded-xl text-xs font-bold hover:bg-(--brand) transition-colors active:scale-95"
                       >
                         <Download className="w-3 h-3" /> Export PPTX
                       </button>

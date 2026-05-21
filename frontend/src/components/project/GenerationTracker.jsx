@@ -247,7 +247,7 @@ export function GenerationTracker({ projectId }) {
   border
   border-(--border-primary)
 
-  bg-(--surface-primary)
+  bg-(--surface)
 
   p-2
 

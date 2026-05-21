@@ -25,6 +25,7 @@ import {
   Play,
   X,
   Menu,
+  LibrarySquare,
 } from "lucide-react";
 import { useUIStore } from "../store/uiStore";
 import { useAuthStore } from "../store/authStore";
@@ -55,7 +56,7 @@ function Navbar() {
           : "bg-transparent"
       )}
     >
-      <div className="max-w-6xl mx-auto px-5 h-16 flex items-center gap-6">
+      <div className="max-w-6xl mx-auto px-5 h-16 flex items-center gap-2 lg:gap-6">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2.5 shrink-0">
           <div className="w-8 h-8 rounded-xl bg-linear-to-br from-blue-500 to-violet-600 flex items-center justify-center shadow-lg shadow-blue-500/20">
@@ -79,18 +80,21 @@ function Navbar() {
           ))}
         </nav>
 
-        <div className="hidden md:flex items-center gap-3 ml-auto">
+        <div className="hidden md:flex items-center gap-1 ml-auto">
           {isAuthenticated ? (
             <>
+              <Link
+                to="/templates"
+                className="btn-ghost hover:text-(--brand) text-sm"
+              >
+                Templates <LibrarySquare className="w-3.5 h-3.5" />
+              </Link>
               <button
                 onClick={() => navigate("/dashboard")}
                 className="btn-primary text-sm"
               >
                 Dashboard <ArrowRight className="w-3.5 h-3.5" />
               </button>
-              <Link to="/templates" className="btn-ghost text-sm">
-                Templates
-              </Link>
             </>
           ) : (
             <>
@@ -141,14 +145,28 @@ function Navbar() {
             ))}
             <div className="pt-3 flex flex-col gap-2">
               {isAuthenticated ? (
-                <button
-                  onClick={() => navigate("/dashboard")}
-                  className="btn-primary justify-center"
-                >
-                  Dashboard
-                </button>
+                <>
+                  <Link
+                    to="/templates"
+                    className="btn-ghost hover:text-(--brand) text-sm"
+                  >
+                    Templates <LibrarySquare className="w-3.5 h-3.5" />
+                  </Link>
+                  <button
+                    onClick={() => navigate("/dashboard")}
+                    className="btn-primary justify-center"
+                  >
+                    Dashboard
+                  </button>
+                </>
               ) : (
                 <>
+                  <Link
+                    to="/templates"
+                    className="btn-ghost hover:text-(--brand) text-sm"
+                  >
+                    Templates <LibrarySquare className="w-3.5 h-3.5" />
+                  </Link>
                   <Link
                     to="/auth/login"
                     className="btn-secondary justify-center text-center"
