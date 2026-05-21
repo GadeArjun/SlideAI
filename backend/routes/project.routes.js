@@ -13,6 +13,7 @@ import {
   resumePipelineController,
   getPipelineStateController,
   editPresentationController,
+  getAnalytics,
 } from "../controllers/project.controller.js";
 
 const router = express.Router();
@@ -26,6 +27,12 @@ router.post("/create", protect, createPresentationController);
  * GET ALL PROJECTS
  */
 router.get("/", protect, getAllProjectsController);
+
+/**
+ * GET ANALYTICS
+ */
+
+router.get("/analytics", protect, getAnalytics);
 
 /**
  * GET SINGLE PROJECT

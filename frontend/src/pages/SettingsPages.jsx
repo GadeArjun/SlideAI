@@ -104,38 +104,6 @@ export function ProfilePage() {
           Save Changes
         </button>
       </motion.div>
-
-      {/* Stats */}
-      <motion.div
-        initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1 }}
-        className="card p-6"
-      >
-        <h2 className="font-semibold text-(--text-primary) mb-4">
-          Usage Stats
-        </h2>
-        <div className="grid grid-cols-3 gap-4">
-          {[
-            { label: "Projects", value: user?.totalProjects || 0 },
-            {
-              label: "Slides Generated",
-              value: user?.totalSlidesGenerated || 0,
-            },
-            // { label: "Tokens Used", value: user?.totalTokensUsed || 0 },
-          ].map(({ label, value }) => (
-            <div
-              key={label}
-              className="text-center p-3 rounded-xl bg-(--bg-tertiary)"
-            >
-              <p className="text-xl font-bold text-(--text-primary)">
-                {value.toLocaleString()}
-              </p>
-              <p className="text-xs text-(--text-muted) mt-0.5">{label}</p>
-            </div>
-          ))}
-        </div>
-      </motion.div>
     </div>
   );
 }
@@ -270,29 +238,6 @@ export function SettingsPage() {
         <p className="text-sm text-(--text-muted)">
           Email and push notification preferences will be available soon.
         </p>
-      </motion.div>
-    </div>
-  );
-}
-
-export function AnalyticsPage() {
-  return (
-    <div className="max-w-4xl mx-auto">
-      <motion.div
-        initial={{ opacity: 0, y: 8 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="text-center py-24 space-y-3"
-      >
-        <div className="w-16 h-16 rounded-2xl bg-(--bg-tertiary) flex items-center justify-center mx-auto">
-          <span className="text-2xl">📊</span>
-        </div>
-        <h1 className="text-xl font-bold text-(--text-primary)">Analytics</h1>
-        <p className="text-(--text-secondary)">
-          Detailed analytics and insights coming soon.
-        </p>
-        <span className="inline-block text-xs bg-amber-100 text-amber-600 dark:bg-amber-950 dark:text-amber-400 px-3 py-1 rounded-full font-semibold">
-          Coming Soon
-        </span>
       </motion.div>
     </div>
   );

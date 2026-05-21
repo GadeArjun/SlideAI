@@ -13,6 +13,7 @@ import {
   Sparkles,
   BarChart2,
   CreditCard,
+  LayersPlusIcon,
 } from "lucide-react";
 import { useUIStore } from "../../store/uiStore";
 import { useAuth } from "../../hooks/useAuth";
@@ -23,7 +24,16 @@ const NAV = [
   { to: "/dashboard", icon: LayoutDashboard, label: "Dashboard", end: true },
   { to: "/dashboard/projects", icon: FolderOpen, label: "Projects" },
   { to: "/dashboard/create", icon: Plus, label: "Create", highlight: true },
-  { to: "/dashboard/analytics", icon: BarChart2, label: "Analytics" },
+  {
+    to: "/dashboard/analytics",
+    icon: BarChart2,
+    label: "Analytics",
+  },
+  {
+    to: "/templates",
+    icon: LayersPlusIcon,
+    label: "Templates",
+  },
   { to: "/dashboard/settings", icon: Settings, label: "Settings" },
   { to: "/dashboard/profile", icon: User, label: "Profile" },
 ];

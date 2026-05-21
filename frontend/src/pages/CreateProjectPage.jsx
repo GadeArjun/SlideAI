@@ -8,7 +8,7 @@ import {
   FileText,
   ChevronRight,
 } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useCreateProject } from "../hooks/useProjects";
 import { useProjectStore } from "../store/projectStore";
 import { GenerationTracker } from "../components/project/GenerationTracker";
@@ -23,6 +23,7 @@ const EXAMPLE_PROMPTS = [
 
 export function CreateProjectPage() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [prompt, setPrompt] = useState("");
   const [activeProjectId, setActiveProjectId] = useState(null);
   const { mutate: createProject, isPending } = useCreateProject();
@@ -30,14 +31,65 @@ export function CreateProjectPage() {
     activeProjectId ? s.activeGenerations[activeProjectId] : null
   );
 
+  const selectedTemplateDeck = location.state?.templateDeck || null;
+
+  const buildTemplatePrompt = (deck) => {
+    if (!deck) return "";
+
+    return [
+      `IMPORTANT TEMPLATE SYSTEM TO FOLLOW`,
+      ``,
+
+      `Theme Name: ${deck.theme.name}`,
+      `Theme Mode: ${deck.theme.mode}`,
+      `Font Family: ${deck.theme.fontFamily}`,
+
+      ``,
+
+      `Theme Colors:`,
+
+      `Background: ${deck.theme.backgroundColor}`,
+      `Surface: ${deck.theme.surfaceColor}`,
+      `Accent: ${deck.theme.accentColor}`,
+      `Primary Text: ${deck.theme.primaryTextColor}`,
+      `Secondary Text: ${deck.theme.secondaryTextColor}`,
+
+      ``,
+
+      `Slide Structure:`,
+
+      ...deck.slides.map(
+        (slide, i) =>
+          `${i + 1}. ${slide.category.toUpperCase()} | ${slide.template}`
+      ),
+
+      ``,
+
+      `IMPORTANT:`,
+
+      `Follow similar layout structure, visual hierarchy, theme consistency, and presentation flow.`,
+
+      `Generate NEW content based on user topic but preserve template system.`,
+    ].join("\n");
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!prompt.trim()) {
       toast.error("Please enter a prompt");
       return;
     }
+
+    const templateContext = buildTemplatePrompt(selectedTemplateDeck);
+
+    const finalPrompt = [prompt, templateContext]
+      .filter(Boolean)
+      .join("\n\n------------------------\n\n");
+
+    console.log({ finalPrompt });
+
     createProject(
-      { prompt },
+      { prompt: finalPrompt },
       {
         onSuccess: (data) => {
           // Project is started in background, we need to track via socket
@@ -77,10 +129,61 @@ export function CreateProjectPage() {
           <label className="text-xs font-semibold text-(--text-secondary) uppercase tracking-wide mb-2 block">
             Your Prompt
           </label>
+          {selectedTemplateDeck ? (
+            <div className="card p-4 border border-(--border) bg-(--surface-secondary) space-y-3">
+              <div className="flex items-start justify-between gap-4">
+                <div className="min-w-0">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-(--text-muted)">
+                    Selected Template
+                  </p>
+
+                  <h3 className="text-sm font-bold text-(--text-primary) truncate">
+                    {selectedTemplateDeck.theme.name}
+                  </h3>
+
+                  <p className="text-xs text-(--text-secondary) mt-1">
+                    {selectedTemplateDeck.slideCount} slides •{" "}
+                    {selectedTemplateDeck.theme.mode} mode •{" "}
+                    {selectedTemplateDeck.theme.fontFamily}
+                  </p>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => navigate(".", { replace: true, state: {} })}
+                  className="btn-ghost text-xs"
+                >
+                  Remove
+                </button>
+              </div>
+
+              <div className="flex flex-wrap gap-2">
+                {selectedTemplateDeck.slides.map((slide, i) => (
+                  <div
+                    key={i}
+                    className="px-2 py-1 rounded-lg bg-(--bg-tertiary) text-[10px] text-(--text-secondary)"
+                  >
+                    {slide.template}
+                  </div>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <Link
+              to="/templates"
+              className="inline-flex hover:underline mb-2 text-sm font-semibold text-(--brand) float-right"
+            >
+              Choose Template
+            </Link>
+          )}
           <textarea
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
-            placeholder="Describe the presentation you want to create. Be specific about the topic, number of slides, style, and audience…"
+            placeholder={
+              selectedTemplateDeck
+                ? "Describe the topic and AI will generate using the selected template system..."
+                : "Describe the presentation you want to create..."
+            }
             rows={6}
             className="input-field resize-none"
           />

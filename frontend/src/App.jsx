@@ -76,13 +76,10 @@ import { DashboardPage } from "./pages/DashboardPage";
 import { ProjectsPage } from "./pages/ProjectsPage";
 import { CreateProjectPage } from "./pages/CreateProjectPage";
 import { ProjectDetailPage } from "./pages/ProjectDetailPage";
-import {
-  ProfilePage,
-  SettingsPage,
-  AnalyticsPage,
-} from "./pages/SettingsPages";
+import { ProfilePage, SettingsPage } from "./pages/SettingsPages";
 import { NotFoundPage } from "./pages/NotFoundPage";
 import TemplateDeckExplorer from "./pages/TemplateDeckExplorer";
+import AnalyticsPage from "./pages/Analytics";
 
 export default function App() {
   return (

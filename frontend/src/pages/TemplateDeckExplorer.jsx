@@ -70,6 +70,7 @@ import {
   Moon,
   Sun,
   Wand2,
+  BotMessageSquare,
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -77,7 +78,7 @@ import { toast } from "sonner";
 import { heroTemplates } from "../lib/templates/hero";
 import { contentTemplates } from "../lib/templates/content";
 import { closingTemplates } from "../lib/templates/closing";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const templateRegistry = {
   ...heroTemplates,
@@ -1065,10 +1066,10 @@ function DeckCard({ deck, onInspect, onDownload, onCopy, gridScale }) {
           <div className="flex items-center gap-1">
             <button
               onClick={() => onCopy(deck)}
-              title="Copy telemetry"
+              title="Create With AI"
               className="p-1.5 rounded-lg border border-(--border-primary) hover:bg-(--surface-tertiary) text-(--text-secondary) hover:text-(--text-primary) transition-colors"
             >
-              <Copy className="w-2.5 h-2.5" />
+              <BotMessageSquare className="w-2.5 h-2.5" />
             </button>
             <button
               onClick={(e) => onDownload(e, deck)}
@@ -1234,23 +1235,20 @@ export default function TemplateDeckExplorer() {
   };
 
   // ── Copy telemetry ────────────────────────────────────────────
-  const copyTelemetry = useCallback((deck) => {
-    const lines = [
-      `THEME: ${deck.theme.name} | Mode: ${deck.theme.mode} | Font: ${deck.theme.fontFamily}`,
-      `Colors: BG=${deck.theme.backgroundColor} Surface=${deck.theme.surfaceColor} Accent=${deck.theme.accentColor}`,
-      ``,
-      ...deck.slides.map(
-        (s, i) =>
-          `[${i + 1}/${deck.slideCount}] ${s.category.toUpperCase()} → ${
-            s.template
-          }`
-      ),
-    ].join("\n");
-    navigator.clipboard
-      .writeText(lines)
-      .then(() => toast.success(`Telemetry copied for Deck #${deck.index}`))
-      .catch(() => toast.error("Clipboard write failed"));
-  }, []);
+  const navigate = useNavigate();
+
+  const copyTelemetry = useCallback(
+    (deck) => {
+      navigate("/dashboard/create", {
+        state: {
+          templateDeck: deck,
+        },
+      });
+
+      toast.success(`Template applied from Deck #${deck.index}`);
+    },
+    [navigate]
+  );
 
   // ── Export PPTX ───────────────────────────────────────────────
   const handleExport = useCallback(
@@ -1551,9 +1549,9 @@ export default function TemplateDeckExplorer() {
               <div className="flex items-center gap-2 shrink-0">
                 <button
                   onClick={() => copyTelemetry(mergedInspectedDeck)}
-                  className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 bg-(--surface-tertiary) hover:bg-neutral-700 border border-(--border-primary) rounded-xl text-xs font-bold transition-colors"
+                  className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 bg-(--surface-tertiary) hover:bg-(--brand) border border-(--border-primary) rounded-xl text-xs font-bold transition-colors"
                 >
-                  <Copy className="w-3.5 h-3.5" /> Copy
+                  <BotMessageSquare className="w-3.5 h-3.5" /> Create With AI
                 </button>
                 <button
                   onClick={(e) => handleExport(e, mergedInspectedDeck)}
@@ -1920,8 +1918,8 @@ export default function TemplateDeckExplorer() {
                         onClick={() => copyTelemetry(mergedInspectedDeck)}
                         className="w-full inline-flex items-center justify-center gap-2 py-2 border border-dashed border-(--border-primary) hover:border-neutral-500 rounded-xl text-xs font-bold text-neutral-400 hover:text-(--text-primary) transition-colors"
                       >
-                        <Copy className="w-3 h-3 text-indigo-400" /> Copy
-                        Telemetry
+                        <BotMessageSquare className="w-3 h-3 text-indigo-400" />{" "}
+                        Create With AI
                       </button>
                       <button
                         onClick={(e) => handleExport(e, mergedInspectedDeck)}
