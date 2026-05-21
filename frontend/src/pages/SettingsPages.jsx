@@ -297,26 +297,3 @@ export function AnalyticsPage() {
     </div>
   );
 }
-
-export function BillingPage() {
-  return (
-    <div className="max-w-4xl mx-auto">
-      <motion.div
-        initial={{ opacity: 0, y: 8 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="text-center py-24 space-y-3"
-      >
-        <div className="w-16 h-16 rounded-2xl bg-(--bg-tertiary) flex items-center justify-center mx-auto">
-          <span className="text-2xl">💳</span>
-        </div>
-        <h1 className="text-xl font-bold text-(--text-primary)">Billing</h1>
-        <p className="text-(--text-secondary)">
-          Subscription management and billing coming soon.
-        </p>
-        <span className="inline-block text-xs bg-amber-100 text-amber-600 dark:bg-amber-950 dark:text-amber-400 px-3 py-1 rounded-full font-semibold">
-          Coming Soon
-        </span>
-      </motion.div>
-    </div>
-  );
-}

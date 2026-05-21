@@ -80,7 +80,6 @@ import {
   ProfilePage,
   SettingsPage,
   AnalyticsPage,
-  BillingPage,
 } from "./pages/SettingsPages";
 import { NotFoundPage } from "./pages/NotFoundPage";
 import TemplateDeckExplorer from "./pages/TemplateDeckExplorer";
@@ -118,7 +117,7 @@ export default function App() {
                   path="/dashboard/analytics"
                   element={<AnalyticsPage />}
                 />
-                <Route path="/dashboard/billing" element={<BillingPage />} />
+
                 <Route path="/dashboard/settings" element={<SettingsPage />} />
                 <Route path="/dashboard/profile" element={<ProfilePage />} />
               </Route>

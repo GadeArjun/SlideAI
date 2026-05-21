@@ -24,7 +24,6 @@ const NAV = [
   { to: "/dashboard/projects", icon: FolderOpen, label: "Projects" },
   { to: "/dashboard/create", icon: Plus, label: "Create", highlight: true },
   { to: "/dashboard/analytics", icon: BarChart2, label: "Analytics" },
-  { to: "/dashboard/billing", icon: CreditCard, label: "Billing" },
   { to: "/dashboard/settings", icon: Settings, label: "Settings" },
   { to: "/dashboard/profile", icon: User, label: "Profile" },
 ];
