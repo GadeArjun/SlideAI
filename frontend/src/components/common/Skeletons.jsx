@@ -47,7 +47,8 @@ export function TableRowSkeleton({ rows = 5 }) {
       {[...Array(rows)].map((_, i) => (
         <div
           key={i}
-          className="flex items-center gap-4 py-3 border-b border-[var(--border)]"
+          className="flex items-center gap-4 py-3 border-b
+          border-(--border)"
         >
           <Skeleton className="h-8 w-8 rounded-full shrink-0" />
           <div className="flex-1 space-y-1.5">

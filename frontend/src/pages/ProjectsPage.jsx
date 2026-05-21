@@ -31,10 +31,8 @@ export function ProjectsPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-xl font-bold text-[var(--text-primary)]">
-            Projects
-          </h1>
-          <p className="text-sm text-[var(--text-secondary)] mt-0.5">
+          <h1 className="text-xl font-bold text-(--text-primary)">Projects</h1>
+          <p className="text-sm text-(--text-secondary) mt-0.5">
             {projects.length || 0} total presentations
           </p>
         </div>
@@ -49,7 +47,7 @@ export function ProjectsPage() {
       {/* Filters */}
       <div className="flex flex-col sm:flex-row gap-3">
         <div className="relative flex-1">
-          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--text-muted)]" />
+          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-(--text-muted)" />
           <input
             value={search}
             onChange={(e) => {
@@ -71,7 +69,7 @@ export function ProjectsPage() {
               className={`px-3 py-2 rounded-xl text-xs font-semibold capitalize whitespace-nowrap transition-all ${
                 status === s
                   ? "bg-blue-500 text-white shadow-sm shadow-blue-500/30"
-                  : "bg-[var(--bg-tertiary)] text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
+                  : "bg-(--bg-tertiary) text-(--text-secondary) hover:text-(--text-primary)"
               }`}
             >
               {s}
@@ -122,7 +120,7 @@ export function ProjectsPage() {
               >
                 Previous
               </button>
-              <span className="text-xs text-[var(--text-muted)] px-2">
+              <span className="text-xs text-(--text-muted) px-2">
                 {page} / {pagination.pages}
               </span>
               <button

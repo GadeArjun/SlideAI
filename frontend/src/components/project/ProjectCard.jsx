@@ -54,11 +54,11 @@ export function ProjectCard({ project, index = 0 }) {
         onClick={() => navigate(`/dashboard/projects/${project._id}`)}
       >
         {/* Preview area */}
-        <div className="relative h-36 bg-gradient-to-br from-blue-50 to-violet-50 dark:from-blue-950/30 dark:to-violet-950/30 flex items-center justify-center overflow-hidden">
+        <div className="relative h-36 bg-linear-to-br from-blue-50 to-violet-50 dark:from-blue-950/30 dark:to-violet-950/30 flex items-center justify-center overflow-hidden">
           <div className="absolute inset-0 bg-grid-pattern opacity-30" />
           <div className="relative z-10 flex items-center justify-center">
-            <div className="w-20 h-14 rounded-lg bg-white dark:bg-zinc-800 shadow-lg border border-[var(--border)] flex items-center justify-center">
-              <FileText className="w-8 h-8 text-[var(--brand)]" />
+            <div className="w-20 h-14 rounded-lg bg-white dark:bg-zinc-800 shadow-lg border border-(--border) flex items-center justify-center">
+              <FileText className="w-8 h-8 text-(--brand)" />
             </div>
           </div>
           {isActive && (
@@ -84,7 +84,7 @@ export function ProjectCard({ project, index = 0 }) {
                   className="w-8 h-8 rounded-lg bg-white dark:bg-zinc-800 flex items-center justify-center shadow-md hover:scale-110 transition-transform"
                   title="Download"
                 >
-                  <Download className="w-4 h-4 text-[var(--brand)]" />
+                  <Download className="w-4 h-4 text-(--brand)" />
                 </a>
               )}
               {(isFailed || project.status === "paused") && (
@@ -104,11 +104,11 @@ export function ProjectCard({ project, index = 0 }) {
         <div className="p-4">
           <div className="flex items-start justify-between gap-2">
             <div className="flex-1 min-w-0">
-              <h3 className="font-semibold text-sm text-[var(--text-primary)] truncate">
+              <h3 className="font-semibold text-sm text-(--text-primary) truncate">
                 {project.intentParser.parsedData.presentation.title ||
                   "Untitled Project"}
               </h3>
-              <p className="text-xs text-[var(--text-muted)] mt-0.5 line-clamp-2">
+              <p className="text-xs text-(--text-muted) mt-0.5 line-clamp-2">
                 {truncate(project.userPromt, 80)}
               </p>
             </div>
@@ -134,7 +134,7 @@ export function ProjectCard({ project, index = 0 }) {
                         href={pptUrl}
                         target="_blank"
                         rel="noreferrer"
-                        className="flex items-center gap-2 px-3 py-2 text-sm text-[var(--text-secondary)] hover:bg-[var(--bg-tertiary)]"
+                        className="flex items-center gap-2 px-3 py-2 text-sm text-(--text-secondary) hover:bg-(--bg-tertiary)"
                         onClick={() => setMenuOpen(false)}
                       >
                         <Download className="w-3.5 h-3.5" /> Download
@@ -156,7 +156,7 @@ export function ProjectCard({ project, index = 0 }) {
           </div>
           <div className="flex items-center justify-between mt-3">
             <StatusBadge status={project.status} />
-            <div className="flex items-center gap-2 text-xs text-[var(--text-muted)]">
+            <div className="flex items-center gap-2 text-xs text-(--text-muted)">
               {slideCount > 0 && <span>{slideCount} slides</span>}
               <span>·</span>
               <span>{formatDate(project.updatedAt)}</span>

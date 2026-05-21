@@ -14,7 +14,7 @@ export function DashboardLayout() {
   const sidebarW = !sidebarOpen ? 0 : sidebarCollapsed ? 72 : 240;
 
   return (
-    <div className="min-h-screen bg-[var(--bg)]">
+    <div className="min-h-screen bg-(--bg)">
       <Sidebar />
       <div
         className="flex flex-col min-h-screen transition-all duration-250"

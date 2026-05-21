@@ -13,19 +13,26 @@ export function SeeMoreCard({ index = 0 }) {
       whileHover={{ y: -4 }}
       whileTap={{ scale: 0.98 }}
       onClick={() => navigate("/dashboard/projects")}
-      className="group relative overflow-hidden rounded-3xl border border-[var(--border)] bg-[var(--bg-secondary)] hover:border-[var(--brand)]/40 transition-all duration-300 cursor-pointer shadow-sm hover:shadow-2xl"
+      className="group relative overflow-hidden rounded-3xl border border-(--border) bg-(--bg-secondary) 
+      hover:border-(--brand)/40 transition-all duration-300 cursor-pointer shadow-sm hover:shadow-2xl"
     >
       {/* Glow */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[var(--brand)]/5 via-transparent to-violet-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+      <div
+        className="absolute inset-0 bg-linear-to-br 
+      from-(--brand)/5 via-transparent to-violet-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+      />
 
       {/* Animated background */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-10 -right-10 w-32 h-32 bg-[var(--brand)]/10 rounded-full blur-3xl group-hover:scale-125 transition-transform duration-700" />
+        <div
+          className="absolute -top-10 -right-10 w-32 h-32 
+        bg-(--brand)/10 rounded-full blur-3xl group-hover:scale-125 transition-transform duration-700"
+        />
         <div className="absolute -bottom-10 -left-10 w-28 h-28 bg-violet-500/10 rounded-full blur-3xl group-hover:scale-125 transition-transform duration-700" />
       </div>
 
       {/* Preview Area */}
-      <div className="relative h-40 bg-gradient-to-br from-blue-50 via-violet-50 to-purple-100 dark:from-zinc-900 dark:via-zinc-900 dark:to-zinc-950 flex items-center justify-center overflow-hidden">
+      <div className="relative h-40 bg-linear-to-br from-blue-50 via-violet-50 to-purple-100 dark:from-zinc-900 dark:via-zinc-900 dark:to-zinc-950 flex items-center justify-center overflow-hidden">
         {/* Grid Pattern */}
         <div className="absolute inset-0 opacity-20 bg-grid-pattern" />
 
@@ -41,7 +48,7 @@ export function SeeMoreCard({ index = 0 }) {
           className="absolute top-6 left-6"
         >
           <div className="w-10 h-10 rounded-2xl bg-white/80 dark:bg-zinc-800/80 backdrop-blur-md border border-white/20 flex items-center justify-center shadow-lg">
-            <FolderOpen className="w-5 h-5 text-[var(--brand)]" />
+            <FolderOpen className="w-5 h-5 text-(--brand)" />
           </div>
         </motion.div>
 
@@ -62,10 +69,10 @@ export function SeeMoreCard({ index = 0 }) {
 
         {/* Main Center Card */}
         <motion.div whileHover={{ scale: 1.05 }} className="relative z-10">
-          <div className="w-24 h-16 rounded-2xl bg-white dark:bg-zinc-800 border border-[var(--border)] shadow-2xl flex items-center justify-center">
+          <div className="w-24 h-16 rounded-2xl bg-white dark:bg-zinc-800 border border-(--border) shadow-2xl flex items-center justify-center">
             <div className="flex items-center gap-2">
-              <FolderOpen className="w-6 h-6 text-[var(--brand)]" />
-              <ArrowRight className="w-4 h-4 text-[var(--text-muted)] group-hover:translate-x-1 transition-transform" />
+              <FolderOpen className="w-6 h-6 text-(--brand)" />
+              <ArrowRight className="w-4 h-4 text-(--text-muted) group-hover:translate-x-1 transition-transform" />
             </div>
           </div>
         </motion.div>
@@ -75,16 +82,16 @@ export function SeeMoreCard({ index = 0 }) {
       <div className="relative z-10 p-5">
         <div className="space-y-2">
           <div className="flex items-center justify-between gap-3">
-            <h3 className="text-base font-semibold text-[var(--text-primary)]">
+            <h3 className="text-base font-semibold text-(--text-primary)">
               See More Projects
             </h3>
 
-            <div className="w-8 h-8 rounded-xl bg-[var(--brand)]/10 flex items-center justify-center group-hover:bg-[var(--brand)] group-hover:text-white transition-all duration-300">
+            <div className="w-8 h-8 rounded-xl bg-(--brand)/10 flex items-center justify-center group-hover:bg-(--brand) group-hover:text-white transition-all duration-300">
               <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
             </div>
           </div>
 
-          <p className="text-sm leading-relaxed text-[var(--text-muted)]">
+          <p className="text-sm leading-relaxed text-(--text-muted)">
             Explore all your generated presentations, continue editing projects,
             and manage your AI PPT workspace.
           </p>
@@ -92,19 +99,19 @@ export function SeeMoreCard({ index = 0 }) {
 
         {/* Footer */}
         <div className="mt-5 flex items-center justify-between">
-          <div className="flex items-center gap-2 text-xs text-[var(--text-muted)]">
+          <div className="flex items-center gap-2 text-xs text-(--text-muted)">
             <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
             View all projects
           </div>
 
-          <span className="text-xs font-medium text-[var(--brand)] opacity-0 group-hover:opacity-100 transition-opacity">
+          <span className="text-xs font-medium text-(--brand) opacity-0 group-hover:opacity-100 transition-opacity">
             Open Dashboard
           </span>
         </div>
       </div>
 
       {/* Border Glow */}
-      <div className="absolute inset-0 rounded-3xl border border-transparent group-hover:border-[var(--brand)]/20 transition-colors duration-300 pointer-events-none" />
+      <div className="absolute inset-0 rounded-3xl border border-transparent group-hover:border-(--brand)/20 transition-colors duration-300 pointer-events-none" />
     </motion.div>
   );
 }

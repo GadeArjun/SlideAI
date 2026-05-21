@@ -1,5 +1,5 @@
-import { motion } from 'framer-motion'
-import { Layers } from 'lucide-react'
+import { motion } from "framer-motion";
+import { Layers } from "lucide-react";
 
 export function GlobalLoader() {
   return (
@@ -7,8 +7,8 @@ export function GlobalLoader() {
       <div className="flex flex-col items-center gap-4">
         <motion.div
           animate={{ rotate: 360 }}
-          transition={{ duration: 1.5, repeat: Infinity, ease: 'linear' }}
-          className="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-500 to-violet-600 flex items-center justify-center shadow-lg shadow-blue-500/30"
+          transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
+          className="w-12 h-12 rounded-2xl bg-linear-to-br from-blue-500 to-violet-600 flex items-center justify-center shadow-lg shadow-blue-500/30"
         >
           <Layers className="w-6 h-6 text-white" />
         </motion.div>
@@ -22,5 +22,5 @@ export function GlobalLoader() {
         </motion.div>
       </div>
     </div>
-  )
+  );
 }

@@ -29,8 +29,8 @@ function StatCard({ icon: Icon, label, value, color, delay = 0 }) {
       >
         <Icon className="w-4 h-4 text-white" />
       </div>
-      <p className="text-2xl font-bold text-[var(--text-primary)]">{value}</p>
-      <p className="text-xs text-[var(--text-muted)] mt-0.5">{label}</p>
+      <p className="text-2xl font-bold text-(--text-primary)">{value}</p>
+      <p className="text-xs text-(--text-muted) mt-0.5">{label}</p>
     </motion.div>
   );
 }
@@ -56,7 +56,7 @@ export function DashboardPage() {
         className="flex items-center justify-between"
       >
         <div>
-          <h1 className="text-2xl font-bold text-[var(--text-primary)]">
+          <h1 className="text-2xl font-bold text-(--text-primary)">
             Good{" "}
             {new Date().getHours() < 12
               ? "morning"
@@ -65,7 +65,7 @@ export function DashboardPage() {
               : "evening"}
             , {user?.name || user?.username} 👋
           </h1>
-          <p className="text-sm text-[var(--text-secondary)] mt-0.5">
+          <p className="text-sm text-(--text-secondary) mt-0.5">
             Here's what's happening with your presentations.
           </p>
         </div>
@@ -119,7 +119,7 @@ export function DashboardPage() {
 
       {/* Quick actions */}
       <div>
-        <h2 className="text-sm font-semibold text-[var(--text-primary)] mb-3">
+        <h2 className="text-sm font-semibold text-(--text-primary) mb-3">
           Quick Actions
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -133,14 +133,14 @@ export function DashboardPage() {
               <Plus className="w-5 h-5 text-blue-600 dark:text-blue-400" />
             </div>
             <div>
-              <p className="text-sm font-semibold text-[var(--text-primary)]">
+              <p className="text-sm font-semibold text-(--text-primary)">
                 New Presentation
               </p>
-              <p className="text-xs text-[var(--text-muted)]">
+              <p className="text-xs text-(--text-muted)">
                 Generate from a prompt
               </p>
             </div>
-            <ArrowRight className="w-4 h-4 text-[var(--text-muted)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+            <ArrowRight className="w-4 h-4 text-(--text-muted) ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
           </motion.button>
           <motion.button
             whileHover={{ scale: 1.01 }}
@@ -152,14 +152,14 @@ export function DashboardPage() {
               <FolderOpen className="w-5 h-5 text-violet-600 dark:text-violet-400" />
             </div>
             <div>
-              <p className="text-sm font-semibold text-[var(--text-primary)]">
+              <p className="text-sm font-semibold text-(--text-primary)">
                 View All Projects
               </p>
-              <p className="text-xs text-[var(--text-muted)]">
+              <p className="text-xs text-(--text-muted)">
                 Browse your presentations
               </p>
             </div>
-            <ArrowRight className="w-4 h-4 text-[var(--text-muted)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+            <ArrowRight className="w-4 h-4 text-(--text-muted) ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
           </motion.button>
         </div>
       </div>
@@ -167,7 +167,7 @@ export function DashboardPage() {
       {/* Recent projects */}
       <div>
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-sm font-semibold text-[var(--text-primary)]">
+          <h2 className="text-sm font-semibold text-(--text-primary)">
             Recent Projects
           </h2>
           <button

@@ -195,14 +195,14 @@ function StepIndicator({ status, Icon }) {
         w-10
         h-10
         rounded-2xl
-        bg-[var(--surface-secondary)]
+        bg-(--surface-secondary)
         flex
         items-center
         justify-center
         shrink-0
       "
     >
-      <Icon className="w-5 h-5 text-[var(--text-secondary)]" />
+      <Icon className="w-5 h-5 text-(--text-secondary)" />
     </div>
   );
 }
@@ -245,9 +245,9 @@ export function GenerationTracker({ projectId }) {
   rounded-3xl
 
   border
-  border-[var(--border-primary)]
+  border-(--border-primary)
 
-  bg-[var(--surface-primary)]
+  bg-(--surface-primary)
 
   p-2
 
@@ -257,7 +257,7 @@ export function GenerationTracker({ projectId }) {
   overflow-x-hidden
 
   scrollbar-thin
-  scrollbar-thumb-[var(--border-primary)]
+  scrollbar-thumb-(--border-primary)
   scrollbar-track-transparent
 
   overscroll-contain
@@ -289,7 +289,7 @@ export function GenerationTracker({ projectId }) {
             </h2>
           </div>
 
-          <p className="mt-1 text-xs text-[var(--text-secondary)]">
+          <p className="mt-1 text-xs text-(--text-secondary)">
             {gen.currentStep || "Preparing presentation"}
           </p>
         </div>
@@ -304,7 +304,7 @@ export function GenerationTracker({ projectId }) {
       {/* ========================================= */}
 
       <div className="mt-1">
-        <div className="h-2 overflow-hidden rounded-full bg-[var(--surface-secondary)]">
+        <div className="h-2 overflow-hidden rounded-full bg-(--surface-secondary)">
           <motion.div
             initial={{
               width: 0,
@@ -345,14 +345,14 @@ export function GenerationTracker({ projectId }) {
         <div
           className="
             rounded-2xl
-            bg-[var(--surface-secondary)]
+            bg-(--surface-secondary)
             p-1
           "
         >
-          <p className="text-xs text-[var(--text-secondary)]">Slides</p>
+          <p className="text-xs text-(--text-secondary)">Slides</p>
 
           <div className="mt-1 flex items-center gap-1">
-            <Layers3 className="w-4 h-4 text-[var(--text-secondary)]" />
+            <Layers3 className="w-4 h-4 text-(--text-secondary)" />
 
             <p className="text-lg font-semibold">
               {generatedSlides}/{totalSlides}
@@ -363,11 +363,11 @@ export function GenerationTracker({ projectId }) {
         <div
           className="
             rounded-2xl
-            bg-[var(--surface-secondary)]
+            bg-(--surface-secondary)
             p-2
           "
         >
-          <p className="text-xs text-[var(--text-secondary)]">Current Agent</p>
+          <p className="text-xs text-(--text-secondary)">Current Agent</p>
 
           <p className="mt-1 text-sm font-medium truncate capitalize">
             {gen.currentAgent || "Initializing"}
@@ -396,11 +396,11 @@ export function GenerationTracker({ projectId }) {
                         w-px
                         flex-1
                         mt-2
-                        min-h-[28px]
+                        min-h-7
                       `,
                       status === "done"
                         ? "bg-emerald-500"
-                        : "bg-[var(--border-primary)]"
+                        : "bg-(--border-primary)"
                     )}
                   />
                 )}
@@ -416,12 +416,12 @@ export function GenerationTracker({ projectId }) {
                         font-medium
                       `,
                       status === "active"
-                        ? "text-[var(--text-primary)]"
+                        ? "text-(--text-primary)"
                         : status === "done"
                         ? "text-emerald-500"
                         : status === "failed"
                         ? "text-red-500"
-                        : "text-[var(--text-secondary)]"
+                        : "text-(--text-secondary)"
                     )}
                   >
                     {step.title}
@@ -445,7 +445,7 @@ export function GenerationTracker({ projectId }) {
                   )}
                 </div>
 
-                <p className="mt-1 text-xs text-[var(--text-secondary)] leading-relaxed">
+                <p className="mt-1 text-xs text-(--text-secondary) leading-relaxed">
                   {step.description}
                 </p>
               </div>
@@ -459,13 +459,13 @@ export function GenerationTracker({ projectId }) {
       {/* ========================================= */}
 
       {gen.logs?.length > 0 && (
-        <div className="mt-6 pt-4 border-t border-[var(--border-primary)]">
+        <div className="mt-6 pt-4 border-t border-(--border-primary)">
           <div className="flex items-center justify-between mb-3">
-            <p className="text-xs font-medium text-[var(--text-secondary)]">
+            <p className="text-xs font-medium text-(--text-secondary)">
               Recent Activity
             </p>
 
-            <p className="text-[10px] text-[var(--text-secondary)]">Live</p>
+            <p className="text-[10px] text-(--text-secondary)">Live</p>
           </div>
 
           <div className="space-y-2 max-h-32 overflow-y-auto no-scrollbar">
@@ -480,14 +480,14 @@ export function GenerationTracker({ projectId }) {
 
                     rounded-xl
 
-                    bg-[var(--surface-secondary)]
+                    bg-(--surface-secondary)
 
                     px-3
                     py-2
 
-                    text-[var(--text-secondary)]
+                    text-(--text-secondary)
 
-                    break-words
+                    wrap-break-word
                   "
                 >
                   {log.message}

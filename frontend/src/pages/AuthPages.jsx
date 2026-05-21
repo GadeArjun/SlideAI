@@ -27,9 +27,9 @@ const registerSchema = z.object({
 
 function AuthLayout({ children, title, subtitle }) {
   return (
-    <div className="min-h-screen bg-[var(--bg)] flex">
+    <div className="min-h-screen bg-(--bg) flex">
       {/* Left panel */}
-      <div className="hidden lg:flex w-1/2 bg-gradient-to-br from-blue-600 to-violet-700 flex-col items-center justify-center p-12 relative overflow-hidden">
+      <div className="hidden lg:flex w-1/2 bg-linear-to-br from-blue-600 to-violet-700 flex-col items-center justify-center p-12 relative overflow-hidden">
         <div className="absolute inset-0 bg-grid-pattern opacity-10" />
         {/* Floating elements */}
         {[...Array(4)].map((_, i) => (
@@ -69,20 +69,16 @@ function AuthLayout({ children, title, subtitle }) {
           className="w-full max-w-sm space-y-6"
         >
           <div className="lg:hidden flex items-center gap-2 mb-4">
-            <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-blue-500 to-violet-600 flex items-center justify-center">
+            <div className="w-8 h-8 rounded-xl bg-linear-to-br from-blue-500 to-violet-600 flex items-center justify-center">
               <Layers className="w-4 h-4 text-white" />
             </div>
-            <span className="font-bold text-[var(--text-primary)]">
-              SlideAI
-            </span>
+            <span className="font-bold text-(--text-primary)">SlideAI</span>
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-[var(--text-primary)]">
+            <h1 className="text-2xl font-bold text-(--text-primary)">
               {title}
             </h1>
-            <p className="text-sm text-[var(--text-secondary)] mt-1">
-              {subtitle}
-            </p>
+            <p className="text-sm text-(--text-secondary) mt-1">{subtitle}</p>
           </div>
           {children}
         </motion.div>
@@ -123,7 +119,7 @@ export function LoginPage() {
     <AuthLayout title="Welcome back" subtitle="Sign in to your SlideAI account">
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div>
-          <label className="text-xs font-semibold text-[var(--text-secondary)] block mb-1.5">
+          <label className="text-xs font-semibold text-(--text-secondary) block mb-1.5">
             Email
           </label>
           <input
@@ -135,7 +131,7 @@ export function LoginPage() {
           <FieldError msg={errors.email?.message} />
         </div>
         <div>
-          <label className="text-xs font-semibold text-[var(--text-secondary)] block mb-1.5">
+          <label className="text-xs font-semibold text-(--text-secondary) block mb-1.5">
             Password
           </label>
           <div className="relative">
@@ -148,7 +144,7 @@ export function LoginPage() {
             <button
               type="button"
               onClick={() => setShowPw((p) => !p)}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--text-muted)] hover:text-[var(--text-primary)]"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-(--text-muted) hover:text-(--text-primary)"
             >
               {showPw ? (
                 <EyeOff className="w-4 h-4" />
@@ -167,11 +163,11 @@ export function LoginPage() {
           {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Sign In"}
         </button>
       </form>
-      <p className="text-center text-sm text-[var(--text-secondary)]">
+      <p className="text-center text-sm text-(--text-secondary)">
         No account?{" "}
         <Link
           to="/auth/register"
-          className="text-[var(--brand)] font-semibold hover:underline"
+          className="text-(--brand) font-semibold hover:underline"
         >
           Sign up free
         </Link>
@@ -212,7 +208,7 @@ export function RegisterPage() {
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div className="grid grid-cols-2 gap-3">
           <div>
-            <label className="text-xs font-semibold text-[var(--text-secondary)] block mb-1.5">
+            <label className="text-xs font-semibold text-(--text-secondary) block mb-1.5">
               Name
             </label>
             <input
@@ -223,7 +219,7 @@ export function RegisterPage() {
             <FieldError msg={errors.name?.message} />
           </div>
           <div>
-            <label className="text-xs font-semibold text-[var(--text-secondary)] block mb-1.5">
+            <label className="text-xs font-semibold text-(--text-secondary) block mb-1.5">
               Username
             </label>
             <input
@@ -235,7 +231,7 @@ export function RegisterPage() {
           </div>
         </div>
         <div>
-          <label className="text-xs font-semibold text-[var(--text-secondary)] block mb-1.5">
+          <label className="text-xs font-semibold text-(--text-secondary) block mb-1.5">
             Email
           </label>
           <input
@@ -247,7 +243,7 @@ export function RegisterPage() {
           <FieldError msg={errors.email?.message} />
         </div>
         <div>
-          <label className="text-xs font-semibold text-[var(--text-secondary)] block mb-1.5">
+          <label className="text-xs font-semibold text-(--text-secondary) block mb-1.5">
             Password
           </label>
           <div className="relative">
@@ -260,7 +256,7 @@ export function RegisterPage() {
             <button
               type="button"
               onClick={() => setShowPw((p) => !p)}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--text-muted)] hover:text-[var(--text-primary)]"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-(--text-muted) hover:text-(--text-primary)"
             >
               {showPw ? (
                 <EyeOff className="w-4 h-4" />
@@ -283,11 +279,11 @@ export function RegisterPage() {
           )}
         </button>
       </form>
-      <p className="text-center text-sm text-[var(--text-secondary)]">
+      <p className="text-center text-sm text-(--text-secondary)">
         Already have an account?{" "}
         <Link
           to="/auth/login"
-          className="text-[var(--brand)] font-semibold hover:underline"
+          className="text-(--brand) font-semibold hover:underline"
         >
           Sign in
         </Link>

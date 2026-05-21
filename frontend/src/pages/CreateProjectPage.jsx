@@ -59,10 +59,10 @@ export function CreateProjectPage() {
   return (
     <div className="max-w-3xl mx-auto space-y-6">
       <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
-        <h1 className="text-xl font-bold text-[var(--text-primary)]">
+        <h1 className="text-xl font-bold text-(--text-primary)">
           Create Presentation
         </h1>
-        <p className="text-sm text-[var(--text-secondary)] mt-0.5">
+        <p className="text-sm text-(--text-secondary) mt-0.5">
           Describe your presentation and AI will generate it for you.
         </p>
       </motion.div>
@@ -75,7 +75,7 @@ export function CreateProjectPage() {
         className="card p-5 space-y-4"
       >
         <div>
-          <label className="text-xs font-semibold text-[var(--text-secondary)] uppercase tracking-wide mb-2 block">
+          <label className="text-xs font-semibold text-(--text-secondary) uppercase tracking-wide mb-2 block">
             Your Prompt
           </label>
           <textarea
@@ -85,7 +85,7 @@ export function CreateProjectPage() {
             rows={6}
             className="input-field resize-none"
           />
-          <p className="text-xs text-[var(--text-muted)] mt-1.5">
+          <p className="text-xs text-(--text-muted) mt-1.5">
             {prompt.length} characters
           </p>
         </div>
@@ -115,14 +115,14 @@ export function CreateProjectPage() {
         className="card p-5 border-dashed"
       >
         <div className="flex items-center gap-4">
-          <div className="w-10 h-10 rounded-xl bg-[var(--bg-tertiary)] flex items-center justify-center">
-            <Upload className="w-5 h-5 text-[var(--text-muted)]" />
+          <div className="w-10 h-10 rounded-xl bg-(--bg-tertiary) flex items-center justify-center">
+            <Upload className="w-5 h-5 text-(--text-muted)" />
           </div>
           <div>
-            <p className="text-sm font-semibold text-[var(--text-primary)]">
+            <p className="text-sm font-semibold text-(--text-primary)">
               Upload Document
             </p>
-            <p className="text-xs text-[var(--text-muted)]">
+            <p className="text-xs text-(--text-muted)">
               Generate from DOCX or PDF —{" "}
               <span className="text-amber-500 font-medium">Coming Soon</span>
             </p>
@@ -136,7 +136,7 @@ export function CreateProjectPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.15 }}
       >
-        <h2 className="text-xs font-semibold text-[var(--text-muted)] uppercase tracking-wide mb-3">
+        <h2 className="text-xs font-semibold text-(--text-muted) uppercase tracking-wide mb-3">
           Example Prompts
         </h2>
         <div className="space-y-2">
@@ -146,11 +146,11 @@ export function CreateProjectPage() {
               onClick={() => setPrompt(ex)}
               className="w-full card p-3.5 text-left flex items-start gap-3 hover:border-blue-300 dark:hover:border-blue-700 transition-colors group"
             >
-              <FileText className="w-4 h-4 text-[var(--text-muted)] mt-0.5 shrink-0" />
-              <span className="text-sm text-[var(--text-secondary)] group-hover:text-[var(--text-primary)] transition-colors">
+              <FileText className="w-4 h-4 text-(--text-muted) mt-0.5 shrink-0" />
+              <span className="text-sm text-(--text-secondary) group-hover:text-(--text-primary) transition-colors">
                 {ex}
               </span>
-              <ChevronRight className="w-4 h-4 text-[var(--text-muted)] ml-auto shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" />
+              <ChevronRight className="w-4 h-4 text-(--text-muted) ml-auto shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" />
             </button>
           ))}
         </div>

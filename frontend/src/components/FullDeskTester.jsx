@@ -109,7 +109,7 @@ export default function FullDeckTester() {
       </div>
 
       {/* Preview */}
-      <div className="flex-1 p-8 flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100">
+      <div className="flex-1 p-8 flex items-center justify-center bg-linear-to-br from-gray-50 to-gray-100">
         <div className="w-full max-w-6xl aspect-video bg-white rounded-2xl shadow-2xl overflow-hidden border">
           {Template?.Preview ? (
             <Template.Preview

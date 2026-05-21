@@ -140,15 +140,15 @@ function SlideThumb({ slide, num, selected, onClick, theme }) {
           ? `
               border-zinc-400
               dark:border-zinc-600
-              bg-[var(--surface-secondary)]
-dark:bg-[var(--surface-secondary)]
+              bg-(--surface-secondary)
+dark:bg-(--surface-secondary)
               
               shadow-md
             `
           : `
-              border-[var(--border-primary)]
+              border-(--border-primary)
               
-              bg-[var(--surface-primary)]
+              bg-(--surface-primary)
               hover:bg-[var(--surface-primary)/50]
             `
       )}
@@ -160,7 +160,7 @@ dark:bg-[var(--surface-secondary)]
           relative
           bg-zinc-950
           border-b
-          border-[var(--border-primary)]
+          border-(--border-primary)
           
         "
       >
@@ -191,17 +191,17 @@ dark:bg-[var(--surface-secondary)]
 
       <div className="p-3">
         <div className="flex items-center justify-between">
-          <span className="text-[10px] uppercase tracking-[0.2em] text-[var(--text-secondary)]">
+          <span className="text-[10px] uppercase tracking-[0.2em] text-(--text-secondary)">
             Slide {num}
           </span>
           <LayoutGrid className="w-3.5 h-3.5 text-zinc-400" />
         </div>
 
-        <h3 className="mt-2 text-sm font-semibold truncate text-[var(--text-primary)]">
+        <h3 className="mt-2 text-sm font-semibold truncate text-(--text-primary)">
           {getSlideTitle(slide)}
         </h3>
 
-        <p className="mt-1 text-[10px] text-[var(--text-secondary)] truncate">
+        <p className="mt-1 text-[10px] text-(--text-secondary) truncate">
           {slide?.template}
         </p>
       </div>
@@ -468,11 +468,11 @@ export function ProjectDetailPage() {
     -m-5
     md:-m-6
 
-    bg-[var(--surface-primary)]
-    text-[var(--text-primary)]"
+    bg-(--surface-primary)
+    text-(--text-primary)"
       >
         {/* TOP BAR */}
-        <div className="flex items-center gap-3 px-5 py-3 border-b border-[var(--border-primary)] bg-[var(--surface-primary)] bg-[var(--surface-primary)] shrink-0">
+        <div className="flex items-center gap-3 px-5 py-3 border-b border-(--border-primary)  bg-(--surface-primary) shrink-0">
           <button
             onClick={() => navigate("/dashboard/projects")}
             className="btn-ghost p-2"
@@ -528,7 +528,7 @@ export function ProjectDetailPage() {
               onClick={() => setShowEditor((v) => !v)}
               className={cn(
                 "btn-ghost p-2 transition-colors",
-                showEditor ? "bg-[var(--surface-secondary)]" : ""
+                showEditor ? "bg-(--surface-secondary)" : ""
               )}
               title={showEditor ? "Hide AI Editor" : "Show AI Editor"}
             >
@@ -580,9 +580,8 @@ export function ProjectDetailPage() {
                 transition={{ duration: 0.2, ease: "easeInOut" }}
                 className="
                   border-r
-                  border-[var(--border-primary)]
-                  bg-[var(--surface-primary)]
-                  bg-[var(--surface-primary)]
+                  border-(--border-primary)
+                  bg-(--surface-primary)
                   overflow-y-auto
                   no-scrollbar
                   p-2
@@ -590,7 +589,7 @@ export function ProjectDetailPage() {
                   shrink-0
                 "
               >
-                <p className="text-xs font-semibold text-[var(--text-secondary)] px-1 pt-1">
+                <p className="text-xs font-semibold text-(--text-secondary) px-1 pt-1">
                   {slideNumbers.length} Slides
                 </p>
 
@@ -599,7 +598,7 @@ export function ProjectDetailPage() {
                     <Skeleton key={i} className="h-32 w-full rounded-xl" />
                   ))
                 ) : slideNumbers.length === 0 ? (
-                  <p className="text-xs text-[var(--text-secondary)] px-1">
+                  <p className="text-xs text-(--text-secondary) px-1">
                     No slides yet
                   </p>
                 ) : (
@@ -620,12 +619,12 @@ export function ProjectDetailPage() {
 
           {/* CENTER PREVIEW */}
           <div
-            className="flex-1 overflow-hidden bg-[var(--surface-secondary)]
-dark:bg-[var(--surface-secondary)] bg-[var(--surface-primary)] flex flex-col min-w-0"
+            className="flex-1 overflow-hidden 
+            bg-(--surface-secondary) flex flex-col min-w-0"
           >
             {isLoading ? (
               <div className="flex-1 flex items-center justify-center p-8">
-                <Skeleton className="w-full max-w-4xl h-[32rem] rounded-3xl" />
+                <Skeleton className="w-full max-w-4xl h-128 rounded-3xl" />
               </div>
             ) : isActive && generation && showTracking ? (
               <div className="flex-1 flex flex-col items-center justify-center px-4 min-h-0 overflow-y-auto overflow-x-hidden">
@@ -640,9 +639,9 @@ dark:bg-[var(--surface-secondary)] bg-[var(--surface-primary)] flex flex-col min
         rounded-2xl
 
         border
-        border-[var(--border-primary)]
 
-        bg-[var(--surface-primary)]/90
+        border-(--border-primary)
+        bg-(--surface-primary)/90
         backdrop-blur-xl
 
         px-4
@@ -651,7 +650,7 @@ dark:bg-[var(--surface-secondary)] bg-[var(--surface-primary)] flex flex-col min
         text-xs
         font-medium
 
-        text-[var(--text-primary)]
+        text-(--text-primary)
 
         shadow-lg
 
@@ -659,7 +658,7 @@ dark:bg-[var(--surface-secondary)] bg-[var(--surface-primary)] flex flex-col min
         duration-200
 
         hover:scale-[1.02]
-        hover:bg-[var(--surface-secondary)]
+        hover:bg-(--surface-secondary)
       "
                   >
                     <Sliders className="w-3.5 h-3.5" />
@@ -675,15 +674,15 @@ dark:bg-[var(--surface-secondary)] bg-[var(--surface-primary)] flex flex-col min
               </div>
             ) : slideNumbers.length === 0 ? (
               <div className="flex-1 flex flex-col items-center justify-center gap-3">
-                <Layers className="w-12 h-12 text-[var(--text-secondary)]" />
-                <p className="text-sm text-[var(--text-secondary)]">
+                <Layers className="w-12 h-12 text-(--text-secondary)" />
+                <p className="text-sm text-(--text-secondary)">
                   No slides generated yet
                 </p>
               </div>
             ) : (
               <>
                 {/* NAV BAR */}
-                <div className="flex items-center justify-between px-4 py-2 shrink-0 border-b border-[var(--border-primary)] bg-[var(--surface-primary)]">
+                <div className="flex items-center justify-between px-4 py-2 shrink-0 border-b border-(--border-primary) bg-(--surface-primary)">
                   <button
                     onClick={goPrev}
                     disabled={!canPrev}
@@ -700,7 +699,7 @@ dark:bg-[var(--surface-secondary)] bg-[var(--surface-primary)] flex flex-col min
                         onClick={() => setSelectedSlide(n)}
                         className={cn(
                           `
-                            min-w-[1.5rem]
+                            min-w-6
                             h-6
                             px-1.5
                             rounded-full
@@ -710,11 +709,11 @@ dark:bg-[var(--surface-secondary)] bg-[var(--surface-primary)] flex flex-col min
                           `,
                           n === selectedSlide
                             ? `
-                                bg-[var(--text-secondary)]
-                                text-[var(--surface-primary)]`
+                                bg-(--text-secondary)
+                                text-(--surface-primary)`
                             : `
-                                bg-[var(--surface-primary)]
-                                text-[var(--text-secondary)]
+                                bg-(--surface-primary)
+                                text-(--text-secondary)
                               `
                         )}
                       >
@@ -727,7 +726,7 @@ dark:bg-[var(--surface-secondary)] bg-[var(--surface-primary)] flex flex-col min
                         href={fullPptUrl}
                         target="_blank"
                         rel="noreferrer"
-                        className="ml-1 btn-ghost p-1.5 text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
+                        className="ml-1 btn-ghost p-1.5 text-(--text-secondary) hover:text-(--text-primary)"
                         title="Open raw PPTX"
                       >
                         <ExternalLink className="w-3.5 h-3.5" />
@@ -757,9 +756,9 @@ dark:bg-[var(--surface-secondary)] bg-[var(--surface-primary)] flex flex-col min
         rounded-2xl
 
         border
-        border-[var(--border-primary)]
+        border-(--border-primary)
 
-        bg-[var(--surface-primary)]/90
+        bg-(--surface-primary)/90
         backdrop-blur-xl
 
         px-4
@@ -768,7 +767,7 @@ dark:bg-[var(--surface-secondary)] bg-[var(--surface-primary)] flex flex-col min
         text-xs
         font-medium
 
-        text-[var(--text-primary)]
+        text-(--text-primary)
 
         shadow-lg
 
@@ -776,7 +775,7 @@ dark:bg-[var(--surface-secondary)] bg-[var(--surface-primary)] flex flex-col min
         duration-200
 
         hover:scale-[1.02]
-        hover:bg-[var(--surface-secondary)]
+        hover:bg-(--surface-secondary)
       "
                     >
                       <Sparkles className="w-3.5 h-3.5" />
@@ -802,8 +801,8 @@ dark:bg-[var(--surface-secondary)] bg-[var(--surface-primary)] flex flex-col min
                         shadow-[0_10px_40px_rgba(0,0,0,0.12)]
 dark:shadow-[0_10px_40px_rgba(0,0,0,0.5)]
                         border
-                        border-[var(--border-primary)]
-                        bg-[var(--surface-primary)]
+                        border-(--border-primary)
+                        bg-(--surface-primary)
                         shrink-0
                       "
                       style={{
@@ -833,13 +832,13 @@ dark:shadow-[0_10px_40px_rgba(0,0,0,0.5)]
                 </motion.div>
 
                 {/* INFO BAR */}
-                <div className="flex items-center justify-between gap-4 px-4 py-2.5 border-t border-[var(--border-primary)] bg-[var(--surface-primary)] bg-[var(--surface-primary)] text-xs text-[var(--text-secondary)] shrink-0">
+                <div className="flex items-center justify-between gap-4 px-4 py-2.5 border-t border-(--border-primary) bg-(--surface-primary) text-xs text-(--text-secondary) shrink-0">
                   <div className="flex items-center gap-2 min-w-0">
-                    <span className="font-semibold truncate  text-[var(--text-primary)]">
+                    <span className="font-semibold truncate  text-(--text-primary)">
                       {getSlideTitle(currentSlide)}
                     </span>
 
-                    <span className="capitalize px-2 py-0.5 rounded-full bg-[var(--surface-secondary)] shrink-0">
+                    <span className="capitalize px-2 py-0.5 rounded-full bg-(--surface-secondary) shrink-0">
                       {currentSlide?.plan?.slideType ||
                         currentSlide?.category ||
                         currentSlide?.template}
@@ -869,10 +868,9 @@ dark:shadow-[0_10px_40px_rgba(0,0,0,0.5)]
                 transition={{ duration: 0.22, ease: "easeInOut" }}
                 className="
                   border-l
-                  border-[var(--border-primary)]
+                  border-(--border-primary)
                   dark:border-zinc-900
-                  bg-[var(--surface-primary)]
-                  bg-[var(--surface-primary)]
+                  bg-(--surface-primary)
                   flex
                   flex-col
                   shrink-0
@@ -880,40 +878,40 @@ dark:shadow-[0_10px_40px_rgba(0,0,0,0.5)]
                 "
                 style={{ minWidth: 0 }}
               >
-                <div className="p-4 border-b border-[var(--border-primary)] shrink-0">
+                <div className="p-4 border-b border-(--border-primary) shrink-0">
                   <div className="flex items-center gap-2">
-                    <Sparkles className="w-4 h-4 text-[var(--text-secondary)]" />
+                    <Sparkles className="w-4 h-4 text-(--text-secondary)" />
                     <span className="text-sm font-semibold">AI Editor</span>
                   </div>
-                  <p className="text-xs text-[var(--text-secondary)] mt-0.5">
+                  <p className="text-xs text-(--text-secondary) mt-0.5">
                     Edit slide {selectedSlide} with AI
                   </p>
                 </div>
 
                 <div className="flex-1 overflow-y-auto p-4 space-y-4">
                   {currentSlide && (
-                    <div className="rounded-2xl border border-[var(--border-primary)]  p-3 space-y-1.5">
+                    <div className="rounded-2xl border border-(--border-primary)  p-3 space-y-1.5">
                       <div className="flex items-start justify-between gap-2">
-                        <p className="text-xs font-semibold leading-tight text-[var(--text-primary)]">
+                        <p className="text-xs font-semibold leading-tight text-(--text-primary)">
                           {getSlideTitle(currentSlide)}
                         </p>
                         <span
-                          className="text-[10px] capitalize px-1.5 py-0.5 rounded-full bg-[var(--surface-secondary)]
-dark:bg-[var(--surface-secondary)] shrink-0"
+                          className="text-[10px] capitalize px-1.5 py-0.5 rounded-full bg-(--surface-secondary)
+dark:bg-(--surface-secondary) shrink-0"
                         >
                           {currentSlide?.category ||
                             currentSlide?.plan?.slideType ||
                             currentSlide?.template}
                         </span>
                       </div>
-                      <p className="text-[10px] text-[var(--text-secondary)]">
+                      <p className="text-[10px] text-(--text-secondary)">
                         Template: <span>{currentSlide?.template}</span>
                       </p>
                     </div>
                   )}
 
                   <div>
-                    <p className="text-xs font-semibold text-[var(--text-secondary)] mb-2">
+                    <p className="text-xs font-semibold text-(--text-secondary) mb-2">
                       Quick edits
                     </p>
 
@@ -928,8 +926,7 @@ dark:bg-[var(--surface-secondary)] shrink-0"
                         <button
                           key={s}
                           onClick={() => setEditPrompt(s)}
-                          className="w-full text-left text-xs px-3 py-2 rounded-xl bg-[var(--surface-secondary)]
-dark:bg-[var(--surface-secondary)] hover:bg-[var(--surface-tertiary)] transition-colors"
+                          className="w-full text-left text-xs px-3 py-2 rounded-xl bg-(--surface-secondary) hover:bg-(--surface-tertiary) transition-colors"
                         >
                           {s}
                         </button>
@@ -940,15 +937,15 @@ dark:bg-[var(--surface-secondary)] hover:bg-[var(--surface-tertiary)] transition
 
                 <form
                   onSubmit={handleEditSlide}
-                  className="p-3 border-t border-[var(--border-primary)] space-y-2 shrink-0"
+                  className="p-3 border-t border-(--border-primary) space-y-2 shrink-0"
                 >
                   <textarea
                     value={editPrompt}
                     onChange={(e) => setEditPrompt(e.target.value)}
                     placeholder={`Describe changes for slide ${selectedSlide}...`}
                     rows={3}
-                    className=" w-full  rounded-2xl  border  border-[var(--border-primary)]  bg-[var(--surface-secondary)]  text-[var(--text-primary)]
-  placeholder:text-[var(--text-secondary)]  px-3
+                    className=" w-full  rounded-2xl  border  border-(--border-primary)  bg-(--surface-secondary)  text-(--text-primary)
+  placeholder:text-(--text-secondary)  px-3
   py-2.5   text-xs  resize-none   outline-none"
                   />
 
@@ -971,7 +968,7 @@ dark:bg-[var(--surface-secondary)] hover:bg-[var(--surface-tertiary)] transition
                   </button>
 
                   {!isCompleted && (
-                    <p className="text-xs text-center text-[var(--text-secondary)]">
+                    <p className="text-xs text-center text-(--text-secondary)">
                       Editing available after generation
                     </p>
                   )}

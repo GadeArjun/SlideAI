@@ -33,7 +33,7 @@ export const CustomButton = ({
     primary:
       "bg-blue-600 hover:bg-blue-700 text-white shadow-sm dark:bg-blue-500 dark:hover:bg-blue-600",
     accent:
-      "bg-gradient-to-r from-blue-600 to-violet-600 text-white hover:opacity-95 shadow-md",
+      "bg-linear-to-r from-blue-600 to-violet-600 text-white hover:opacity-95 shadow-md",
     secondary:
       "bg-zinc-100 hover:bg-zinc-200 text-zinc-900 dark:bg-zinc-800 dark:hover:bg-zinc-700 dark:text-zinc-100",
     outline:
@@ -63,13 +63,17 @@ export const CustomInput = React.forwardRef(
         )}
         <input
           ref={ref}
-          className={`w-full bg-white dark:bg-zinc-950 px-4 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 text-sm text-zinc-900 dark:text-zinc-50 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-150 ${error ? "border-red-500 focus:ring-red-500/20 focus:border-red-500" : ""} ${className}`}
+          className={`w-full bg-white dark:bg-zinc-950 px-4 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 text-sm text-zinc-900 dark:text-zinc-50 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-150 ${
+            error
+              ? "border-red-500 focus:ring-red-500/20 focus:border-red-500"
+              : ""
+          } ${className}`}
           {...props}
         />
         {error && <p className="text-xs font-medium text-red-500">{error}</p>}
       </div>
     );
-  },
+  }
 );
 CustomInput.displayName = "CustomInput";
 
@@ -81,7 +85,7 @@ export const ShimmerLoader = ({ className = "" }) => {
       <motion.div
         animate={{ x: ["-100%", "100%"] }}
         transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
-        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+        className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent"
       />
     </div>
   );

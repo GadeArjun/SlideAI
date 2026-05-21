@@ -51,17 +51,17 @@ function Navbar() {
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
         scrolled
-          ? "bg-white/80 dark:bg-zinc-950/80 backdrop-blur-xl border-b border-[var(--border)] shadow-sm"
+          ? "bg-white/80 dark:bg-zinc-950/80 backdrop-blur-xl border-b border-(--border) shadow-sm"
           : "bg-transparent"
       )}
     >
       <div className="max-w-6xl mx-auto px-5 h-16 flex items-center gap-6">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2.5 shrink-0">
-          <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-blue-500 to-violet-600 flex items-center justify-center shadow-lg shadow-blue-500/20">
+          <div className="w-8 h-8 rounded-xl bg-linear-to-br from-blue-500 to-violet-600 flex items-center justify-center shadow-lg shadow-blue-500/20">
             <Layers className="w-4 h-4 text-white" />
           </div>
-          <span className="font-bold text-[var(--text-primary)] tracking-tight">
+          <span className="font-bold text-(--text-primary) tracking-tight">
             SlideAI
           </span>
         </Link>
@@ -119,14 +119,14 @@ function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-[var(--surface)] border-b border-[var(--border)] px-5 pb-4 space-y-1"
+            className="md:hidden bg-(--surface)border-b border-(--border) px-5 pb-4 space-y-1"
           >
             {links.map((l) => (
               <a
                 key={l}
                 href={`#${l.toLowerCase()}`}
                 onClick={() => setMobileOpen(false)}
-                className="block py-2 text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
+                className="block py-2 text-sm text-(--text-secondary) hover:text-(--text-primary)"
               >
                 {l}
               </a>
@@ -238,7 +238,7 @@ function HeroSection() {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[var(--border)] bg-[var(--surface)] shadow-sm text-sm font-medium text-[var(--text-secondary)] mb-7"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-(--border) bg-(--surface)shadow-sm text-sm font-medium text-(--text-secondary) mb-7"
         >
           <Sparkles className="w-3.5 h-3.5 text-blue-500" />
           Powered by Advanced AI Models
@@ -250,7 +250,7 @@ function HeroSection() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-[var(--text-primary)] leading-tight tracking-tight mb-5"
+          className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-(--text-primary) leading-tight tracking-tight mb-5"
         >
           <span className="gradient-text">{typed}</span>
           <span className="animate-pulse text-blue-400">|</span>
@@ -261,7 +261,7 @@ function HeroSection() {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.35 }}
-          className="text-lg text-[var(--text-secondary)] max-w-2xl mx-auto mb-10 leading-relaxed"
+          className="text-lg text-(--text-secondary) max-w-2xl mx-auto mb-10 leading-relaxed"
         >
           Generate professional PowerPoint presentations in seconds. Just
           describe your idea — AI plans, designs, and builds every slide.
@@ -297,7 +297,7 @@ function HeroSection() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.6 }}
-          className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-5 text-sm text-[var(--text-muted)]"
+          className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-5 text-sm text-(--text-muted)"
         >
           <div className="flex items-center gap-2">
             {[...Array(5)].map((_, i) => (
@@ -305,9 +305,9 @@ function HeroSection() {
             ))}
             <span className="ml-1">4.9/5 from 500+ users</span>
           </div>
-          <span className="hidden sm:block w-px h-4 bg-[var(--border)]" />
+          <span className="hidden sm:block w-px h-4 bg-(--border)" />
           <span>✨ No credit card required</span>
-          <span className="hidden sm:block w-px h-4 bg-[var(--border)]" />
+          <span className="hidden sm:block w-px h-4 bg-(--border)" />
           <span>⚡ Generates in under 2 minutes</span>
         </motion.div>
 
@@ -319,14 +319,14 @@ function HeroSection() {
           className="relative mt-16 mx-auto max-w-3xl"
         >
           {/* Main preview card */}
-          <div className="card shadow-card-hover overflow-hidden rounded-2xl border-[var(--border)]">
+          <div className="card shadow-card-hover overflow-hidden rounded-2xl border-(--border)">
             {/* Fake browser bar */}
-            <div className="flex items-center gap-2 px-4 py-3 border-b border-[var(--border)] bg-[var(--bg-secondary)]">
+            <div className="flex items-center gap-2 px-4 py-3 border-b border-(--border) bg-(--bg-secondary)">
               <div className="w-3 h-3 rounded-full bg-red-400" />
               <div className="w-3 h-3 rounded-full bg-amber-400" />
               <div className="w-3 h-3 rounded-full bg-emerald-400" />
-              <div className="flex-1 mx-3 h-6 rounded-md bg-[var(--bg-tertiary)] flex items-center px-3">
-                <span className="text-xs text-[var(--text-muted)]">
+              <div className="flex-1 mx-3 h-6 rounded-md bg-(--bg-tertiary) flex items-center px-3">
+                <span className="text-xs text-(--text-muted)">
                   slideai.app/editor
                 </span>
               </div>
@@ -334,7 +334,7 @@ function HeroSection() {
             {/* Fake editor */}
             <div className="flex h-56 sm:h-72">
               {/* Left panel */}
-              <div className="w-24 sm:w-32 border-r border-[var(--border)] bg-[var(--bg-secondary)] p-2 space-y-2 shrink-0">
+              <div className="w-24 sm:w-32 border-r border-(--border) bg-(--bg-secondary) p-2 space-y-2 shrink-0">
                 {[...Array(5)].map((_, i) => (
                   <div
                     key={i}
@@ -342,13 +342,13 @@ function HeroSection() {
                       "h-14 rounded-lg",
                       i === 0
                         ? "bg-blue-100 dark:bg-blue-900 border-2 border-blue-400"
-                        : "bg-[var(--bg-tertiary)]"
+                        : "bg-(--bg-tertiary)"
                     )}
                   />
                 ))}
               </div>
               {/* Center slide */}
-              <div className="flex-1 bg-gradient-to-br from-blue-50 to-violet-50 dark:from-zinc-900 dark:to-zinc-800 flex flex-col items-center justify-center gap-4 p-6">
+              <div className="flex-1 bg-linear-to-br from-blue-50 to-violet-50 dark:from-zinc-900 dark:to-zinc-800 flex flex-col items-center justify-center gap-4 p-6">
                 <motion.div
                   animate={{ opacity: [0.7, 1, 0.7] }}
                   transition={{ duration: 2, repeat: Infinity }}
@@ -357,24 +357,36 @@ function HeroSection() {
                   <div className="w-10 h-10 rounded-xl bg-blue-500 flex items-center justify-center mx-auto">
                     <Brain className="w-5 h-5 text-white" />
                   </div>
-                  <div className="h-4 w-48 rounded bg-[var(--text-primary)] opacity-80 mx-auto" />
-                  <div className="h-2.5 w-36 rounded bg-[var(--text-muted)] opacity-50 mx-auto" />
-                  <div className="h-2.5 w-40 rounded bg-[var(--text-muted)] opacity-40 mx-auto" />
+                  <div
+                    className="h-4 w-48 rounded 
+                  bg-(--text-primary) opacity-80 mx-auto"
+                  />
+                  <div
+                    className="h-2.5 w-36 rounded 
+                  bg-(--text-muted) opacity-50 mx-auto"
+                  />
+                  <div
+                    className="h-2.5 w-40 rounded 
+                  bg-(--text-muted) opacity-40 mx-auto"
+                  />
                 </motion.div>
               </div>
               {/* Right panel */}
-              <div className="w-44 border-l border-[var(--border)] bg-[var(--bg-secondary)] p-3 space-y-3 hidden sm:block shrink-0">
-                <div className="h-3 w-20 rounded bg-[var(--bg-tertiary)]" />
+              <div className="w-44 border-l border-(--border) bg-(--bg-secondary) p-3 space-y-3 hidden sm:block shrink-0">
+                <div className="h-3 w-20 rounded bg-(--bg-tertiary)" />
                 {[...Array(4)].map((_, i) => (
                   <div
                     key={i}
-                    className="h-8 rounded-lg bg-[var(--bg-tertiary)] flex items-center px-3 gap-2"
+                    className="h-8 rounded-lg bg-(--bg-tertiary) flex items-center px-3 gap-2"
                   >
                     <div className="w-3 h-3 rounded bg-blue-300 dark:bg-blue-700 shrink-0" />
-                    <div className="h-2 flex-1 rounded bg-[var(--border)]" />
+                    <div
+                      className="h-2 flex-1 rounded 
+                    bg-(--border)"
+                    />
                   </div>
                 ))}
-                <div className="h-24 rounded-xl bg-gradient-to-br from-blue-100 to-violet-100 dark:from-blue-900/30 dark:to-violet-900/30 flex items-center justify-center">
+                <div className="h-24 rounded-xl bg-linear-to-br from-blue-100 to-violet-100 dark:from-blue-900/30 dark:to-violet-900/30 flex items-center justify-center">
                   <BarChart2 className="w-8 h-8 text-blue-400" />
                 </div>
               </div>
@@ -385,21 +397,21 @@ function HeroSection() {
           <motion.div
             animate={{ y: [0, -8, 0] }}
             transition={{ duration: 3, repeat: Infinity }}
-            className="absolute -top-4 -left-6 bg-[var(--surface)] border border-[var(--border)] rounded-xl px-3 py-2 shadow-card text-xs font-semibold text-[var(--text-primary)] flex items-center gap-2 hidden sm:flex"
+            className="absolute -top-4 -left-6 bg-(--surface)border border-(--border) rounded-xl px-3 py-2 shadow-card text-xs font-semibold text-(--text-primary) items-center gap-2 hidden sm:flex"
           >
             <Brain className="w-4 h-4 text-blue-500" /> AI Planning
           </motion.div>
           <motion.div
             animate={{ y: [0, -6, 0] }}
             transition={{ duration: 3.5, repeat: Infinity, delay: 0.5 }}
-            className="absolute -top-4 -right-4 bg-[var(--surface)] border border-[var(--border)] rounded-xl px-3 py-2 shadow-card text-xs font-semibold text-emerald-600 flex items-center gap-2 hidden sm:flex"
+            className="absolute -top-4 -right-4 bg-(--surface)border border-(--border) rounded-xl px-3 py-2 shadow-card text-xs font-semibold text-emerald-600  items-center gap-2 hidden sm:flex"
           >
             <CheckCircle2 className="w-4 h-4" /> Slide Ready!
           </motion.div>
           <motion.div
             animate={{ y: [0, -7, 0] }}
             transition={{ duration: 4, repeat: Infinity, delay: 1 }}
-            className="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-[var(--surface)] border border-[var(--border)] rounded-xl px-3 py-2 shadow-card text-xs font-semibold text-violet-600 flex items-center gap-2"
+            className="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-(--surface)border border-(--border) rounded-xl px-3 py-2 shadow-card text-xs font-semibold text-violet-600 flex items-center gap-2"
           >
             <Download className="w-4 h-4" /> PPTX Export Ready
           </motion.div>
@@ -412,7 +424,7 @@ function HeroSection() {
         animate={{ y: [0, 6, 0] }}
         transition={{ duration: 1.5, repeat: Infinity }}
       >
-        <ChevronDown className="w-5 h-5 text-[var(--text-muted)]" />
+        <ChevronDown className="w-5 h-5 text-(--text-muted)" />
       </motion.div>
     </section>
   );
@@ -483,14 +495,14 @@ function FeaturesSection() {
           viewport={{ once: true }}
           className="text-center mb-14"
         >
-          <span className="text-xs font-bold uppercase tracking-widest text-[var(--brand)] mb-3 block">
+          <span className="text-xs font-bold uppercase tracking-widest text-(--brand) mb-3 block">
             Features
           </span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-[var(--text-primary)] mb-4">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-(--text-primary) mb-4">
             Everything you need to create
             <br className="hidden sm:block" /> amazing presentations
           </h2>
-          <p className="text-[var(--text-secondary)] max-w-xl mx-auto">
+          <p className="text-(--text-secondary) max-w-xl mx-auto">
             SlideAI handles the entire pipeline — from understanding your prompt
             to generating download-ready PPTX files.
           </p>
@@ -513,10 +525,10 @@ function FeaturesSection() {
               >
                 <f.icon className="w-5 h-5" />
               </div>
-              <h3 className="font-semibold text-sm text-[var(--text-primary)] mb-1.5">
+              <h3 className="font-semibold text-sm text-(--text-primary) mb-1.5">
                 {f.label}
               </h3>
-              <p className="text-xs text-[var(--text-muted)] leading-relaxed">
+              <p className="text-xs text-(--text-muted) leading-relaxed">
                 {f.desc}
               </p>
             </motion.div>
@@ -561,7 +573,7 @@ const STEPS = [
 
 function WorkflowSection() {
   return (
-    <section id="workflow" className="py-24 px-5 bg-[var(--bg-secondary)]">
+    <section id="workflow" className="py-24 px-5 bg-(--bg-secondary)">
       <div className="max-w-5xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
@@ -569,10 +581,10 @@ function WorkflowSection() {
           viewport={{ once: true }}
           className="text-center mb-14"
         >
-          <span className="text-xs font-bold uppercase tracking-widest text-[var(--brand)] mb-3 block">
+          <span className="text-xs font-bold uppercase tracking-widest text-(--brand) mb-3 block">
             How It Works
           </span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-[var(--text-primary)] mb-4">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-(--text-primary) mb-4">
             From prompt to presentation
             <br className="hidden sm:block" /> in under 2 minutes
           </h2>
@@ -589,24 +601,27 @@ function WorkflowSection() {
             >
               {/* Connector line */}
               {i < STEPS.length - 1 && (
-                <div className="hidden lg:block absolute top-7 left-[calc(50%+24px)] right-0 h-px bg-gradient-to-r from-[var(--border)] to-transparent z-0" />
+                <div
+                  className="hidden lg:block absolute top-7 left-[calc(50%+24px)] right-0 h-px bg-linear-to-r 
+                from-(--border) to-transparent z-0"
+                />
               )}
               <div className="card p-5 relative z-10 text-center">
-                <div className="text-xs font-bold text-[var(--text-muted)] mb-3">
+                <div className="text-xs font-bold text-(--text-muted) mb-3">
                   {s.num}
                 </div>
                 <div
                   className={cn(
-                    "w-12 h-12 rounded-2xl bg-[var(--bg-tertiary)] flex items-center justify-center mx-auto mb-4",
+                    "w-12 h-12 rounded-2xl bg-(--bg-tertiary) flex items-center justify-center mx-auto mb-4",
                     s.color
                   )}
                 >
                   <s.icon className="w-6 h-6" />
                 </div>
-                <h3 className="font-semibold text-sm text-[var(--text-primary)] mb-2">
+                <h3 className="font-semibold text-sm text-(--text-primary) mb-2">
                   {s.title}
                 </h3>
-                <p className="text-xs text-[var(--text-muted)] leading-relaxed">
+                <p className="text-xs text-(--text-muted) leading-relaxed">
                   {s.desc}
                 </p>
               </div>
@@ -627,7 +642,7 @@ function StatsSection() {
     { value: "<2min", label: "Average Generation Time" },
   ];
   return (
-    <section className="py-16 px-5 bg-gradient-to-br from-blue-600 to-violet-700 relative overflow-hidden">
+    <section className="py-16 px-5 bg-linear-to-br from-blue-600 to-violet-700 relative overflow-hidden">
       <div className="absolute inset-0 bg-grid-pattern opacity-10" />
       <div className="max-w-5xl mx-auto relative z-10">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
@@ -714,13 +729,13 @@ function PricingSection() {
           viewport={{ once: true }}
           className="text-center mb-14"
         >
-          <span className="text-xs font-bold uppercase tracking-widest text-[var(--brand)] mb-3 block">
+          <span className="text-xs font-bold uppercase tracking-widest text-(--brand) mb-3 block">
             Pricing
           </span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-[var(--text-primary)] mb-4">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-(--text-primary) mb-4">
             Simple, transparent pricing
           </h2>
-          <p className="text-[var(--text-secondary)]">
+          <p className="text-(--text-secondary)">
             Start free. Upgrade when you're ready.
           </p>
         </motion.div>
@@ -744,26 +759,24 @@ function PricingSection() {
                 </div>
               )}
               <div className="mb-5">
-                <h3 className="font-bold text-[var(--text-primary)] text-lg">
+                <h3 className="font-bold text-(--text-primary) text-lg">
                   {plan.name}
                 </h3>
                 <div className="flex items-baseline gap-1 mt-2">
-                  <span className="text-3xl font-extrabold text-[var(--text-primary)]">
+                  <span className="text-3xl font-extrabold text-(--text-primary)">
                     {plan.price}
                   </span>
-                  <span className="text-sm text-[var(--text-muted)]">
+                  <span className="text-sm text-(--text-muted)">
                     /{plan.period}
                   </span>
                 </div>
-                <p className="text-xs text-[var(--text-muted)] mt-2">
-                  {plan.desc}
-                </p>
+                <p className="text-xs text-(--text-muted) mt-2">{plan.desc}</p>
               </div>
               <ul className="space-y-2.5 flex-1 mb-6">
                 {plan.features.map((f) => (
                   <li
                     key={f}
-                    className="flex items-center gap-2.5 text-sm text-[var(--text-secondary)]"
+                    className="flex items-center gap-2.5 text-sm text-(--text-secondary)"
                   >
                     <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
                     {f}
@@ -815,7 +828,7 @@ const FAQS = [
 function FAQSection() {
   const [open, setOpen] = useState(null);
   return (
-    <section id="faq" className="py-24 px-5 bg-[var(--bg-secondary)]">
+    <section id="faq" className="py-24 px-5 bg-(--bg-secondary)">
       <div className="max-w-2xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
@@ -823,10 +836,10 @@ function FAQSection() {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <span className="text-xs font-bold uppercase tracking-widest text-[var(--brand)] mb-3 block">
+          <span className="text-xs font-bold uppercase tracking-widest text-(--brand) mb-3 block">
             FAQ
           </span>
-          <h2 className="text-3xl font-extrabold text-[var(--text-primary)]">
+          <h2 className="text-3xl font-extrabold text-(--text-primary)">
             Frequently asked questions
           </h2>
         </motion.div>
@@ -844,14 +857,14 @@ function FAQSection() {
                 onClick={() => setOpen(open === i ? null : i)}
                 className="w-full flex items-center justify-between px-5 py-4 text-left"
               >
-                <span className="font-semibold text-sm text-[var(--text-primary)]">
+                <span className="font-semibold text-sm text-(--text-primary)">
                   {faq.q}
                 </span>
                 <motion.div
                   animate={{ rotate: open === i ? 180 : 0 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <ChevronDown className="w-4 h-4 text-[var(--text-muted)] shrink-0" />
+                  <ChevronDown className="w-4 h-4 text-(--text-muted) shrink-0" />
                 </motion.div>
               </button>
               <AnimatePresence>
@@ -863,7 +876,7 @@ function FAQSection() {
                     transition={{ duration: 0.2 }}
                     className="overflow-hidden"
                   >
-                    <p className="px-5 pb-4 text-sm text-[var(--text-secondary)] leading-relaxed">
+                    <p className="px-5 pb-4 text-sm text-(--text-secondary) leading-relaxed">
                       {faq.a}
                     </p>
                   </motion.div>
@@ -888,18 +901,18 @@ function CTASection() {
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="card p-10 text-center bg-gradient-to-br from-blue-50 to-violet-50 dark:from-blue-950/40 dark:to-violet-950/40 border-blue-200 dark:border-blue-800 relative overflow-hidden"
+          className="card p-10 text-center bg-linear-to-br from-blue-50 to-violet-50 dark:from-blue-950/40 dark:to-violet-950/40 border-blue-200 dark:border-blue-800 relative overflow-hidden"
         >
           <div className="hero-glow w-48 h-48 bg-blue-400 -top-10 -left-10" />
           <div className="hero-glow w-48 h-48 bg-violet-400 -bottom-10 -right-10" />
           <div className="relative z-10">
-            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500 to-violet-600 flex items-center justify-center mx-auto mb-5 shadow-brand">
+            <div className="w-14 h-14 rounded-2xl bg-linear-to-br from-blue-500 to-violet-600 flex items-center justify-center mx-auto mb-5 shadow-brand">
               <Sparkles className="w-7 h-7 text-white" />
             </div>
-            <h2 className="text-3xl font-extrabold text-[var(--text-primary)] mb-3">
+            <h2 className="text-3xl font-extrabold text-(--text-primary) mb-3">
               Ready to create your first AI presentation?
             </h2>
-            <p className="text-[var(--text-secondary)] mb-7 max-w-md mx-auto">
+            <p className="text-(--text-secondary) mb-7 max-w-md mx-auto">
               Join thousands of professionals who save hours every week with
               SlideAI.
             </p>
@@ -925,19 +938,17 @@ function CTASection() {
 /* ─── Footer ─── */
 function Footer() {
   return (
-    <footer className="border-t border-[var(--border)] bg-[var(--bg-secondary)] px-5 py-10">
+    <footer className="border-t border-(--border) bg-(--bg-secondary) px-5 py-10">
       <div className="max-w-5xl mx-auto">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-10">
           <div className="col-span-2 md:col-span-1">
             <div className="flex items-center gap-2 mb-3">
-              <div className="w-7 h-7 rounded-xl bg-gradient-to-br from-blue-500 to-violet-600 flex items-center justify-center">
+              <div className="w-7 h-7 rounded-xl bg-linear-to-br from-blue-500 to-violet-600 flex items-center justify-center">
                 <Layers className="w-3.5 h-3.5 text-white" />
               </div>
-              <span className="font-bold text-[var(--text-primary)]">
-                SlideAI
-              </span>
+              <span className="font-bold text-(--text-primary)">SlideAI</span>
             </div>
-            <p className="text-xs text-[var(--text-muted)] leading-relaxed">
+            <p className="text-xs text-(--text-muted) leading-relaxed">
               AI-powered presentations that look stunning and get results.
             </p>
           </div>
@@ -953,7 +964,7 @@ function Footer() {
             },
           ].map((col) => (
             <div key={col.title}>
-              <p className="text-xs font-bold text-[var(--text-primary)] uppercase tracking-wide mb-3">
+              <p className="text-xs font-bold text-(--text-primary) uppercase tracking-wide mb-3">
                 {col.title}
               </p>
               <ul className="space-y-2">
@@ -961,7 +972,7 @@ function Footer() {
                   <li key={l}>
                     <a
                       href="#"
-                      className="text-xs text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors"
+                      className="text-xs text-(--text-muted) hover:text-(--text-primary) transition-colors"
                     >
                       {l}
                     </a>
@@ -971,13 +982,11 @@ function Footer() {
             </div>
           ))}
         </div>
-        <div className="border-t border-[var(--border)] pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-xs text-[var(--text-muted)]">
+        <div className="border-t border-(--border) pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <p className="text-xs text-(--text-muted)">
             © 2026 SlideAI. All rights reserved.
           </p>
-          <p className="text-xs text-[var(--text-muted)]">
-            Built with ❤️ using AI
-          </p>
+          <p className="text-xs text-(--text-muted)">Built with ❤️ using AI</p>
         </div>
       </div>
     </footer>
@@ -987,7 +996,7 @@ function Footer() {
 /* ─── Full Landing Page ─── */
 export function LandingPage() {
   return (
-    <div className="bg-[var(--bg)]">
+    <div className="bg-(--bg)">
       <Navbar />
       <HeroSection />
       <FeaturesSection />
