@@ -21,7 +21,7 @@ export function useAuth() {
 
   const register = async (data) => {
     const res = await authApi.register(data);
-    const { user, token } = res.data;
+    const { user, token } = res.data.data;
     store.setAuth(user, token);
     socketService.connect();
     toast.success("Account created! Welcome aboard.");

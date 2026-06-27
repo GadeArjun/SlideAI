@@ -70,7 +70,7 @@ backend/
 
 ### User
 
-- **`POST /api/user/signup`**: Creates a new user account.
+- **`POST /api/user/register`**: Creates a new user account.
 - **`POST /api/user/login`**: Logs in a user and returns a JWT.
 - **`GET /api/user/me`**: Retrieves the profile of the currently authenticated user.
 

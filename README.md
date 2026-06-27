@@ -38,7 +38,7 @@ AI-driven MERN stack platform that converts simple prompts into fully designed P
 ## 🔐 Authentication & User Management
 
 - JWT authentication
-- Secure login/signup flow
+- Secure login/register flow
 - User-specific presentation projects
 - Persistent project storage
 
@@ -187,7 +187,7 @@ Final PPT Ready
 
 | Method | Endpoint           | Description                    |
 | ------ | ------------------ | ------------------------------ |
-| POST   | `/api/user/signup` | Register a new user            |
+| POST   | `/api/user/register` | Register a new user            |
 | POST   | `/api/user/login`  | Login and receive JWT token    |
 | GET    | `/api/user/me`     | Get authenticated user profile |
 
