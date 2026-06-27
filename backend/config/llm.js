@@ -5,7 +5,7 @@ config();
 
 const OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions";
 const API_KEY = process.env.OPEN_ROUTE_API_KEY;
-const DEFAULT_MODEL = "openai/gpt-oss-120b:free";
+const DEFAULT_MODEL = "openai/gpt-oss-20b:free";
 
 if (!API_KEY) {
   console.warn("OPEN_ROUTE_API_KEY is not set in environment variables");
@@ -17,7 +17,7 @@ if (!API_KEY) {
  * @param {Object} params
  * @param {string} params.systemPrompt - System instruction
  * @param {string} params.userPrompt - User message
- * @param {string} params.model - Model ID (default: openai/gpt-oss-120b:free)
+ * @param {string} params.model - Model ID (default: openai/gpt-oss-20b:free)
  * @param {number} params.temperature - 0 to 2 (default: 0.7)
  * @param {number} params.maxTokens - Max response tokens (default: 8000)
  * @param {string} params.reasoningEffort - 'minimal' | 'low' | 'medium' | 'high'
@@ -135,6 +135,7 @@ export async function llm({
       metadata,
     };
   } catch (error) {
+    console.log(error);
     const errorMessage =
       error.response?.data?.error?.message ||
       error.response?.data?.message ||
