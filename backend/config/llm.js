@@ -5,7 +5,15 @@ config();
 
 const OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions";
 const API_KEY = process.env.OPEN_ROUTE_API_KEY;
-const DEFAULT_MODEL = "openai/gpt-oss-20b:free";
+
+// Model rotation order
+const MODELS = [
+  "openai/gpt-oss-120b:free",
+  "openai/gpt-oss-20b:free",
+  "nvidia/nemotron-3-super-120b-a12b:free",
+];
+
+const DEFAULT_MODEL = MODELS[0];
 
 if (!API_KEY) {
   console.warn("OPEN_ROUTE_API_KEY is not set in environment variables");
@@ -14,21 +22,27 @@ if (!API_KEY) {
 /**
  * Universal LLM caller for OpenRouter
  *
+ * Automatically rotates models if one fails:
+ * 1. openai/gpt-oss-120b:free
+ * 2. openai/gpt-oss-20b:free
+ * 3. nvidia/nemotron-3-super-120b-a12b:free
+ *
+ * If all fail, returns the last error.
+ *
  * @param {Object} params
- * @param {string} params.systemPrompt - System instruction
- * @param {string} params.userPrompt - User message
- * @param {string} params.model - Model ID (default: openai/gpt-oss-20b:free)
- * @param {number} params.temperature - 0 to 2 (default: 0.7)
- * @param {number} params.maxTokens - Max response tokens (default: 8000)
- * @param {string} params.reasoningEffort - 'minimal' | 'low' | 'medium' | 'high'
- * @param {number} params.topP - Nucleus sampling (default: 1)
- * @param {number} params.frequencyPenalty - (default: 0)
- * @param {number} params.presencePenalty - (default: 0)
- * @param {boolean} params.cleanResponse - Strip markdown code blocks
- * @param {Object} params.metadata - Extra data for logging
- * @param {Array} params.tools - Function calling tools
- * @param {string} params.responseFormat - 'json' for JSON mode
- * @returns {Promise<{success: boolean, data?: string, error?: string, usage?: Object}>}
+ * @param {string} params.systemPrompt
+ * @param {string} params.userPrompt
+ * @param {string} params.model - Optional custom model (disables rotation)
+ * @param {number} params.temperature
+ * @param {number} params.maxTokens
+ * @param {string} params.reasoningEffort
+ * @param {number} params.topP
+ * @param {number} params.frequencyPenalty
+ * @param {number} params.presencePenalty
+ * @param {boolean} params.cleanResponse
+ * @param {Object} params.metadata
+ * @param {Array} params.tools
+ * @param {string} params.responseFormat
  */
 export async function llm({
   systemPrompt = "",
@@ -47,113 +61,131 @@ export async function llm({
   stream = false,
   ...extraParams
 }) {
-  try {
-    const messages = [];
+  // If caller explicitly passes a model, use only that.
+  // Otherwise rotate through default models.
+  const modelsToTry =
+    model === DEFAULT_MODEL ? MODELS : [model];
 
-    if (systemPrompt) {
+  let lastError = "Unknown LLM error";
+
+  for (const currentModel of modelsToTry) {
+    try {
+      const messages = [];
+
+      if (systemPrompt) {
+        messages.push({
+          role: "system",
+          content: systemPrompt,
+        });
+      }
+
       messages.push({
-        role: "system",
-        content: systemPrompt,
+        role: "user",
+        content: userPrompt,
       });
+
+      const requestBody = {
+        model: currentModel,
+        messages,
+        temperature,
+        max_tokens: maxTokens,
+        top_p: topP,
+        frequency_penalty: frequencyPenalty,
+        presence_penalty: presencePenalty,
+        stream,
+        ...extraParams,
+      };
+
+      // Add reasoning effort for supported models
+      if (
+        reasoningEffort &&
+        ["minimal", "low", "medium", "high"].includes(reasoningEffort)
+      ) {
+        requestBody.reasoning = {
+          effort: reasoningEffort,
+        };
+      }
+
+      // Function calling
+      if (tools && Array.isArray(tools)) {
+        requestBody.tools = tools;
+      }
+
+      // JSON mode
+      if (responseFormat === "json") {
+        requestBody.response_format = {
+          type: "json_object",
+        };
+      }
+
+      const headers = {
+        Authorization: `Bearer ${API_KEY}`,
+        "Content-Type": "application/json",
+        "HTTP-Referer":
+          process.env.APP_URL || "http://localhost:3000",
+        "X-Title":
+          process.env.APP_NAME || "AI Presentation Generator",
+      };
+
+      const startTime = Date.now();
+
+      const response = await axios.post(
+        OPENROUTER_URL,
+        requestBody,
+        {
+          headers,
+          timeout: 120000,
+        }
+      );
+
+      const duration = Date.now() - startTime;
+
+      let content =
+        response.data?.choices?.[0]?.message?.content || "";
+
+      if (cleanResponse && content) {
+        content = content
+          .replace(/^```json\s*/i, "")
+          .replace(/^```\s*/i, "")
+          .replace(/\s*```$/i, "")
+          .trim();
+      }
+
+      console.info(
+        `[LLM] ${currentModel} | ${duration}ms | ${response.data?.usage?.total_tokens || 0
+        } tokens`
+      );
+
+      return {
+        success: true,
+        data: content,
+        usage: response.data?.usage,
+        model: response.data?.model,
+        duration,
+        metadata,
+      };
+    } catch (error) {
+      lastError =
+        error.response?.data?.error?.message ||
+        error.response?.data?.message ||
+        error.message ||
+        "Unknown LLM error";
+
+      console.error(`[LLM Error] ${currentModel}`, {
+        error: lastError,
+        metadata,
+      });
+
+      // Try next model automatically
     }
-
-    messages.push({
-      role: "user",
-      content: userPrompt,
-    });
-
-    const requestBody = {
-      model,
-      messages,
-      temperature,
-      max_tokens: maxTokens,
-      top_p: topP,
-      frequency_penalty: frequencyPenalty,
-      presence_penalty: presencePenalty,
-      stream,
-      ...extraParams,
-    };
-
-    // Add reasoning effort for supported models
-    if (
-      reasoningEffort &&
-      ["minimal", "low", "medium", "high"].includes(reasoningEffort)
-    ) {
-      requestBody.reasoning = { effort: reasoningEffort };
-    }
-
-    // Add tools if provided
-    if (tools && Array.isArray(tools)) {
-      requestBody.tools = tools;
-    }
-
-    // Add JSON mode
-    if (responseFormat === "json") {
-      requestBody.response_format = { type: "json_object" };
-    }
-
-    const headers = {
-      Authorization: `Bearer ${API_KEY}`,
-      "Content-Type": "application/json",
-      "HTTP-Referer": process.env.APP_URL || "http://localhost:3000",
-      "X-Title": process.env.APP_NAME || "AI Presentation Generator",
-    };
-
-    const startTime = Date.now();
-
-    const response = await axios.post(OPENROUTER_URL, requestBody, {
-      headers,
-      timeout: 120000, // 2 minutes
-    });
-
-    const duration = Date.now() - startTime;
-
-    let content = response.data?.choices?.[0]?.message?.content || "";
-
-    // Clean markdown code blocks if requested
-    if (cleanResponse && content) {
-      content = content
-        .replace(/^```json\s*/i, "")
-        .replace(/^```\s*/i, "")
-        .replace(/\s*```$/i, "")
-        .trim();
-    }
-
-    // Log for debugging
-    console.info(
-      `[LLM] ${model} | ${duration}ms | ${
-        response.data?.usage?.total_tokens || 0
-      } tokens`
-    );
-
-    return {
-      success: true,
-      data: content,
-      usage: response.data?.usage,
-      model: response.data?.model,
-      duration,
-      metadata,
-    };
-  } catch (error) {
-    console.log(error);
-    const errorMessage =
-      error.response?.data?.error?.message ||
-      error.response?.data?.message ||
-      error.message ||
-      "Unknown LLM error";
-
-    console.error("[LLM Error]", {
-      model,
-      error: errorMessage,
-      metadata,
-    });
-
-    return {
-      success: false,
-      error: errorMessage,
-      metadata,
-    };
   }
+
+  // All models failed
+  return {
+    success: false,
+    error: lastError,
+    metadata,
+  };
 }
 
 // Convenience wrapper for JSON responses
